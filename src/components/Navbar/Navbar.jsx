@@ -44,6 +44,7 @@ export const Navbar = () => {
               <a
                 href="https://drive.google.com/file/d/1mWWGQh1GXBC35954bhMDt07GbZ2FCqW_/view?usp=sharing"
                 target="_blank"
+                rel="noreferrer"
               >
                 Download CV
               </a>

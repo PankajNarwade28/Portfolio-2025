@@ -13,7 +13,7 @@ export const ProjectFile = ({ title, tech, image, link }) => {
             <p>{tech}</p>
           </div>
           <div className="livedemo">
-            <a href={link} target="_blank">
+            <a href={link} target="_blank" rel="noreferrer">
               Demo
             </a>
           </div>

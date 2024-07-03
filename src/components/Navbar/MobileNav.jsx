@@ -41,6 +41,7 @@ export const MobileNav = ({ isOpen, toggleMenu }) => {
               <a
                 target="_blank"
                 href="https://drive.google.com/file/d/1mWWGQh1GXBC35954bhMDt07GbZ2FCqW_/view?usp=sharing"
+                rel="noreferrer"
               >
                 Download CV
               </a>
