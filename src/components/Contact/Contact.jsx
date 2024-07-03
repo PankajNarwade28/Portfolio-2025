@@ -10,7 +10,7 @@ export const Contact = () => {
         Contact Me
       </h1>
       <div className="contact-container">
-        <div className="icon-content" data-aos="fade-right">
+        <div className="icon-content" data-aos="fade-up">
           <ContactInfoCard
             iconUrl="./assets/images/email.png"
             text="pankajnarwade258@gmail.com"
@@ -27,7 +27,7 @@ export const Contact = () => {
             link="https://www.linkedin.com/in/pankaj-narwade-13a053260"
           />
         </div>
-        <div className="contact-flex1" data-aos="fade-left">
+        <div className="contact-flex1" data-aos="fade-down">
           <Contactform />
         </div>
       </div>
