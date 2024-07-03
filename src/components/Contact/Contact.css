@@ -13,11 +13,14 @@
 }
 .contact-flex1 {
   flex: 1;
-  /* min-width: 400px; */
+  min-width: 470px;
 }
 @media (max-width: 615px) {
   .contact-container {
     margin: 0;
+  }
+  .contact-flex1 {
+    min-width: auto;
   }
 }
 @media (max-width: 410px) {
