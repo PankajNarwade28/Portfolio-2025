@@ -36,7 +36,7 @@
   list-style: none;
   margin-left: -2rem;
 }
-@media (max-width: 400px) {
+@media (max-width: 460px) {
   .mobile-menu {
     width: 100%;
   }
