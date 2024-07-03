@@ -3,7 +3,7 @@
   border: 1.5px solid blue;
   border-radius: 0.65rem;
   padding: 2rem;
-  background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%);
+  /* background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%); */
   background-image: linear-gradient(-225deg, #e7fff5, #fffff9);
 }
 .contact-form-container {

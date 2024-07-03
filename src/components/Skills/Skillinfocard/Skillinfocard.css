@@ -5,7 +5,8 @@
   border-radius: 0.65rem;
   border: 1.5px solid blue;
   /* color: #f26f27; */
-  background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%);
+  /* background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%); */
+  background-image: linear-gradient(-225deg, #e7fff5, #fffff9);
 }
 .skills-info-card h6 {
   font-size: 1.2rem;
