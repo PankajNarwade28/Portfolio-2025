@@ -43,7 +43,7 @@
   content: " ";
   width: 2rem;
   height: 0.2rem;
-  background: linear-gradient(-225deg, #0f9aeb 0%, #1d8fe1 48%, #7770f7 100%);
+  background: #00b4d8;
   border: 0.5rem;
   position: absolute;
   opacity: 0;
@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  background: linear-gradient(-225deg, #22e1ff 0%, #67a9d8 48%, #b8b5f8 100%);
+  background: #00b4d8;
   padding: 0.6rem 1.5rem;
   border: none;
   outline: 1px solid transparent;
@@ -79,7 +79,7 @@
 .nav-btn a:hover {
   color: #0f9aeb;
   background: #cdffea;
-  outline: 1px solid #0f9aeb;
+  outline: 1px solid #00b4d8;
 }
 
 @media (max-width: 1024px) {

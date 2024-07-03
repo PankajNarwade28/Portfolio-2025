@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import "./Contactform.css";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const Contactform = () => {
   const form = useRef();
 
@@ -14,11 +16,11 @@ export const Contactform = () => {
       .then(
         () => {
           console.log("SUCCESS!");
-          alert("Thanks For Contacting us !");
+          toast("Thanks For Contacting us !");
         },
         (error) => {
           console.log("FAILED...", error.text);
-          alert("Thanks For Contacting us !");
+          toast("Thanks For Contacting us !");
         }
       );
   };
@@ -58,6 +60,7 @@ export const Contactform = () => {
           <button>Send</button>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 };
