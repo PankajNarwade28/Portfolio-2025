@@ -20,7 +20,7 @@
     margin: 0;
   }
   .contact-flex1 {
-    min-width: auto;
+    /* min-width: auto; */
   }
 }
 @media (max-width: 410px) {

@@ -12,7 +12,7 @@
 }
 @media (max-width: 600px) {
   .contactinfo {
-    min-width: auto;
+    /* min-width: auto; */
   }
 }
 .icon {
