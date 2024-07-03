@@ -1,0 +1,26 @@
+.contact-container {
+  display: flex;
+  margin: 1rem 0;
+  position: relative;
+  flex-wrap: wrap;
+}
+.icon-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.contact-flex1 {
+  flex: 1;
+}
+@media (max-width: 615px) {
+  .contact-container {
+    margin: 0;
+  }
+}
+@media (max-width: 410px) {
+  .icon-content {
+    gap: 0.5rem;
+  }
+}

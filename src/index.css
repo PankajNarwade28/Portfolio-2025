@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: aliceblue;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+@media (min-width: 1800px) {
+  .image {
+    max-width: 466px !important;
+  }
+  .tech-icons img {
+    max-width: 60px !important;
+  }
+}
