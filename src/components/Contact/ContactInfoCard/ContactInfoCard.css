@@ -1,6 +1,6 @@
 .contactinfo {
   height: 100px;
-  min-width: 420px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
