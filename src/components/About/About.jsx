@@ -4,7 +4,7 @@ export const About = () => {
   return (
     <>
       <div className="hero-container" id="About">
-        <div className="hero-img" data-aos="fade-right">
+        <div className="hero-img" data-aos="fade">
           <div className="hero-section1">
             <div className="image">
               <img
@@ -15,7 +15,7 @@ export const About = () => {
             </div>
           </div>
         </div>
-        <div className="hero-content about-section" data-aos="fade-left">
+        <div className="hero-content about-section" data-aos="fade">
           <h1 className="heading" data-aos="fade-up">
             About Me
           </h1>

@@ -32,7 +32,7 @@ export const Skills = () => {
               );
             })}
           </div>
-          <div className="skills-info" data-aos="fade-left">
+          <div className="skills-info" data-aos="flip-up">
             <Skillinfocard
               heading={selectedSkill.title}
               skills={selectedSkill.skills}
