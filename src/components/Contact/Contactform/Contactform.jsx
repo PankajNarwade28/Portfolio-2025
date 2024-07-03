@@ -31,20 +31,28 @@ export const Contactform = () => {
               type="text"
               name="first_name"
               placeholder="Enter First Name"
+              required
             />
-            <input type="text" name="last_name" placeholder="Enter Last Name" />
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Enter Last Name"
+              required
+            />
           </div>
           <input
             type="email"
             name="user_email"
             id=""
             placeholder="Enter Email"
+            required
           />
           <textarea
             name="message"
             id=""
             rows={5}
             placeholder="Enter Message"
+            required
           ></textarea>
 
           <button>Send</button>

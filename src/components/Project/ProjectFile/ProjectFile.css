@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%); */
-  background-image: linear-gradient(-225deg, #e7fff5, #fffff9);
-  border: 2px solid blue;
+  background-color: #90e0ef;
+  border: 2px solid #03045e;
   border-radius: 0.65rem;
   position: relative;
   padding: 0.8rem;
@@ -22,7 +21,7 @@
 .project-image img {
   width: 100%;
   height: auto;
-  border: 1px solid black;
+  border: 1px solid #03045e;
   border-radius: 0.65rem;
   margin: 0;
 }
@@ -34,25 +33,26 @@
   padding: 0.2rem;
   /* margin-top: 0.5rem; */
   background: #fff;
-  color: #f26f27;
-  border: 1px solid black;
+  color: #fb8500;
+  border: 1px solid #03045e;
   border-radius: 0.35rem;
   text-decoration: none;
   font-weight: 300;
   font-size: 0.8rem;
 }
 .livedemo a:hover {
-  background: #f26f27;
+  background: #fb8500;
   color: #fff;
 }
 .project-info h4 {
   padding: 0;
   margin: 0;
-  color: #f26f27;
+  color: #fb8500;
 }
 .project-info p {
   padding: 0;
   margin: 0;
+  color: #03045e;
 }
 
 @media (max-width: 768px) {

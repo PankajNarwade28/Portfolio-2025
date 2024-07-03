@@ -1,12 +1,12 @@
 .heading {
   font-size: 2rem;
-  color: #f26f27;
+  color: #fb8500;
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
   text-align: center;
-  border-bottom: 1px solid #00bcd4;
+  border-bottom: 1px solid #219ebc;
   padding-bottom: 5px;
 }
 .about-section {
@@ -32,8 +32,11 @@ td {
   padding: 4px !important;
 }
 .blue {
-  color: #00bcd4;
+  color: #00b4d8;
   font-weight: 800;
+}
+.para b {
+  color: #00b4d8;
 }
 table {
   border-collapse: collapse;
@@ -44,6 +47,9 @@ table {
 #table-div {
   overflow-x: auto;
 }
+th {
+  color: #03045e;
+}
 th,
 td {
   text-align: left;
@@ -51,7 +57,7 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #caf0f8;
 }
 @media (min-width: 1600px) {
   .image {

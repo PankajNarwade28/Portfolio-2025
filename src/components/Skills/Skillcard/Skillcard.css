@@ -1,10 +1,10 @@
 .skill-card {
   border-radius: 0.55rem;
   padding: 3rem;
-  border: 1.5px solid blue;
-  /* background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%); */
-  background-image: linear-gradient(-225deg, #e7fff5, #fffff9);
+  border: 1.5px solid #03045e;
+  background-color: #caf0f8;
   cursor: pointer;
+  color: #03045e;
   transition: all 0.3s ease;
   position: relative;
   text-align: center;
@@ -26,8 +26,8 @@
   align-content: center;
   justify-content: center;
   border-radius: 0.65rem;
-  border: 2px solid blue;
-  background-color: rgba(49, 47, 47, 0.993);
+  border: 2px solid #03045e;
+  background-color: #00b4d8;
   position: absolute;
   top: -1rem;
   left: -1rem;

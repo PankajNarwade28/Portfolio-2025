@@ -4,10 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%); */
-  background-image: linear-gradient(-225deg, #e7fff5, #fffff9);
+  background-color: #90e0ef;
   padding: 0.5rem;
-  border: 2px solid blue;
+  border: 2px solid #03045e;
   border-radius: 0.65rem;
   margin: 0 0.2rem;
 }
@@ -20,10 +19,10 @@
   height: 4rem;
   width: 3.5rem;
   display: flex;
-  background-color: #edfff8;
+  background-color: white;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #03045e;
   border-radius: 0.65rem;
 }
 .icon img {
@@ -32,6 +31,7 @@
 .contactinfo p {
   font-size: 1rem;
   font-weight: 400;
+  color: #03045e;
 }
 .anchor {
   text-decoration: none;
@@ -39,10 +39,10 @@
 }
 .contactinfo:hover {
   background-image: none;
-  background-color: wheat;
+  background-color: white;
 }
 .icon:hover {
-  background-image: linear-gradient(-225deg, #c0f5df 0%, #e9eca8 100%);
+  background-color: #caf0f8;
 }
 @media (max-width: 615px) {
   .contactinfo {
