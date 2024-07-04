@@ -46,11 +46,6 @@ form input:hover,
 form textarea:hover {
   background-color: white;
 }
-@media (max-width: 891px) {
-  .contact-flex1 {
-    /* margin: 1rem 0; */
-  }
-}
 
 @media (max-width: 615px) {
   .contact-flex1 {

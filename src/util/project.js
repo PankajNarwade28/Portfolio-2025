@@ -14,10 +14,10 @@ export const PROJECTS = [
   },
 
   {
-    title: "Parallax App ",
+    title: "Cocktail's Bar Webpage ",
     tech: "React.js",
-    link: "https://github.com/PankajNarwade28/Parallax",
-    image: "./assets/images/parallax.jpg",
+    link: "https://cocktailsbarbypankaj.netlify.app/",
+    image: "./assets/images/bar.jpg",
   },
   {
     title: "User Management App ",
@@ -28,13 +28,13 @@ export const PROJECTS = [
   {
     title: "To-Do App",
     tech: "Node.js ,Express.js & MongoDb",
-    link: "https://github.com/PankajNarwade28/To-Do",
+    link: "https://github.com/PankajNarwade28/To-Do-List-",
     image: "./assets/images/todo.jpg",
   },
   {
-    title: "Simple Games",
+    title: "Simple JS Games",
     tech: "HTML CSS & JS",
-    link: "https://github.com/PankajNarwade28/TIC-TAC_TOE",
+    link: "https://github.com/PankajNarwade28/Games-using-JS",
     image: "./assets/images/game.jpg",
   },
 ];
