@@ -26,15 +26,15 @@ export const PROJECTS = [
     image: "./assets/images/usermg.jpg",
   },
   {
+    title: "Parallax app",
+    tech: "HTML CSS & React.JS",
+    link: "https://github.com/PankajNarwade28/Parallaxapp",
+    image: "./assets/images/parallax.jpg",
+  },
+  {
     title: "To-Do App",
     tech: "Node.js ,Express.js & MongoDb",
     link: "https://github.com/PankajNarwade28/To-Do-List-",
     image: "./assets/images/todo.jpg",
-  },
-  {
-    title: "Simple JS Games",
-    tech: "HTML CSS & JS",
-    link: "https://github.com/PankajNarwade28/Games-using-JS",
-    image: "./assets/images/game.jpg",
   },
 ];
