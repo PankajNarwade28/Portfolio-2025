@@ -59,6 +59,7 @@
 
 .nav-btn {
   border: none;
+  background-color: inherit !important;
 }
 .nav-btn a {
   text-decoration: none;
