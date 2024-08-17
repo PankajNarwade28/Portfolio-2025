@@ -2,7 +2,7 @@ export const PROJECTS = [
   {
     title: "Travlog Website ",
     tech: "React.js & CSS ",
-    link: "https://github.com/PankajNarwade28/Travlog_react",
+    link: "https://travlog-react.vercel.app/",
     image: "./assets/images/travlog.jpg",
   },
   {
