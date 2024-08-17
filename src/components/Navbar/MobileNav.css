@@ -2,7 +2,7 @@
   width: 75%;
   height: 100vh;
   display: none;
-  background-color: #99ffea;
+  background-color: #caf0f8;
   position: fixed;
   left: 0;
   top: 0;
@@ -27,7 +27,7 @@
   border: none !important;
 }
 .hr {
-  border-bottom: 2px solid #03045e;
+  border-bottom: 2px solid blue;
 }
 .mobile-menu ul {
   display: flex;

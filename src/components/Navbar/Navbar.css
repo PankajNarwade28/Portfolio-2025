@@ -1,5 +1,5 @@
 .nav-container {
-  background-color: #99ffea;
+  background-color: #caf0f8;
   padding: 0.2rem 0;
   position: relative;
   top: 0;
@@ -36,14 +36,14 @@
   font-weight: 500;
   position: relative;
   cursor: pointer;
-  color: #fff;
+  color: #00b4d8;
 }
 
 .menu-item::before {
   content: " ";
   width: 2rem;
   height: 0.2rem;
-  background: #00bcd5;
+  background: #00b4d8;
   border: 0.5rem;
   position: absolute;
   opacity: 0;
@@ -68,8 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #00bcd5;
-  background: #fff;
+  color: white;
+  background: #00b4d8;
   padding: 0.6rem 1.5rem;
   border: none;
   outline: 1px solid transparent;
@@ -78,7 +78,9 @@
   transition: all 0.4s ease;
 }
 .nav-btn a:hover {
-  outline: 1px solid #00bcd5;
+  color: #0f9aeb;
+  background: #cdffea;
+  outline: 1px solid #00b4d8;
 }
 
 @media (max-width: 1024px) {
