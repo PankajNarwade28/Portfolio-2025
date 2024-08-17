@@ -32,7 +32,8 @@
   line-height: 4rem;
   margin-bottom: 1rem;
   color: #00b4d8;
-  font-family: "Oswald", sans-serif;
+  /* font-family: "Oswald", sans-serif; */
+  font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
