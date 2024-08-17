@@ -1,5 +1,11 @@
 export const PROJECTS = [
   {
+    title: "Travlog Website ",
+    tech: "React.js & CSS ",
+    link: "https://github.com/PankajNarwade28/Travlog_react",
+    image: "./assets/images/travlog.jpg",
+  },
+  {
     title: "College Website Clone ",
     tech: "HTML ,CSS ,React.js",
     link: "https://react-pankajnarwade28.netlify.app/",
@@ -30,11 +36,5 @@ export const PROJECTS = [
     tech: "HTML CSS & React.JS",
     link: "https://github.com/PankajNarwade28/Parallaxapp",
     image: "./assets/images/parallax.jpg",
-  },
-  {
-    title: "To-Do App",
-    tech: "Node.js ,Express.js & MongoDb",
-    link: "https://github.com/PankajNarwade28/To-Do-List-",
-    image: "./assets/images/todo.jpg",
   },
 ];
