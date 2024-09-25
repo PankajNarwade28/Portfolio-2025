@@ -21,12 +21,14 @@ export const About = () => {
           </h1>
           <p className="para">
             Hello! I'm <strong className="blue">Pankaj Digambar Narwade</strong>
-            , a passionate and motivated MERN Stack Developer and a recent
-            <b> Bachelor of Computer Applications (BCA) </b>graduate from
-            G.S.G.College Umarkhed. With a strong foundation in Programming and
-            web development, and a keen interest in building dynamic and
-            responsive web applications, I am excited to begin my professional
-            journey in the tech industry.
+            , Perceiving Post Graduation in{" "}
+            <b>Master of Computer Applications </b> from P.E.S's Modern College
+            of Engineering Shivajinagar Pune 5 and Have graduated in
+            <b> Bachelor of Computer Applications (BCA) </b> from G.S.G.College
+            Umarkhed. With a strong foundation in Programming and web
+            development, and a keen interest in building dynamic and responsive
+            web applications, I am excited to begin my professional journey in
+            the tech industry.
           </p>
           <div>
             <table>
