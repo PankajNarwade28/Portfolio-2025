@@ -39,7 +39,7 @@ export const About = () => {
               <tr>
                 <td>BCA</td>
                 <td>Gsg College </td>
-                <td>8.0</td>
+                <td>72.00%</td>
                 <td>2021-24</td>
               </tr>
               <tr>
