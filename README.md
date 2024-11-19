@@ -6,4 +6,4 @@ HTML , CSS , JS , React
 
 live demo::
 
-https://pankaj.narwade.netlify.app/
+https://pankajnarwade.netlify.app/
