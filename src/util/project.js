@@ -1,5 +1,11 @@
 export const PROJECTS = [
   {
+    title: "Wonderlust : Travelling Website",
+    tech: "ExpressJs, MongoDB, NodeJs, EJS, Bootstrap",
+    link: "https://wonderlust-88hd.onrender.com/listings/",
+    image: "./assets/images/wonderlust.jpg",
+  },
+  {
     title: "Travlog Website ",
     tech: "React.js & CSS ",
     link: "https://travlog-react.vercel.app/",
@@ -25,12 +31,7 @@ export const PROJECTS = [
     link: "https://cocktailsbarbypankaj.netlify.app/",
     image: "./assets/images/bar.jpg",
   },
-  {
-    title: "User Management App ",
-    tech: "Node.js ,Express.js & MySql",
-    link: "https://github.com/PankajNarwade28/UserManagementApp.PDN.in",
-    image: "./assets/images/usermg.jpg",
-  },
+
   {
     title: "Parallax app",
     tech: "HTML CSS & React.JS",
