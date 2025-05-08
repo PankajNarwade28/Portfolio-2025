@@ -39,6 +39,12 @@ export const About = () => {
                 <th>Year</th>
               </tr>
               <tr>
+                <td>MCA</td>
+                <td>Modern College Pune</td>
+                <td>80.20% [SEM-I]</td>
+                <td>2024-26</td>
+              </tr>
+              <tr>
                 <td>BCA</td>
                 <td>Gsg College </td>
                 <td>72.00%</td>
