@@ -21,7 +21,8 @@ export const SKILLS = [
     title: "Database",
     icon: "./assets/images/img3.png",
     skills: [
-      { skill: "MongoDB", percentage: "65%" },
+      { skill: "MongoDB", percentage: "75%" },
+      { skill: "Oracle", percentage: "70%" },
       { skill: "MySql", percentage: "50%" },
     ],
   },
