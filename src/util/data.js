@@ -33,6 +33,7 @@ export const SKILLS = [
       { skill: "Git & Github", percentage: "70%" },
       { skill: "Visual Studio Code", percentage: "85%" },
       { skill: "Bootstrap", percentage: "55%" },
+      { skill: "Eclipse", percentage: "35%" },
     ],
   },
 ];
