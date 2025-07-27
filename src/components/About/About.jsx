@@ -41,13 +41,13 @@ export const About = () => {
               <tr>
                 <td>MCA</td>
                 <td>Modern College Pune</td>
-                <td>80.20% [SEM-I]</td>
+                <td>CGPA : 8.68 [FYMCA] </td>
                 <td>2024-26</td>
               </tr>
               <tr>
                 <td>BCA</td>
                 <td>Gsg College </td>
-                <td>72.00%</td>
+                <td>72.60%</td>
                 <td>2021-24</td>
               </tr>
               <tr>
