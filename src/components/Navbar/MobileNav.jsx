@@ -40,7 +40,7 @@ export const MobileNav = ({ isOpen, toggleMenu }) => {
               {" "}
               <a
                 target="_blank"
-                href="https://drive.google.com/file/d/1hHBZyi7EDDNChn9IywUOeVfoOcatq2z8/view?usp=sharing" 
+                href="https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing" 
                 rel="noreferrer"
               >
                 Resume
