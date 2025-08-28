@@ -1,13 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./Contactform.css";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// Import your loader image
+const loaderImg = process.env.PUBLIC_URL + "/assets/images/Loader.png";
+
 export const Contactform = () => {
   const form = useRef();
+  const [loading, setLoading] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     emailjs
       .sendForm("service_b2kobwd", "template_6aj4f45", form.current, {
@@ -15,17 +20,27 @@ export const Contactform = () => {
       })
       .then(
         () => {
-          console.log("SUCCESS!");
+          setLoading(false);
           toast("Thanks For Contacting us !");
+          form.current.reset(); // Clear the form
         },
         (error) => {
-          console.log("FAILED...", error.text);
-          toast("Thanks For Contacting us !");
+          setLoading(false);
+          toast("Failed to send. Please try again.");
         }
       );
   };
+
   return (
     <>
+      {loading && (
+        <div className="loader-overlay">
+          <div className="loader-content">
+            <img src={loaderImg} alt="Loading..." className="loader-img" />
+            <div>Loading...</div>
+          </div>
+        </div>
+      )}
       <div className="contact-form-container">
         <form action="" ref={form} onSubmit={sendEmail}>
           <div className="name-container">
@@ -45,19 +60,16 @@ export const Contactform = () => {
           <input
             type="email"
             name="user_email"
-            id=""
             placeholder="Enter Email"
             required
           />
           <textarea
             name="message"
-            id=""
             rows={5}
             placeholder="Enter Message"
             required
           ></textarea>
-
-          <button>Send</button>
+          <button disabled={loading}>Send</button>
         </form>
       </div>
       <ToastContainer />
