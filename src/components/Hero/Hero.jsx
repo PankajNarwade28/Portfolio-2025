@@ -50,7 +50,7 @@ export const Hero = () => {
             </div>
             <div className="image">
               <img
-                src="./assets/images/image-01.png"
+                src="./assets/images/image-04.png"
                 alt=""
                 className="image"
               />

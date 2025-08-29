@@ -8,7 +8,7 @@ export const About = () => {
           <div className="hero-section1">
             <div className="image">
               <img
-                src="./assets/images/image-02.png"
+                src="./assets/images/image-05.png"
                 alt=""
                 className="image"
               />
