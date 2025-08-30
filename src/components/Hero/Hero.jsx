@@ -7,7 +7,7 @@ export const Hero = () => {
     <>
       <div className="hero-container">
         <div className="hero-content" data-aos="fade-right">
-          <h2>Full Stack web Developer @Media Urbana</h2>
+          <h3>Full Stack web Developer @Media Urbana</h3>
           <h2>Building a future powered by technology! 🌈🚀 </h2>
           <p>
             Aspiring IT professional 👩‍💻✨ <br />
