@@ -8,17 +8,14 @@
   text-align: center;
   border-bottom: 1px solid #219ebc;
   padding-bottom: 5px;
-}
-/* .image{
-  height: 70vh;
-} */
+} 
 .about-section {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   /* margin-left: 1rem; */
 }
-
+ 
 @media (min-width: 1500px) {
   .about-section {
     margin-left: 1rem;
@@ -64,6 +61,6 @@ tr:nth-child(even) {
 }
 @media (min-width: 1600px) {
   .image {
-    width: 25vw;
+    width: 30vw;
   }
 }

@@ -6,7 +6,7 @@ export const About = () => {
       <div className="hero-container" id="About">
         <div className="hero-img" data-aos="fade">
           <div className="hero-section1">
-            <div className="image">
+            <div className="image" id="image1" data-aos="fade-up">
               <img
                 src="./assets/images/image-05.png"
                 alt=""
