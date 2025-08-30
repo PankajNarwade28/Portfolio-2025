@@ -21,7 +21,7 @@ export const About = () => {
           </h1>
           <p className="para">
             Hello! I'm <strong className="blue">Pankaj Digambar Narwade</strong>
-            , Perceiving Post Graduation in{" "}
+            , Pursuing Post Graduation in{" "}
             <b>Master of Computer Applications </b> from P.E.S's Modern College
             of Engineering Shivajinagar Pune 5 and Have graduated in
             <b> Bachelor of Computer Applications (BCA) </b> from G.S.G.College
