@@ -21,10 +21,10 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="">
         <Hero />
         <About />
-        <Skills />
+        {/* <Skills /> */}
         <Project />
         <Contact />
       </div>

@@ -4,47 +4,87 @@
   border-radius: 0.65rem;
   padding: 2rem;
   background-color: #caf0f8;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
 }
+
 .contact-form-container {
   width: 100%;
 }
-form {
+
+.contact-form-ui {
   display: flex;
   flex-direction: column;
-  grid-gap: 1rem;
+  gap: 1.2rem;
   margin: 0 1rem;
 }
+
 .name-container {
   display: flex;
-  align-items: center;
-  grid-gap: 1rem;
+  gap: 1rem;
 }
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.input-group label {
+  font-size: 0.95rem;
+  color: #03045e;
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+  letter-spacing: 0.02em;
+}
+
 form input,
 form textarea {
-  flex: 1;
-  width: calc(100%-2rem);
-  font-size: 0.9rem;
-  color: #03045e;
-  background-color: white;
-  border-radius: 0.65rem;
-  padding: 1rem;
-  border: 1.5px solid #03045e;
-}
-form button {
+  width: 100%;
   font-size: 1rem;
-  font-weight: 500;
-  color: black;
-  background-color: white;
-  border: 1.5px solid blue;
-  border-radius: 0.65rem;
-  padding: 0.7rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  color: #03045e;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+  border: 1.5px solid #90e0ef;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
 }
-form button:hover,
-form input:hover,
-form textarea:hover {
-  background-color: white;
+
+form input:focus,
+form textarea:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 0 2px #90e0ef33;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 300px;
+}
+
+.send-btn {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  transition: background 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.08);
+}
+
+.send-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00b4d8 0%, #0077b6 100%);
+  box-shadow: 0 6px 24px rgba(0, 119, 182, 0.15);
+}
+
+.send-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 @media (max-width: 615px) {
@@ -53,7 +93,16 @@ form textarea:hover {
     margin-top: 1rem;
     padding: 1rem;
   }
+  .contact-form-ui {
+    margin: 0;
+    gap: 1rem;
+  }
+  .name-container {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
 }
+
 @media (max-width: 555px) {
   .contact-flex1 {
     padding: 0.4rem;
@@ -63,8 +112,11 @@ form textarea:hover {
     flex-direction: column;
     width: 100%;
   }
+  .contact-form-ui {
+    gap: 0.7rem;
+  }
 }
-/* Add at the end of your Contactform.css */
+
 .loader-overlay {
   position: fixed;
   top: 0;
@@ -88,20 +140,10 @@ form textarea:hover {
   border-radius: 50%;
   margin-bottom: 1rem;
   object-fit: cover;
-  /* border: 4px solid #03045e; */
-}
- 
-.loader-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-  object-fit: cover;
-  animation: spin 1s linear infinite; /* Add this line */
+  animation: spin 1s linear infinite;
 }
 
-/* Add this at the end of the file */
 @keyframes spin {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
-} 
+}

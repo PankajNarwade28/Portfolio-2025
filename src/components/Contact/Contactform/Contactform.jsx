@@ -3,7 +3,6 @@ import "./Contactform.css";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Import your loader image
 const loaderImg = process.env.PUBLIC_URL + "/assets/images/Loader.png";
 
 export const Contactform = () => {
@@ -22,9 +21,9 @@ export const Contactform = () => {
         () => {
           setLoading(false);
           toast("Thanks For Contacting us !");
-          form.current.reset(); // Clear the form
+          form.current.reset();
         },
-        (error) => {
+        () => {
           setLoading(false);
           toast("Failed to send. Please try again.");
         }
@@ -42,34 +41,55 @@ export const Contactform = () => {
         </div>
       )}
       <div className="contact-form-container">
-        <form action="" ref={form} onSubmit={sendEmail}>
+        <form ref={form} onSubmit={sendEmail} className="contact-form-ui">
           <div className="name-container">
+            <div className="input-group">
+              <label htmlFor="first_name">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                placeholder="Enter First Name"
+                required
+                autoComplete="given-name"
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="last_name">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                placeholder="Enter Last Name"
+                required
+                autoComplete="family-name"
+              />
+            </div>
+          </div>
+          <div className="input-group">
+            <label htmlFor="user_email">Email</label>
             <input
-              type="text"
-              name="first_name"
-              placeholder="Enter First Name"
+              type="email"
+              name="user_email"
+              id="user_email"
+              placeholder="Enter Email"
               required
-            />
-            <input
-              type="text"
-              name="last_name"
-              placeholder="Enter Last Name"
-              required
+              autoComplete="email"
             />
           </div>
-          <input
-            type="email"
-            name="user_email"
-            placeholder="Enter Email"
-            required
-          />
-          <textarea
-            name="message"
-            rows={5}
-            placeholder="Enter Message"
-            required
-          ></textarea>
-          <button disabled={loading}>Send</button>
+          <div className="input-group">
+            <label htmlFor="message">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              rows={5}
+              placeholder="Enter Message"
+              required
+            ></textarea>
+          </div>
+          <button disabled={loading} className="send-btn">
+            {loading ? "Sending..." : "Send"}
+          </button>
         </form>
       </div>
       <ToastContainer />
