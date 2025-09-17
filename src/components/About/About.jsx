@@ -47,6 +47,7 @@ export const About = () => {
 
   return (
     <div className="about-container" id="About">
+      
       <div className="about-background">
         <div className="floating-particles">
           {Array.from({ length: 15 }).map((_, i) => (
