@@ -45,7 +45,7 @@ const ContactForm = ({ setLoading, toast }) => {
 
     try {
       await emailjs.sendForm(
-        "service_b2kobwd",
+        "service_mszjm2s",
         "template_57ke0yr",
         form.current,
         { publicKey: "PiuldxkokUNi2N_rt" }
