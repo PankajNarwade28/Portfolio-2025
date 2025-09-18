@@ -106,9 +106,9 @@ export const Contact = () => {
         <div className="gradient-orb orb-2"></div>
       </div>
 
-      <div className="contact-container">
+      <div className="contact-container" >
         {/* Header Section */}
-        <div className="contact-header">
+        <div className="contact-header" id="Contact2">
           <h1 className="section-title">
             Let's <span className="gradient-text">Connect</span>
           </h1>
@@ -122,7 +122,7 @@ export const Contact = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="contact-content-grid">
+        <div className="contact-content-grid" >
           {/* Contact Information Cards */}
           <div className="contact-info-section">
             <h2 className="info-section-title">Get In Touch</h2>
@@ -165,7 +165,7 @@ export const Contact = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="cta-section">
+        <div className="cta-section" >
           <div className="cta-content">
             <h3>Prefer a quick chat?</h3>
             <p>Feel free to reach out directly via email or connect on social media</p>

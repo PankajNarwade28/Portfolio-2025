@@ -1,34 +1,25 @@
-import "./App.css";
-import AOS from "aos";
-import "aos/dist/aos.css"; 
+import "./App.css"; 
 import 'react-toastify/dist/ReactToastify.css';
 import { Navbar } from "./components/Navbar/Navbar";
 import { Hero } from "./components/Hero/Hero";
 import { About } from "./components/About/About"; 
 import { Project } from "./components/Project/Project";
 import { Contact } from "./components/Contact/Contact";
-import { Footer } from "./components/Footer/Footer";
-import { useEffect } from "react";
-
+import { Footer } from "./components/Footer/Footer"; 
 function App() {
-  useEffect(() => {
-    AOS.init({
-      // offset: 200,
-      duration: 900,
-      // delay: 1500,
-    });
-  }, []);
+
   return (
     <>
+    <div className="data-scroll-container" id="root">
       <Navbar />
       <div className="">
         <Hero />
-        <About />
-        {/* <Skills /> */}
+        <About /> 
         <Project />
         <Contact />
       </div>
       <Footer />
+      </div>
     </>
   );
 }

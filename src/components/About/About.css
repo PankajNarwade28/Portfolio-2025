@@ -1,3 +1,4 @@
+
 .about-container {
     min-height: 100vh;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -15,6 +16,8 @@
 .floating-particles {
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .particle {
@@ -26,10 +29,31 @@
     animation: particleFloat 8s ease-in-out infinite;
     opacity: 0.6;
 }
-
 .particle:nth-child(even) {
     background: #FF6B6B;
     animation-duration: 12s;
+}
+
+/* Example fixed positions for 15 particles */
+.particle-0 { left: 12%; top: 8%; animation-delay: 1.2s; }
+.particle-1 { left: 25%; top: 22%; animation-delay: 3.1s; }
+.particle-2 { left: 37%; top: 15%; animation-delay: 2.7s; }
+.particle-3 { left: 50%; top: 30%; animation-delay: 4.5s; }
+.particle-4 { left: 62%; top: 12%; animation-delay: 0.9s; }
+.particle-5 { left: 75%; top: 18%; animation-delay: 5.3s; }
+.particle-6 { left: 88%; top: 25%; animation-delay: 2.2s; }
+.particle-7 { left: 10%; top: 55%; animation-delay: 3.7s; }
+.particle-8 { left: 22%; top: 70%; animation-delay: 1.8s; }
+.particle-9 { left: 35%; top: 80%; animation-delay: 4.1s; }
+.particle-10 { left: 48%; top: 65%; animation-delay: 2.9s; }
+.particle-11 { left: 60%; top: 75%; animation-delay: 5.8s; }
+.particle-12 { left: 73%; top: 60%; animation-delay: 1.5s; }
+.particle-13 { left: 85%; top: 85%; animation-delay: 3.3s; }
+.particle-14 { left: 95%; top: 50%; animation-delay: 2.0s; }
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
 }
 
 .gradient-orb {
@@ -39,7 +63,6 @@
     opacity: 0.1;
     animation: orbFloat 12s ease-in-out infinite;
 }
-
 .orb-1 {
     width: 400px;
     height: 400px;
@@ -47,7 +70,6 @@
     top: 10%;
     right: 10%;
 }
-
 .orb-2 {
     width: 300px;
     height: 300px;
@@ -55,6 +77,10 @@
     bottom: 20%;
     left: 10%;
     animation-delay: 6s;
+}
+@keyframes orbFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(180deg); }
 }
 
 .section-navigation {
@@ -843,14 +869,11 @@
 }
 
 /* Responsive Design */
+
 @media (max-width: 1024px) {
     .about-content-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
-    .nav-tab .tab-label {
-        display: inline; /* Keep labels visible for wider screens */
-        font-size: 0.95rem;
     }
     .section-title {
         font-size: 2rem;
@@ -858,7 +881,6 @@
     .journey-stats {
         justify-content: center;
     }
-    /* No changes to navigation layout here to keep desktop style */
 }
 
 @media (max-width: 768px) {
@@ -872,21 +894,15 @@
         padding: 0 1rem;
     }
     .nav-container-about {
-        /* This is the key change: switch to two-column layout */
         flex-wrap: wrap;
         gap: 0.5rem;
         padding: 0.5rem;
         justify-content: center;
     }
     .nav-tab {
-        /* Make each tab occupy half the width minus the gap */
         flex-basis: calc(50% - 0.25rem);
         padding: 0.75rem 1rem;
         font-size: 0.9rem;
-    }
-    .nav-tab .tab-label {
-        /* Keep labels visible */
-        display: inline;
     }
     .skills-grid {
         grid-template-columns: 1fr;
@@ -929,10 +945,6 @@
     }
     .interest-tags {
         justify-content: center;
-    }
-    /* Keep the two-column layout from the 768px breakpoint */
-    .nav-tab .tab-label {
-        font-size: 0.8rem;
     }
     .nav-tab {
         flex-basis: calc(50% - 0.25rem);

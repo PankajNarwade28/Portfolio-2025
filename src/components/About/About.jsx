@@ -6,7 +6,18 @@ export const About = () => {
   const [activeTab, setActiveTab] = useState('about');
   const [visibleSkills, setVisibleSkills] = useState({});
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   useEffect(() => {
+    if (activeTab !== 'skills') {
+      return; // Only run this effect for the skills tab
+    }
+    
+    // Reset the state to trigger re-animation
+    setVisibleSkills({});
+
     const observer = new window.IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -14,48 +25,43 @@ export const About = () => {
           setVisibleSkills(prev => ({ ...prev, [skillId]: true }));
         }
       });
-    });
+    }, { threshold: 0.5 }); // Added threshold to improve observation
 
     const skillElements = document.querySelectorAll('.skill-progress-bar');
     skillElements.forEach(el => observer.observe(el));
 
+    // Cleanup function to disconnect the observer
     return () => observer.disconnect();
-  }, []);
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  }, [activeTab]); // This effect now runs whenever the activeTab changes
 
   const getSkillIcon = (skillName) => {
-   const icons = {
-  'HTML5': '🌐',
-  'CSS3': '🎨',
-  'JS': '⚡',
-  'React.js': '⚛️',
-  'Node.js': '🟢',
-  'Express.js': '🚂',
-  'MongoDB': '🍃',
-  'Oracle': '🔵',
-  'MySql': '🐬',
-  'Git & Github': '📦',
-  'Visual Studio Code': '💻',
-  'Bootstrap': '🅱️',
-  'Eclipse': '🌑',
-  'ShadCN': '✨', // Added
-  'Font Awesome': '🅰️', // Added
-  'Postman': '📬', // Added
-  'CPP': '💻', // Added
-  'Core Java': '☕', // Added
-  'Python': '🐍', // Added
-  'Next.js': '➡️' // Added
-  
-};
+    const icons = {
+      'HTML5': '🌐',
+      'CSS3': '🎨',
+      'JS': '⚡',
+      'React.js': '⚛️',
+      'Node.js': '🟢',
+      'Express.js': '🚂',
+      'MongoDB': '🍃',
+      'Oracle': '🔵',
+      'MySql': '🐬',
+      'Git & Github': '📦',
+      'Visual Studio Code': '💻',
+      'Bootstrap': '🅱️',
+      'Eclipse': '🌑',
+      'ShadCN': '✨',
+      'Font Awesome': '🅰️',
+      'Postman': '📬',
+      'CPP': '💻',
+      'Core Java': '☕',
+      'Python': '🐍',
+      'Next.js': '➡️',
+    };
     return icons[skillName] || '🛠️';
   };
 
   return (
     <div className="about-container" id="About">
-      
       <div className="about-background">
         <div className="floating-particles">
           {Array.from({ length: 15 }).map((_, i) => (
@@ -133,12 +139,6 @@ export const About = () => {
               </div>
               <div className="about-image-section">
                 <div className="profile-card">
-                  {/* <div className="card-header">
-                    <div className="status-indicator">
-                      <div className="status-dot"></div>
-                      <span>Available for opportunities</span>
-                    </div>
-                  </div> */}
                   <div className="profile-image-wrapper">
                     <img 
                       src="./assets/images/image-05.png" 
