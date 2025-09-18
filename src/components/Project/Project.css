@@ -185,6 +185,8 @@
     animation: slideInUp 0.6s ease-out;
     animation-delay: var(--delay);
     animation-fill-mode: both;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .project-card {

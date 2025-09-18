@@ -114,7 +114,7 @@ export const Navbar = () => {
               className="resume-btn"
             >
               <span className="btn-icon">📄</span>
-              <span>Resume</span>
+              <span>CV</span>
               <div className="btn-shine"></div>
             </a>
           </div>

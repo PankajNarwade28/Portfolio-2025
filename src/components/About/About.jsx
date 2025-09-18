@@ -27,21 +27,29 @@ export const About = () => {
   };
 
   const getSkillIcon = (skillName) => {
-    const icons = {
-      'HTML5': '🌐',
-      'CSS3': '🎨',
-      'JS': '⚡',
-      'React.js': '⚛️',
-      'Node.js': '🟢',
-      'Express.js': '🚂',
-      'MongoDB': '🍃',
-      'Oracle': '🔵',
-      'MySql': '🐬',
-      'Git & Github': '📦',
-      'Visual Studio Code': '💻',
-      'Bootstrap': '🅱️',
-      'Eclipse': '🌑'
-    };
+   const icons = {
+  'HTML5': '🌐',
+  'CSS3': '🎨',
+  'JS': '⚡',
+  'React.js': '⚛️',
+  'Node.js': '🟢',
+  'Express.js': '🚂',
+  'MongoDB': '🍃',
+  'Oracle': '🔵',
+  'MySql': '🐬',
+  'Git & Github': '📦',
+  'Visual Studio Code': '💻',
+  'Bootstrap': '🅱️',
+  'Eclipse': '🌑',
+  'ShadCN': '✨', // Added
+  'Font Awesome': '🅰️', // Added
+  'Postman': '📬', // Added
+  'CPP': '💻', // Added
+  'Core Java': '☕', // Added
+  'Python': '🐍', // Added
+  'Next.js': '➡️' // Added
+  
+};
     return icons[skillName] || '🛠️';
   };
 
@@ -104,7 +112,7 @@ export const About = () => {
                       <div className="stat-label">Years Learning</div>
                     </div>
                     <div className="stat-item">
-                      <div className="stat-number">50+</div>
+                      <div className="stat-number">15+</div>
                       <div className="stat-label">Projects Built</div>
                     </div>
                     <div className="stat-item">
@@ -116,9 +124,8 @@ export const About = () => {
                     <h4>What Drives Me</h4>
                     <div className="interest-tags">
                       <span className="interest-tag">Problem Solving</span>
-                      <span className="interest-tag">Clean Code</span>
-                      <span className="interest-tag">UI/UX Design</span>
-                      <span className="interest-tag">Innovation</span>
+                      <span className="interest-tag">Clean Code</span> 
+                      <span className="interest-tag">Responsive Designs</span>
                       <span className="interest-tag">Team Collaboration</span>
                     </div>
                   </div>
@@ -126,12 +133,12 @@ export const About = () => {
               </div>
               <div className="about-image-section">
                 <div className="profile-card">
-                  <div className="card-header">
+                  {/* <div className="card-header">
                     <div className="status-indicator">
                       <div className="status-dot"></div>
                       <span>Available for opportunities</span>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="profile-image-wrapper">
                     <img 
                       src="./assets/images/image-05.png" 

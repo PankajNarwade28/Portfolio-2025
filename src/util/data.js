@@ -1,13 +1,24 @@
 const SKILLS = [
   {
+    title: "Programming",
+    icon: "./assets/images/img1.png",
+    skills: [
+      { skill: "CPP", percentage: "80%" },
+      { skill: "Core Java", percentage: "65%" },
+      { skill: "Python", percentage: "50%" },
+      { skill: "JS", percentage: "70%" },
+    ],
+  },
+  {
     title: "Frontend",
     icon: "./assets/images/img1.png",
     skills: [
       { skill: "HTML5", percentage: "80%" },
       { skill: "CSS3", percentage: "75%" },
-      { skill: "JS", percentage: "60%" },
-      { skill: "React.js", percentage: "50%" },
-    ],
+      { skill: "React.js", percentage: "70%" },
+      
+      { skill: "Bootstrap", percentage: "55%" },
+    ],  
   },
   {
     title: "Backend",
@@ -15,6 +26,8 @@ const SKILLS = [
     skills: [
       { skill: "Node.js", percentage: "65%" },
       { skill: "Express.js", percentage: "55%" },
+      
+      { skill: "Next.js", percentage: "40%" },
     ],
   },
   {
@@ -32,8 +45,17 @@ const SKILLS = [
     skills: [
       { skill: "Git & Github", percentage: "70%" },
       { skill: "Visual Studio Code", percentage: "85%" },
-      { skill: "Bootstrap", percentage: "55%" },
       { skill: "Eclipse", percentage: "35%" },
+      { skill: "XAMPP", percentage: "45%" },
+    ],
+  },
+  {
+    title: "Utilities",
+    icon: "./assets/images/img4.png",
+    skills: [
+      { skill: "ShadCN", percentage: "70%" },
+      { skill: "Font Awesome", percentage: "85%" },
+      { skill: "Postman", percentage: "55%" }, 
     ],
   },
 ];
