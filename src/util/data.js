@@ -1,7 +1,7 @@
 const SKILLS = [
   {
     title: "Programming",
-    icon: "./assets/images/img1.png",
+    icon: "./assets/images/img5.png",
     skills: [
       { skill: "CPP", percentage: "80%" },
       { skill: "Core Java", percentage: "65%" },
@@ -51,7 +51,7 @@ const SKILLS = [
   },
   {
     title: "Utilities",
-    icon: "./assets/images/img4.png",
+    icon: "./assets/images/img6.png",
     skills: [
       { skill: "ShadCN", percentage: "40%" },
       { skill: "Font Awesome", percentage: "85%" },
