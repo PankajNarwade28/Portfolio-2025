@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from "react"; 
 import "./Contact.css";
-import contactInfo from "../../util/contact";
-import emailjs from "@emailjs/browser";
+import contactInfo from "../../util/contact"; 
+import ContactForm from "./ContactForm"; 
+
+import { ToastContainer, toast } from "react-toastify";
 // ContactInfoCard Component
 const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
+  
 
   const handleClick = () => {
     if (platform === 'email') {
@@ -16,8 +19,8 @@ const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
 
   const getPlatformColor = (platform) => {
     switch(platform) {
-      case 'email': return '#4ECDC4';
-      case 'github': return '#333';
+      case 'email': return '#b8627bff';
+      case 'github': return '#d8d5d5ff';
       case 'linkedin': return '#0077B5';
       case 'leetcode': return '#FFA116';
       default: return '#4ECDC4';
@@ -49,203 +52,49 @@ const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
   );
 };
 
-// ContactForm Component
-const ContactForm = () => {
-  const form = useRef();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    user_email: '',
-    message: ''
-  });
-  const [errors, setErrors] = useState({});
-  const [showToast, setShowToast] = useState({ show: false, message: '', type: '' });
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.first_name.trim()) newErrors.first_name = 'First name is required';
-    if (!formData.last_name.trim()) newErrors.last_name = 'Last name is required';
-    if (!formData.user_email.trim()) {
-      newErrors.user_email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.user_email)) {
-      newErrors.user_email = 'Please enter a valid email';
-    }
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
-    if (formData.message.trim().length < 10) newErrors.message = 'Message must be at least 10 characters';
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-  };
-
-  const showNotification = (message, type) => {
-    setShowToast({ show: true, message, type });
-    setTimeout(() => {
-      setShowToast({ show: false, message: '', type: '' });
-    }, 4000);
-  };
- 
-  const sendEmail = async (e) => {
-  e.preventDefault();
-
-  if (!validateForm()) return; // assuming this function exists
-
-  setLoading(true);
-
-  try {
-    await emailjs.sendForm(
-      "service_b2kobwd",
-      "template_6aj4f45",
-      form.current,
-      {
-        publicKey: "PiuldxkokUNi2N_rt",
-      }
-    );
-    // Success handling
-    showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-      setFormData({ first_name: '', last_name: '', user_email: '', message: '' });
-  } catch (error) {
-      showNotification('Failed to send message. Please try again.', 'error');
-    } finally {
-      setLoading(false);
-    }
-};
-  return (
-    <div className="contact-form-container">
-      <div className="form-header">
-        <h3>Let's Work Together</h3>
-        <p>Have a project in mind? Let's discuss how we can bring your ideas to life.</p>
-      </div>
-
-      <form ref={form} onSubmit={sendEmail} className="contact-form">
-        <div className="form-row">
-          <div className="input-group">
-            <label htmlFor="first_name">First Name</label>
-            <input
-              type="text"
-              name="first_name"
-              id="first_name"
-              placeholder="John"
-              value={formData.first_name}
-              onChange={handleInputChange}
-              className={errors.first_name ? 'error' : ''}
-              autoComplete="given-name"
-            />
-            {errors.first_name && <span className="error-message">{errors.first_name}</span>}
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              type="text"
-              name="last_name"
-              id="last_name"
-              placeholder="Doe"
-              value={formData.last_name}
-              onChange={handleInputChange}
-              className={errors.last_name ? 'error' : ''}
-              autoComplete="family-name"
-            />
-            {errors.last_name && <span className="error-message">{errors.last_name}</span>}
-          </div>
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="user_email">Email Address</label>
-          <input
-            type="email"
-            name="user_email"
-            id="user_email"
-            placeholder="john.doe@example.com"
-            value={formData.user_email}
-            onChange={handleInputChange}
-            className={errors.user_email ? 'error' : ''}
-            autoComplete="email"
-          />
-          {errors.user_email && <span className="error-message">{errors.user_email}</span>}
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="message">Message</label>
-          <textarea
-            name="message"
-            id="message"
-            rows="5"
-            placeholder="Tell me about your project, ideas, or just say hello..."
-            value={formData.message}
-            onChange={handleInputChange}
-            className={errors.message ? 'error' : ''}
-          ></textarea>
-          <div className="character-count">
-            {formData.message.length}/500
-          </div>
-          {errors.message && <span className="error-message">{errors.message}</span>}
-        </div>
-
-        <button type="submit" disabled={loading} className={`send-btn ${loading ? 'loading' : ''}`}>
-          {loading ? (
-            <>
-              <div className="spinner"></div>
-              <span>Sending...</span>
-            </>
-          ) : (
-            <>
-              <span>Send Message</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </>
-          )}
-        </button>
-      </form>
-
-      {/* Custom Toast Notification */}
-      {showToast.show && (
-        <div className={`toast-notification ${showToast.type}`}>
-          <div className="toast-icon">
-            {showToast.type === 'success' ? '✅' : '❌'}
-          </div>
-          <span>{showToast.message}</span>
-          <button 
-            className="toast-close"
-            onClick={() => setShowToast({ show: false, message: '', type: '' })}
-          >
-            ×
-          </button>
-        </div>
-      )}
-
-      {loading && (
-        <div className="loader-overlay">
-          <div className="loader-content">
-            <div className="loader-spinner"></div>
-            <span>Sending your message...</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
 
 // Main Contact Component
-export const Contact = () => {
+export const Contact = () => { 
   const [activeCard, setActiveCard] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   
 
   return (
     <div className="contact-section" id="Contact">
+     
+      
+     {/* ToastContainer placed at the top-right of the entire page */}
+      <ToastContainer position="top-right" />
+      
+      {/* Full-screen loader overlay with blur */}
+{loading && (
+  <div className="loader-overlay-refined">
+    <div className="loader-content-refined">
+      <div className="spinner-container-svg">
+        <svg viewBox="0 0 100 100" className="animated-svg-spinner">
+          <path 
+            className="spinner-path path-1" 
+            d="M 20 50 A 30 30 0 0 1 50 20 A 30 30 0 0 1 80 50" 
+            fill="none" 
+            stroke="white" 
+            strokeWidth="8" 
+            strokeLinecap="round"
+          />
+          <path 
+            className="spinner-path path-2" 
+            d="M 20 50 A 30 30 0 0 0 50 80 A 30 30 0 0 0 80 50" 
+            fill="none" 
+            stroke="white" 
+            strokeWidth="8" 
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      <p className="loading-text">Sending Your Message...</p>
+    </div>
+  </div>
+)}
       {/* Animated Background */}
       <div className="contact-background">
         <div className="floating-particles">
@@ -291,7 +140,7 @@ export const Contact = () => {
               ))}
             </div>
 
-            <div className="additional-info">
+            {/* <div className="additional-info">
               <div className="info-item">
                 <div className="info-icon">📍</div>
                 <div className="info-text">
@@ -306,12 +155,12 @@ export const Contact = () => {
                   <span className="info-value">Within 24 hours</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Contact Form */}
           <div className="contact-form-section">
-            <ContactForm />
+             <ContactForm setLoading={setLoading} toast={toast}  />
           </div>
         </div>
 

@@ -771,3 +771,108 @@
             border: 1px solid #ccc;
           }
         }
+
+        
+        /* Full-screen overlay with blur and color - Keep this as is */
+.loader-overlay-refined {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Dimmed black background */
+  backdrop-filter: blur(5px); /* Adds a subtle blur effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  transition: opacity 0.4s ease;
+  flex-direction: column;
+}
+
+/* Container for the spinner and text - Keep this as is */
+.loader-content-refined {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* New CSS for the SVG loader */
+.spinner-container-svg {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.animated-svg-spinner {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%; /* Ensure rotation from center */
+  animation: rotateSvg 2s linear infinite; /* Overall rotation */
+}
+
+.spinner-path {
+  stroke-dasharray: 100 200; /* Controls visibility and gap */
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, 
+             colorGlow 3s infinite alternate; /* Dash animation and glow */
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); /* White glow effect */
+}
+
+/* Different animation delays/offsets for the two paths if needed for complexity */
+.spinner-path.path-1 {
+  stroke: #ffffff; /* White color */
+  animation-delay: 0s;
+}
+
+.spinner-path.path-2 {
+  stroke: #ffffff; /* White color */
+  animation-delay: 0.75s; /* Stagger the animation */
+  transform: rotate(180deg); /* Mirror the second path */
+  transform-origin: 50% 50%;
+}
+
+
+/* The loading message text - Keep this as is */
+.loading-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes rotateSvg {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 200;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes colorGlow {
+  0% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); }
+  50% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 1)); } /* More intense white glow */
+  100% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

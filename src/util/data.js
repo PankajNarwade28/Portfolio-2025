@@ -53,7 +53,7 @@ const SKILLS = [
     title: "Utilities",
     icon: "./assets/images/img4.png",
     skills: [
-      { skill: "ShadCN", percentage: "70%" },
+      { skill: "ShadCN", percentage: "40%" },
       { skill: "Font Awesome", percentage: "85%" },
       { skill: "Postman", percentage: "55%" }, 
     ],
