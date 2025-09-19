@@ -60,6 +60,13 @@ npm run build
 
 ---
 
+## 📸 Screenshots  
+
+![Portfolio Screenshot 1](https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989)  
+
+![Portfolio Screenshot 2](https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016)  
+
+
 ## 📬 Contact
 
 If you’d like to connect, collaborate, or hire me:
@@ -78,6 +85,7 @@ If you’d like to connect, collaborate, or hire me:
 
 ```
  
+
 
 
 
