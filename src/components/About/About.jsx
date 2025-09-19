@@ -47,21 +47,7 @@ export const About = () => {
       </div>
 
       <div className="content-wrapper">
-        {activeTab === 'about' && (
-           
-          <div className="content-section about-section">
-            <AboutMe />
-          </div>
-        )}
-
-        {activeTab === 'skills' && (
-          <div className="content-section skills-section">
-            <Skills />
-          </div>
-        
-          
-        )}
-
+       
         {activeTab === 'about' && (
           <div className="content-section about-section">
             <AboutMe />
