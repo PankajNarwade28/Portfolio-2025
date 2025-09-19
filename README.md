@@ -24,10 +24,13 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 
 ---
 
-## 📸 Screenshots   
-<img width="1900" height="1028" alt="image" src="https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989" />
-<img width="1903" height="932" alt="image" src="https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016" />
+## 📸 Screenshots  
 
+<img width="1900" height="1028" alt="Portfolio Screenshot 1" src="https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989" />  
+
+<img width="1903" height="932" alt="Portfolio Screenshot 2" src="https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016" />  
+
+---
 ---
 
 ## 🚀 Getting Started  
@@ -68,10 +71,10 @@ npm run build
 
 If you’d like to connect, collaborate, or hire me:
 
-* **Portfolio:** [Your Live Link](https://pankajnarwade.vercel.app)
-* **Email:** [yourname@email.com](mailto:pankajnarwade258@gmail.com)
-* **LinkedIn:** [Your LinkedIn](https://www.linkedin.com/in/pankaj-narwade-13a053260)
-* **GitHub:** [Your GitHub](https://github.com/PankajNarwade28)
+* **Portfolio:** [pankajnarwade.vercel.app](https://pankajnarwade.vercel.app)
+* **Email:** [pankajnarwade258gmail.com](mailto:pankajnarwade258@gmail.com)
+* **LinkedIn:** [LinkedIn](https://www.linkedin.com/in/pankaj-narwade-13a053260)
+* **GitHub:** [GitHub](https://github.com/PankajNarwade28)
 
 ---
 
@@ -82,4 +85,5 @@ If you’d like to connect, collaborate, or hire me:
 
 ```
  
+
 
