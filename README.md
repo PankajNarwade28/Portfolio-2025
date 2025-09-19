@@ -1,7 +1,4 @@
-Got it 👍 Here’s a complete **README.md** file for your portfolio project repo:
-
----
-
+ 
 ````markdown
 # 🌐 Personal Portfolio  
 
@@ -23,12 +20,13 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 - **Frontend:** React.js  
 - **Styling:** Vanilla CSS  
 - **Animations:** CSS animations & transitions  
-- **Email Support:** EmailJS (or your integration)  
+- **Email Support:** EmailJS  
 
 ---
 
-## 📸 Screenshots  
-> *(Add screenshots or GIFs of your portfolio here)*  
+## 📸 Screenshots   
+<img width="1900" height="1028" alt="image" src="https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989" />
+<img width="1903" height="932" alt="image" src="https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016" />
 
 ---
 
@@ -38,7 +36,7 @@ Follow these steps to run the project locally:
 
 ### 1️⃣ Clone the repository  
 ```bash
-git clone https://github.com/your-username/your-portfolio.git
+git clone https://github.com/PankajNarwade28/Portfolio-2025.git
 cd your-portfolio
 ````
 
@@ -70,10 +68,10 @@ npm run build
 
 If you’d like to connect, collaborate, or hire me:
 
-* **Portfolio:** [Your Live Link](https://your-portfolio-link.com)
-* **Email:** [yourname@email.com](mailto:yourname@email.com)
-* **LinkedIn:** [Your LinkedIn](https://linkedin.com/in/yourprofile)
-* **GitHub:** [Your GitHub](https://github.com/your-username)
+* **Portfolio:** [Your Live Link](https://pankajnarwade.vercel.app)
+* **Email:** [yourname@email.com](mailto:pankajnarwade258@gmail.com)
+* **LinkedIn:** [Your LinkedIn](https://www.linkedin.com/in/pankaj-narwade-13a053260)
+* **GitHub:** [Your GitHub](https://github.com/PankajNarwade28)
 
 ---
 
@@ -83,8 +81,5 @@ If you’d like to connect, collaborate, or hire me:
 * Guidance & brainstorming with **Claude AI**
 
 ```
+ 
 
----
-
-Would you like me to also **add badges (like React, CSS, responsive, etc.)** at the top of the README for a more professional GitHub look?
-```
