@@ -3,21 +3,25 @@ import { useState, useEffect } from 'react';
 
 export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const [stats, setStats] = useState(null);
+    const [solvedCount, setSolvedCount] = useState(null);
+     const [repoCount, setRepoCount] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Replace with your desired LeetCode and GitHub usernames
-    const leetcodeUsername = 'Pankaj_Narwade_28';
-    const githubUsername = 'Pankaj_Narwade_28';
-
+    // Replace with your desired LeetCode username
+    const username = 'Pankaj_Narwade_28'; 
+    const githubUsername = 'PankajNarwade28';
+    // For leetcode, fetch the number of solved problems
     useEffect(() => {
-        setLoading(true);
+        // Only fetch LeetCode stats if the card's platform is 'leetcode'
         if (platform === 'leetcode') {
+            setLoading(true);
             const fetchLeetCodeStats = async () => {
                 try {
                     const response = await fetch('/graphql', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({
                             query: `
                                 query userSolutionStats($username: String!) {
@@ -31,40 +35,64 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
                                     }
                                 }
                             `,
-                            variables: { username: leetcodeUsername },
+                            variables: { username },
                         }),
                     });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
                     const data = await response.json();
-                    const allStats = data.data?.matchedUser?.submitStats?.acSubmissionNum;
-                    const totalSolved = allStats?.find(stat => stat.difficulty === 'All');
-                    setStats(totalSolved?.count || 0);
+                    if (data.data && data.data.matchedUser && data.data.matchedUser.submitStats) {
+                         const allStats = data.data.matchedUser.submitStats.acSubmissionNum;
+                         const totalSolved = allStats.find(stat => stat.difficulty === 'All');
+                         
+                         if (totalSolved) {
+                             setSolvedCount(totalSolved.count);
+                         } else {
+                             setSolvedCount(0);
+                         }
+                    } else {
+                         setSolvedCount('N/A');
+                    }
                 } catch (err) {
                     console.error('Error fetching LeetCode stats:', err);
-                    setStats('N/A');
+                    setSolvedCount('N/A');
                 } finally {
                     setLoading(false);
                 }
             };
             fetchLeetCodeStats();
-        } else if (platform === 'github') {
-            const fetchGithubStats = async () => {
-                try {
-                    const response = await fetch(`https://api.github.com/users/${githubUsername}`);
-                    const data = await response.json();
-                    setStats(data.public_repos);
-                } catch (err) {
-                    console.error('Error fetching GitHub stats:', err);
-                    setStats('N/A');
-                } finally {
-                    setLoading(false);
-                }
-            };
-            fetchGithubStats();
-        } else {
-            setLoading(false); // No fetching for other platforms
-            setStats(null);
         }
-    }, [platform, leetcodeUsername, githubUsername]);
+    }, [platform, username]);
+    // For GitHub, fetch the number of public repositories
+    useEffect(() => {
+    const fetchGithubStats = async () => {
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        
+        if (!response.ok) {
+          throw new Error(`GitHub user "${username}" not found.`);
+        }
+
+        const data = await response.json();
+        
+        // The total public repositories count is in the 'public_repos' field
+        setRepoCount(data.public_repos);
+
+      } catch (err) {
+        console.error('Error fetching GitHub stats:', err);
+        setRepoCount('N/A');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (username) {
+        fetchGithubStats();
+    }
+  }, [username]);
 
     const handleClick = () => {
         if (platform === 'email') {
@@ -99,13 +127,9 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
             <div className="card-content">
                 <h4 className="platform-name">{platform.charAt(0).toUpperCase() + platform.slice(1)}</h4>
                 <p className="contact-text">
-                    {loading
-                        ? 'Loading...'
-                        : platform === 'leetcode'
-                            ? (stats !== null ? `${stats} problems solved` : 'N/A')
-                            : platform === 'github'
-                                ? (stats !== null ? `${stats} public repos` : 'N/A')
-                                : text}
+                    {platform === 'leetcode' 
+                        ?  (loading ? 'Loading...' : (solvedCount !== null ?  `${solvedCount} problems solved` : 'N/A'))
+                        : text}
                 </p>
                 <div className="hover-indicator">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
