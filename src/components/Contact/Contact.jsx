@@ -92,24 +92,7 @@ export const Contact = () => {
                   isActive={activeCard === index}
                 />
               ))}
-            </div>
-
-            {/* <div className="additional-info">
-              <div className="info-item">
-                <div className="info-icon">📍</div>
-                <div className="info-text">
-                  <span className="info-label">Location</span>
-                  <span className="info-value">Pune, Maharashtra, India</span>
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="info-icon">⏰</div>
-                <div className="info-text">
-                  <span className="info-label">Response Time</span>
-                  <span className="info-value">Within 24 hours</span>
-                </div>
-              </div>
-            </div> */}
+            </div> 
           </div>
 
           {/* Contact Form */}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./About.css";  
+import "./style.css"
 import { Skills } from "./Tabs/Skills/Skills";
 import { Education } from "./Tabs/Education/Education";
 import { Achievement } from "./Tabs/Achievement/Achievement";

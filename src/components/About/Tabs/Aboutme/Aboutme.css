@@ -4,6 +4,9 @@
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
     align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .intro-card {
@@ -177,4 +180,80 @@
 
 .connect-btn:hover {
     transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(15deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .profile-card {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content-grid {
+        padding: 0 1rem;
+    }
+    .bio-text {
+        font-size: 1rem;
+    }
+    .journey-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .greeting h3 {
+        font-size: 1.3rem;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+    .image-border {
+        inset: 1.2rem;
+    }
 }

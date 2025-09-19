@@ -1,4 +1,3 @@
-
 /* Skills Section Styles */
 .skills-grid {
     display: grid;
@@ -86,47 +85,44 @@
     font-weight: 600;
 }
 
-/* ...existing code... */
-
 /* Progress Bar Animation and Shimmer */
 .skill-progress {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
 }
 
 .skill-progress-bar {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  background-color: #4ECDC4; /* fallback, can be overridden inline */
-  min-width: 0;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background-color: #4ECDC4; /* fallback, can be overridden inline */
+    min-width: 0;
 }
 
 .skill-progress-bar::after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  background-size: 200px 100%;
-  animation: shimmer 2s infinite linear;
-  opacity: 0.7;
-  pointer-events: none;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background-size: 200px 100%;
+    animation: shimmer 2s infinite linear;
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 .skill-progress-bar[style*="width: 0%"]::after {
-  display: none;
+    display: none;
 }
 
-@keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: 200px 0; }
-}
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);
@@ -134,4 +130,29 @@
     100% {
         transform: translateX(100%);
     }
+}
+
+/* General styles from About.css for context and consistency */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    margin: 0 auto;
+    border-radius: 2px;
 }

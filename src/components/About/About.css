@@ -1,193 +1,197 @@
-.about-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    /* =============================== */
-    /*         MAIN CONTAINER          */
-    /* =============================== */
-    padding: 2rem 0;
-    overflow: hidden;
-}
-
-.about-background {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.1;
-    animation: orbFloat 12s ease-in-out infinite;
-}
-
-.orb-1 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, #4ECDC4, transparent);
-    top: 10%;
-    right: 10%;
-}
-
-.orb-2 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, #FF6B6B, transparent);
-    bottom: 20%;
-    left: 10%;
-    animation-delay: 6s;
-}
-
-@keyframes orbFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(180deg); }
-}
-
-.section-navigation {
-    position: relative;
-    z-index: 10;
-    margin-bottom: 3rem;
+/* About Section Styles */
+.about-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 2rem;
 }
 
-.nav-container-about {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+.intro-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    padding: 1rem;
-    border-radius: 10px;
+    padding: 2rem;
+    border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
 }
 
-@media (max-width: 320px) {
-    .nav-container-about {
-        gap: 0.1rem;
-    }
-}
-
-.nav-tab {
+.greeting {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: transparent;
-    color: #ccc;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-    font-weight: 500;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.nav-tab:hover {
+.wave {
+    font-size: 2rem;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.greeting h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.name-highlight {
+    color: #4ECDC4;
+    font-weight: 700;
+}
+
+.bio-text {
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.highlight {
+    color: #4ECDC4;
+    font-weight: 600;
+}
+
+.journey-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4ECDC4;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.interests-section h4 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.interest-tag {
+    padding: 0.5rem 1rem;
     background: rgba(78, 205, 196, 0.1);
     color: #4ECDC4;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.card-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #4ECDC4;
+    font-size: 0.9rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff00;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    padding: 2rem;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.image-border {
+    position: absolute;
+    inset: 1.5rem;
+    border: 3px solid transparent;
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    background-clip: padding-box;
+    border-radius: 50%;
+    animation: rotate 8s linear infinite;
+}
+
+.card-footer {
+    padding: 1.5rem;
+}
+
+.card-footer h4 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.card-footer p {
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.connect-btn {
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.connect-btn:hover {
     transform: translateY(-2px);
 }
 
-.nav-tab.active {
-    background: linear-gradient(135deg, #4ECDC4, #44A08D);
-    color: white;
-    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
-}
-
-.tab-icon {
-    font-size: 1.1rem;
-}
-
-.content-wrapper {
-    position: relative;
-    z-index: 5;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.content-section {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    color: white;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #4ECDC4, #44A08D);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.title-underline {
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(135deg, #4ECDC4, #44A08D);
-    margin: 0 auto;
-    border-radius: 2px;
-}
-
-
 /* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes particleFloat {
-    0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-20px) rotate(180deg);
-    }
-}
-
-@keyframes orbFloat {
-    0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-30px) rotate(180deg);
-    }
-}
-
 @keyframes wave {
     0%, 100% {
         transform: rotate(0deg);
     }
     25% {
-        transform: rotate(20deg);
+        transform: rotate(15deg);
     }
     75% {
-        transform: rotate(-20deg);
+        transform: rotate(-15deg);
     }
 }
 
@@ -197,8 +201,8 @@
         opacity: 1;
     }
     50% {
-        transform: scale(1.1);
-        opacity: 0.7;
+        transform: scale(1.2);
+        opacity: 0.8;
     }
 }
 
@@ -217,128 +221,39 @@
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    .section-title {
-        font-size: 2rem;
-    }
-    .journey-stats {
-        justify-content: center;
+    .profile-card {
+        margin-top: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .about-container {
-        padding: 1rem 0;
-    }
-    .content-wrapper {
+    .about-content-grid {
         padding: 0 1rem;
     }
-    .section-navigation {
-        padding: 0 1rem;
+    .bio-text {
+        font-size: 1rem;
     }
-    .nav-container-about {
+    .journey-stats {
         flex-wrap: wrap;
-        gap: 0.5rem;
-        padding: 0.5rem;
         justify-content: center;
-    }
-    .nav-tab {
-        flex-basis: calc(50% - 0.25rem);
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-    }
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-    .achievements-grid {
-        grid-template-columns: 1fr;
-    }
-    .summary-stats {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    .timeline-item {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .timeline-connector {
-        flex-direction: row;
-        width: 100%;
-        height: auto;
-    }
-    .timeline-line {
-        width: 100px;
-        height: 2px;
-        margin-top: 0;
-        margin-left: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .section-title {
-        font-size: 1.8rem;
+    .greeting h3 {
+        font-size: 1.3rem;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    .stat-label {
+        font-size: 0.8rem;
     }
     .profile-image {
         width: 150px;
         height: 150px;
     }
-    .journey-stats {
-        flex-direction: column;
-        gap: 1rem;
+    .image-border {
+        inset: 1.2rem;
     }
-    .interest-tags {
-        justify-content: center;
-    }
-    .nav-tab {
-        flex-basis: calc(50% - 0.25rem);
-        flex-direction: column;
-        gap: 0.2rem;
-    }
-    .tab-icon {
-        font-size: 1rem;
-    }
-}
-
- 
-.floating-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.particle {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #4ECDC4;
-    border-radius: 50%;
-    animation: particleFloat 8s ease-in-out infinite;
-    opacity: 0.6;
-}
-
-.particle:nth-child(even) {
-    background: #FF6B6B;
-    animation-duration: 12s;
-}
-
-/* Example fixed positions for 15 particles */
-.particle-0 { left: 12%; top: 8%; animation-delay: 1.2s; }
-.particle-1 { left: 25%; top: 22%; animation-delay: 3.1s; }
-.particle-2 { left: 37%; top: 15%; animation-delay: 2.7s; }
-.particle-3 { left: 50%; top: 30%; animation-delay: 4.5s; }
-.particle-4 { left: 62%; top: 12%; animation-delay: 0.9s; }
-.particle-5 { left: 75%; top: 18%; animation-delay: 5.3s; }
-.particle-6 { left: 88%; top: 25%; animation-delay: 2.2s; }
-.particle-7 { left: 10%; top: 55%; animation-delay: 3.7s; }
-.particle-8 { left: 22%; top: 70%; animation-delay: 1.8s; }
-.particle-9 { left: 35%; top: 80%; animation-delay: 4.1s; }
-.particle-10 { left: 48%; top: 65%; animation-delay: 2.9s; }
-.particle-11 { left: 60%; top: 75%; animation-delay: 5.8s; }
-.particle-12 { left: 73%; top: 60%; animation-delay: 1.5s; }
-.particle-13 { left: 85%; top: 85%; animation-delay: 3.3s; }
-.particle-14 { left: 95%; top: 50%; animation-delay: 2.0s; }
-
-@keyframes particleFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(180deg); }
 }

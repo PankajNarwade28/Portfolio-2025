@@ -33,7 +33,7 @@ export const Footer = () => {
 
 const socialLinks = [
   { name: "LinkedIn", url: "https://www.linkedin.com/in/pankaj-narwade-13a053260", icon: "/assets/images/linkedin.png" },
-  { name: "GitHub", url: "https://github.com/PankajNarwade28", icon: "/assets/images/github1.png" },
+  { name: "GitHub", url: "https://github.com/PankajNarwade28", icon: "/assets/images/github.png" },
   { name: "Twitter", url: "https://leetcode.com/Pankaj_Narwade_28", icon: "/assets/images/leetcode.png" },
   { name: "Instagram", url: "https://instagram.com/mr_pankaj_narwade_patil", icon: "/assets/images/instagram.png" }
 ];
