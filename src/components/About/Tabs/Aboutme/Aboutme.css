@@ -15,7 +15,7 @@
     padding: 2rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .greeting {
@@ -224,18 +224,43 @@
     .profile-card {
         margin-top: 2rem;
     }
+    .interests-section h4{
+        text-align: center;
+    }
 }
 
 @media (max-width: 768px) {
     .about-content-grid {
-        padding: 0 1rem;
+        padding: 0 ;
     }
     .bio-text {
         font-size: 1rem;
     }
+    .intro-card{
+        padding: 1rem;
+    }
+    .interest-tags{
+        justify-content: center;
+    }
+    .interest-tag{
+        min-width: 200px;
+    }
     .journey-stats {
         flex-wrap: wrap;
         justify-content: center;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 570px) {
+    .interest-tag{
+        min-width: 90%;
+    }
+    .stat-item{
+        padding: 0.4rem !important;
+    }
+    .stat-number{
+        margin-bottom: 0;
     }
 }
 

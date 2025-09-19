@@ -46,7 +46,7 @@ const socialLinks = [
   };
 
   return (
-    <footer className="footer-container">
+    <footer className="footer-container" id="Footer">
       {/* 3D Background Effects */}
       <div className="footer-background">
         <div className="footer-grid-overlay"></div>

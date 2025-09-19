@@ -12,7 +12,7 @@ export const Navbar = () => {
       setScrolled(scrollPosition > 50);
 
       // Update active section based on scroll position
-      const sections = ["Home", "About", "Skills", "Project", "Contact"];
+      const sections = ["Home", "About",  "Project", "Contact","Footer"];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -21,7 +21,7 @@ export const Navbar = () => {
         }
         return false;
       });
-      
+
       if (currentSection) {
         setActiveSection(currentSection);
       }
@@ -39,7 +39,6 @@ export const Navbar = () => {
     setOpenMenu(false);
   };
 
-  // ...existing code...
   const handleNavClick = (sectionId) => {
     setActiveSection(sectionId);
     closeMenu();
@@ -56,12 +55,10 @@ export const Navbar = () => {
       });
     }
   };
-// ...existing code...
 
   const navItems = [
     { id: "Home", label: "Home", icon: "🏠" },
-    { id: "About", label: "About", icon: "👨‍💻" },
-    // { id: "Skills", label: "Skills", icon: "🛠️" },
+    { id: "About", label: "About", icon: "👨‍💻" }, 
     { id: "Project", label: "Projects", icon: "🚀" },
     { id: "Contact", label: "Contact", icon: "📧" }
   ];
@@ -70,7 +67,7 @@ export const Navbar = () => {
     <>
       {/* Mobile Navigation Overlay */}
       <div className={`mobile-overlay ${openMenu ? 'active' : ''}`} onClick={closeMenu}></div>
-      
+
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           {/* Logo Section */}
@@ -90,7 +87,7 @@ export const Navbar = () => {
             <ul className="nav-list">
               {navItems.map((item) => (
                 <li key={item.id} className="nav-item">
-                  <a 
+                  <a
                     href={`#${item.id}`}
                     className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
                     onClick={(e) => {
@@ -107,7 +104,7 @@ export const Navbar = () => {
             </ul>
 
             {/* Resume Button */}
-            <a 
+            <a
               href="https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing"
               target="_blank"
               rel="noreferrer"
@@ -131,10 +128,10 @@ export const Navbar = () => {
 
         {/* Progress Bar */}
         <div className="scroll-progress">
-          <div 
-            className="progress-bar" 
-            style={{ 
-              width: `${Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100)}%` 
+          <div
+            className="progress-bar"
+            style={{
+              width: `${Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100)}%`
             }}
           ></div>
         </div>
@@ -149,7 +146,7 @@ export const Navbar = () => {
           </div>
           <button className="mobile-close-btn" onClick={closeMenu}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
         </div>
@@ -157,8 +154,8 @@ export const Navbar = () => {
         <div className="mobile-nav-content">
           <ul className="mobile-nav-list">
             {navItems.map((item, index) => (
-              <li key={item.id} className="mobile-nav-item" style={{'--delay': `${index * 0.1}s`}}>
-                <a 
+              <li key={item.id} className="mobile-nav-item" style={{ '--delay': `${index * 0.1}s` }}>
+                <a
                   href={`#${item.id}`}
                   className={`mobile-nav-link ${activeSection === item.id ? 'active' : ''}`}
                   onClick={(e) => {
@@ -169,7 +166,7 @@ export const Navbar = () => {
                   <span className="mobile-nav-icon">{item.icon}</span>
                   <span className="mobile-nav-text">{item.label}</span>
                   <svg className="mobile-nav-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
               </li>
@@ -177,7 +174,7 @@ export const Navbar = () => {
           </ul>
 
           <div className="mobile-nav-footer">
-            <a 
+            <a
               href="https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing"
               target="_blank"
               rel="noreferrer"
@@ -191,17 +188,17 @@ export const Navbar = () => {
             <div className="mobile-social-links">
               <a href="#" className="mobile-social-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
               </a>
               <a href="#" className="mobile-social-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
               </a>
               <a href="#" className="mobile-social-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                 </svg>
               </a>
             </div>
@@ -452,9 +449,18 @@ export const Navbar = () => {
           transition: all 0.3s ease;
         }
 
-        .hamburger span:nth-child(1) { top: 0; }
-        .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-        .hamburger span:nth-child(3) { bottom: 0; }
+        .hamburger span:nth-child(1) {
+          top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+          bottom: 0;
+        }
 
         .mobile-menu-btn.active .hamburger span:nth-child(1) {
           top: 50%;
@@ -507,8 +513,9 @@ export const Navbar = () => {
         .mobile-nav {
           position: fixed;
           top: 0;
-          right: -400px;
-          width: 350px;
+          right: -100%; /* Changed from -400px to -100% to push it fully off-screen */
+          width: 85vw; /* Changed from 350px to a fluid width */
+          max-width: 400px; /* Added a max-width to prevent it from getting too wide on tablets */
           height: 100vh;
           background: linear-gradient(135deg, #0a0a23 0%, #1a1a3e 100%);
           z-index: 1001;
@@ -563,7 +570,7 @@ export const Navbar = () => {
 
         .mobile-nav-content {
           padding: 2rem 0;
-          height: calc(100vh - 100px);
+          height: calc(100vh - 165px);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -693,8 +700,12 @@ export const Navbar = () => {
         }
 
         @keyframes logoGlow {
-          0%, 100% { opacity: 0; }
-          50% { opacity: 0.3; }
+          0%, 100% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.3;
+          }
         }
 
         @media (max-width: 1024px) {
@@ -720,6 +731,12 @@ export const Navbar = () => {
         }
 
         @media (max-width: 768px) {
+          .mobile-nav.active{
+          width: 100vw; /* Ensure mobile nav takes full width on smaller screens */
+          }
+          .mobile-nav {
+          max-width: 500px; /* Remove max-width constraint */
+          }
           .nav-container {
             height: 70px;
             padding: 0 1rem;
@@ -733,14 +750,15 @@ export const Navbar = () => {
             display: flex;
           }
 
-          .mobile-nav {
+          /* This media query block is no longer needed due to the general mobile-nav changes */
+          /* .mobile-nav {
             width: 100vw;
             right: -100vw;
           }
 
           .mobile-nav.active {
             right: 0;
-          }
+          } */
         }
 
         @media (max-width: 480px) {

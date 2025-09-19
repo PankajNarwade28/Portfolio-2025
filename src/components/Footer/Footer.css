@@ -172,7 +172,7 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
   gap: 60px;
-  margin-bottom: 60px;
+  margin-bottom: 15px;
 }
 
 /* Brand Section */
@@ -683,10 +683,10 @@
 /* Footer Bottom */
 .footer-bottom {
   border-top: 1px solid rgba(64, 224, 208, 0.2);
-  padding-top: 40px;
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 5px; 
 }
 
 .footer-bottom-content {
@@ -808,7 +808,7 @@
 @media (max-width: 1200px) {
   .footer-main {
     grid-template-columns: 1.5fr 1fr;
-    gap: 50px;
+    gap: 20px;
   }
   
   .footer-nav {
@@ -825,7 +825,7 @@
   
   .footer-main {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 15px;
     text-align: center;
   }
   
@@ -861,7 +861,7 @@
   }
   
   .footer-main {
-    gap: 30px;
+    gap: 10px;
   }
   
   .brand-name {

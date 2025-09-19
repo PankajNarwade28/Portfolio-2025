@@ -115,6 +115,7 @@
   }
 
   .filter-btn {
+    min-width: 150px;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -127,6 +128,14 @@
     transition: all 0.3s ease;
     font-size: 0.9rem;
     font-weight: 500;
+  }
+
+  @media (max-width: 680px)and (min-width: 500px) {
+    .filter-btn {
+      min-width: 220px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
   }
 
   .filter-btn:hover {
