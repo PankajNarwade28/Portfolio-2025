@@ -1,0 +1,153 @@
+
+/* Education Section Styles */
+.education-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4ECDC4;
+    border: 3px solid #1a1a2e;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-item.current .timeline-dot {
+    background: #FF6B6B;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.timeline-line {
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, #4ECDC4, rgba(78, 205, 196, 0.3));
+    margin-top: 1rem;
+}
+
+.education-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-3px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.duration-badge {
+    background: rgba(78, 205, 196, 0.1);
+    color: #4ECDC4;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.current-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 107, 107, 0.1);
+    color: #FF6B6B;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: #FF6B6B;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.card-content {
+    margin-bottom: 1rem;
+}
+
+.degree-title {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.institution {
+    color: #4ECDC4;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.location {
+    color: #ccc;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.description {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+}
+
+.grade-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.grade-label {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.grade-value {
+    color: #4ECDC4;
+    font-weight: 600;
+    background: rgba(78, 205, 196, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}

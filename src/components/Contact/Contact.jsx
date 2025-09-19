@@ -1,68 +1,22 @@
-import React, { useRef, useState, useEffect } from "react"; 
+import React, {  useState } from "react"; 
 import "./Contact.css";
 import contactInfo from "../../util/contact"; 
-import ContactForm from "./ContactForm"; 
+import ContactForm from "./ContactForm/ContactForm"; 
 
 import { ToastContainer, toast } from "react-toastify";
-// ContactInfoCard Component
-const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-
-  const handleClick = () => {
-    if (platform === 'email') {
-      window.location.href = link;
-    } else {
-      window.open(link, '_blank', 'noopener,noreferrer');
-    }
-  };
-
-  const getPlatformColor = (platform) => {
-    switch(platform) {
-      case 'email': return '#b8627bff';
-      case 'github': return '#d8d5d5ff';
-      case 'linkedin': return '#0077B5';
-      case 'leetcode': return '#FFA116';
-      default: return '#4ECDC4';
-    }
-  };
-
-  return (
-    <div 
-      className={`contact-info-card ${isActive ? 'active' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}
-      style={{ '--platform-color': getPlatformColor(platform) }}
-    >
-      <div className="card-icon">
-        <img src={iconUrl} alt={platform} />
-        <div className="icon-glow"></div>
-      </div>
-      <div className="card-content">
-        <h4 className="platform-name">{platform.charAt(0).toUpperCase() + platform.slice(1)}</h4>
-        <p className="contact-text">{text}</p>
-        <div className="hover-indicator">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 
 
 // Main Contact Component
 export const Contact = () => { 
-  const [activeCard, setActiveCard] = useState(null);
+  const [activeCard] = useState(null);
   const [loading, setLoading] = useState(false);
 
   
 
   return (
     <div className="contact-section" id="Contact">
-     
+    
       
      {/* ToastContainer placed at the top-right of the entire page */}
       <ToastContainer position="top-right" />

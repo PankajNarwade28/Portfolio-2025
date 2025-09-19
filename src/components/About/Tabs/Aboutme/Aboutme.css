@@ -1,0 +1,180 @@
+/* About Section Styles */
+.about-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.intro-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.greeting {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.wave {
+    font-size: 2rem;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.greeting h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.name-highlight {
+    color: #4ECDC4;
+    font-weight: 700;
+}
+
+.bio-text {
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.highlight {
+    color: #4ECDC4;
+    font-weight: 600;
+}
+
+.journey-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4ECDC4;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.interests-section h4 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.interest-tag {
+    padding: 0.5rem 1rem;
+    background: rgba(78, 205, 196, 0.1);
+    color: #4ECDC4;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.card-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #4ECDC4;
+    font-size: 0.9rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff00;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    padding: 2rem;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.image-border {
+    position: absolute;
+    inset: 1.5rem;
+    border: 3px solid transparent;
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    background-clip: padding-box;
+    border-radius: 50%;
+    animation: rotate 8s linear infinite;
+}
+
+.card-footer {
+    padding: 1.5rem;
+}
+
+.card-footer h4 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.card-footer p {
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.connect-btn {
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.connect-btn:hover {
+    transform: translateY(-2px);
+}

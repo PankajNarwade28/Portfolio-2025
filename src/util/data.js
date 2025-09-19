@@ -63,14 +63,22 @@ const SKILLS = [
 const ACHIEVEMENTS = [
   {
     id: 1,
+    title: "Student of the Year & BCA Topper",
+    description: "Awarded 'Student of the Year' and secured the Top position in BCA.",
+    icon: "🏆🥇",
+    category: "Academic",
+  year: "2024"
+},
+  {
+    id: 2,
     title: "Academic Excellence",
     description: "Maintained 8.68 CGPA in Master of Computer Applications",
     icon: "🎓",
     category: "Academic",
-    year: "2024"
+    year: "2025"
   },
   {
-    id: 2,
+    id: 3,
     title: "Full Stack Mastery",
     description: "Proficient in MERN stack development with 10+ projects completed",
     icon: "💻",
@@ -78,21 +86,14 @@ const ACHIEVEMENTS = [
     year: "2024"
   },
   {
-    id: 3,
+    id: 4,
     title: "Problem Solver",
     description: "Solved 100+ coding challenges on various platforms",
     icon: "🧩",
     category: "Programming",
-    year: "2023"
+    year: "Current"
   },
- {
-    id: 4,
-    title: "Student of the Year & BCA Topper",
-    description: "Awarded 'Student of the Year' and secured the top position in BCA program.",
-    icon: "🏆🥇",
-    category: "Academic",
-  year: "2024"
-},
+ 
 ];
 
 const EDUCATION = [
