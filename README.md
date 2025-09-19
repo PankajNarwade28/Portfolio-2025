@@ -22,8 +22,6 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 - **Animations:** CSS animations & transitions  
 - **Email Support:** EmailJS  
 
- 
----
 ---
 
 ## 🚀 Getting Started  
@@ -85,6 +83,7 @@ If you’d like to connect, collaborate, or hire me:
 
 ```
  
+
 
 
 
