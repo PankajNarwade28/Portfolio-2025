@@ -48,7 +48,6 @@
     ]
    
   },
-    "proxy":[ "https://leetcode.com/",
-     "https://api.github.com/users/"]
+    "proxy": "https://leetcode.com/"
   
 }
