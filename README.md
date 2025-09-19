@@ -24,11 +24,11 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 
 ---
 
-## 📸 Screenshots  
+## 📸 Screenshots     
 
-<img width="1900" height="1028" alt="Portfolio Screenshot 1" src="https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989" />  
+![Portfolio Screenshot 1](https://github.com/user-attachments/assets/ac01a3be-1294-4149-8557-1b40a880a989)  
 
-<img width="1903" height="932" alt="Portfolio Screenshot 2" src="https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016" />  
+![Portfolio Screenshot 2](https://github.com/user-attachments/assets/44027650-39f5-4d10-9c37-3ba62f978016)  
 
 ---
 ---
@@ -85,5 +85,6 @@ If you’d like to connect, collaborate, or hire me:
 
 ```
  
+
 
 
