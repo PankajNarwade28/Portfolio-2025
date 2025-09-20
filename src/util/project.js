@@ -37,7 +37,7 @@ export const PROJECTS = [
     "title": "Quiz App",
     "tech": "React.js",
     "description": "An interactive quiz application for testing knowledge, built with React.",
-    "github": "https://github.com/PankajNarwade28/Quiz-App",
+    "github": "https://github.com/PankajNarwade28/Quiz_App",
     "liveDemo": null,
     "image": "./assets/images/quiz.jpg",
     "category": "Frontend",
