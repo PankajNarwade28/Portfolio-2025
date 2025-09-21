@@ -81,12 +81,5 @@ If you’d like to connect, collaborate, or hire me:
 * Guidance & brainstorming with **Claude AI**
 
 ```
- 
-
-
-
-
-
-
 
 
