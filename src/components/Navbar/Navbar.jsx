@@ -39,7 +39,7 @@ useEffect(() => {
     setScrolled(scrollPosition > 50);
 
     // Update active section based on scroll position
-    const sections = ["Home", "About", "Project", "Contact", "Footer"];
+    const sections = ["Home", "About", "Project", "Contact", "Certification", "Footer"];
     const currentSection = sections.find(section => {
       const element = document.getElementById(section);
       if (element) {
@@ -104,6 +104,7 @@ useEffect(() => {
     { id: "Home", label: "Home", icon: "🏠" },
     { id: "About", label: "About", icon: "👨‍💻" }, 
     { id: "Project", label: "Projects", icon: "🚀" },
+    { id: "Certification", label: "Certification", icon: "📜" },
     { id: "Contact", label: "Contact", icon: "📧" }
   ];
 
