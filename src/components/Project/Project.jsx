@@ -46,13 +46,13 @@ const ProjectCard = ({ title, tech, image, github, liveDemo, description, catego
           />
           {!imageLoaded && <div className="image-placeholder">Loading...</div>}
           <div className="image-overlay">
-            <button className="view-project-btn">
+           <a href={liveDemo} style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer"><button className="view-project-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" strokeWidth="2"/>
                 <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
               </svg>
               View Project
-            </button>
+            </button></a> 
           </div>
         </div>
 
