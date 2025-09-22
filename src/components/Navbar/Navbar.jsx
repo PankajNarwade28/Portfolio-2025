@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { resumeLink } from "../../util/resume";
 import "./Navbar.css";
 export const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -148,7 +149,7 @@ useEffect(() => {
 
             {/* Resume Button */}
             <a
-              href="https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing"
+              href={resumeLink}
               target="_blank"
               rel="noreferrer"
               className="resume-btn"
@@ -218,7 +219,7 @@ useEffect(() => {
 
           <div className="mobile-nav-footer">
             <a
-              href="https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing"
+              href={resumeLink}
               target="_blank"
               rel="noreferrer"
               className="mobile-resume-btn"
