@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Footer.css"; 
+import { resumeLink } from "../../util/resume";
 export const Footer = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +28,7 @@ export const Footer = () => {
   }, []);
 
   const quickActions = [
-  { name: "Download Resume", href: "https://drive.google.com/file/d/1mXPYjUQn2j71N-a7M9XZoeKCWGTIm4HY/view?usp=sharing", icon: "/assets/images/download.png" },
+  { name: "Download Resume", href: resumeLink, icon: "/assets/images/download.png" },
   { name: "Email Me", href: "mailto:pankajnarwade258@gmail.com", icon: "/assets/images/email.png" }
 ];
 
