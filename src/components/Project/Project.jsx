@@ -46,13 +46,26 @@ const ProjectCard = ({ title, tech, image, github, liveDemo, description, catego
           />
           {!imageLoaded && <div className="image-placeholder">Loading...</div>}
           <div className="image-overlay">
-           <a href={liveDemo} style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer"><button className="view-project-btn">
+           {liveDemo ? (
+              <a href={liveDemo} style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer">
+              <button className="view-project-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" strokeWidth="2"/>
                 <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
               </svg>
               View Project
             </button></a> 
+            ) : (
+              <span className="overlay-btn disabled">
+                 
+                <button className="view-project-btn" style={{ cursor: 'not-allowed' }} disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <circle cx="12" cy="12" r="10"/>
+  <path d="M4.93 4.93l14.14 14.14"/>
+</svg>
+              No Demo            </button>
+              </span>
+            )}
           </div>
         </div>
 
@@ -82,30 +95,46 @@ const ProjectCard = ({ title, tech, image, github, liveDemo, description, catego
             ))}
           </div>
 
-          <div className="project-actions">
-            {github && (
-              <a 
-                href={github} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="action-btn primary"
-              >
-                <FaGithub />
-                Code
-              </a>
-            )}
-            {liveDemo && (
-              <a 
-                href={liveDemo}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="action-btn secondary"
-              >
-                <FaLink />
-                Live Demo
-              </a>
-            )}
-          </div>
+        <div className="project-actions">
+  {github && (
+    <a
+      href={github}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="action-btn primary"
+    >
+      <FaGithub />
+      Code
+    </a>
+  )}
+  {liveDemo && (
+    <a
+      href={liveDemo}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="action-btn secondary"
+    >
+      <FaLink />
+      Live Demo
+    </a>
+  )}
+  {!github && !liveDemo && (
+    <button className="action-btn disabled secondary" style={{ cursor: 'not-allowed' }} disabled>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M4.93 4.93l14.14 14.14" />
+      </svg>
+      Not Available
+    </button>
+  )}
+</div>
         </div>
       </div>
     </div>
@@ -164,26 +193,8 @@ export const Project = () => {
     { value: "frontend", label: "Frontend", icon: "🎨" }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isLoading && visibleProjects < filteredProjects.length) {
-          loadMore();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, [isLoading, visibleProjects, filteredProjects]);
+  // Check if there are more projects to load
+  const hasMoreProjects = visibleProjects < filteredProjects.length;
 
   return (
     <div className="projects-section" id="Project">
@@ -247,6 +258,42 @@ export const Project = () => {
             </div>
           ))}
         </div>
+
+        {/* Load More Button */}
+        {hasMoreProjects && (
+          <div className="load-more-container">
+            <button 
+              className={`load-more-btn ${isLoading ? 'loading' : ''}`}
+              onClick={loadMore}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <div className="loading-spinner"></div>
+                  <span>Loading...</span>
+                </>
+              ) : (
+                <>
+                  <span>Load More Projects</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M5 12L12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </>
+              )}
+            </button>
+            <div className="load-more-info">
+              Showing {Math.min(visibleProjects, filteredProjects.length)} of {filteredProjects.length} projects
+            </div>
+          </div>
+        )}
+
+        {/* No more projects message */}
+        {!hasMoreProjects && filteredProjects.length > 6 && (
+          <div className="no-more-projects">
+            <div className="no-more-icon">🎉</div>
+            <p>You've seen all {filteredProjects.length} projects!</p>
+          </div>
+        )}
       </div>
     </div>
   );
