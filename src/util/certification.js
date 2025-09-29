@@ -24,6 +24,18 @@ const CERTIFICATIONS = [
     status: "Verified",
     type: "professional"
   }, 
+  {
+    id: 3,
+    title: "Python for Begineners",
+    issuer: "SkillUp (Simplilearn)",
+    date: "2024",
+    verifyLink: "https://drive.google.com/file/d/1fFKMlCWV292lPkaUqtHNWzo_vSMHggc6/view?usp=sharing",
+    credentialId: "7544040",
+    skills: ["Python", "Data Science", "Machine Learning"],
+    image: "./assets/images/python.jpeg",
+    status: "Verified",
+    type: "professional"
+  }, 
 ];
 
 export { CERTIFICATIONS };
