@@ -17,7 +17,7 @@ const CERTIFICATIONS = [
     title: "CPP Programming",
     issuer: "IIT Bombay",
     date: "2025",
-    verifyLink: "https://drive.google.com/file/d/1nNlomYj-ReKNcL2uHJvc69TZiffcMrBU/view?usp=sharing",
+    verifyLink: "https://drive.google.com/file/d/1fFKMlCWV292lPkaUqtHNWzo_vSMHggc6/view?usp=sharing",
     credentialId: "4051954TYE",
     skills: ["CPP", "OOPs Concepts", "Data Structures"],
     image: "./assets/images/cpp.jpeg", 
@@ -26,6 +26,18 @@ const CERTIFICATIONS = [
   }, 
   {
     id: 3,
+    title: "Java Training",
+    issuer: "IIT Bombay",
+    date: "2025",
+    verifyLink: "https://drive.google.com/file/d/1nNlomYj-ReKNcL2uHJvc69TZiffcMrBU/view?usp=sharing",
+    credentialId: "405195445S",
+    skills: ["JAVA", "core concepts", "OOPs Concepts"],
+    image: "./assets/images/java.jpg", 
+    status: "Verified",
+    type: "professional"
+  }, 
+    {
+    id: 4,
     title: "Python for Begineners",
     issuer: "SkillUp (Simplilearn)",
     date: "2024",
@@ -34,7 +46,7 @@ const CERTIFICATIONS = [
     skills: ["Python", "Data Science", "Machine Learning"],
     image: "./assets/images/python.jpg",
     status: "Verified",
-    type: "professional"
+    type: "certification"
   }, 
 ];
 
