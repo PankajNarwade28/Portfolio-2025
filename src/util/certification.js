@@ -32,7 +32,7 @@ const CERTIFICATIONS = [
     verifyLink: "https://drive.google.com/file/d/1uqRLi5Q8FEIvWhMm55qNtcfGj0PrA484/view?usp=sharing",
     credentialId: "7544040",
     skills: ["Python", "Data Science", "Machine Learning"],
-    image: "./assets/images/python.jpeg",
+    image: "./assets/images/python.jpg",
     status: "Verified",
     type: "professional"
   }, 
