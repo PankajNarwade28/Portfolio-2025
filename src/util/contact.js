@@ -1,26 +1,28 @@
+import { mailtoLink ,githubLink,githubUsername,linkedinLink,leetcodelink} from "./links";
+
 const contactInfo = [
     {
       iconUrl: "./assets/images/email.png",
-      text: "pankajnarwade258@gmail.com",
-      link: "mailto:pankajnarwade258@gmail.com",
+      text: mailtoLink.replace("mailto:", ""),
+      link: mailtoLink,
       platform: "email"
     },
     {
       iconUrl: "./assets/images/github.png",
-      text: "PankajNarwade28",
-      link: "https://github.com/PankajNarwade28/",
+      text: githubUsername,
+      link: githubLink,
       platform: "github"
     },
     {
       iconUrl: "./assets/images/linkedin.png",
-      text: "pankaj-narwade-13a053260",
-      link: "https://www.linkedin.com/in/pankaj-narwade-13a053260",
+      text: linkedinLink.replace("https://www.linkedin.com/in/", ""),
+      link: linkedinLink,
       platform: "linkedin"
     },
     {
-      iconUrl: "./assets/images/leetcode.png", // You'll need to add this image
-      text: "Pankaj_Narwade_28",
-      link: "https://leetcode.com/Pankaj_Narwade_28/",
+      iconUrl: "./assets/images/leetcode.png",  
+      text: leetcodelink.replace("https://leetcode.com/", ""),
+      link: leetcodelink,
       platform: "leetcode"
     }
   ];

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { resumeLink } from "../../util/resume";
+import { resumeLink } from "../../util/links";
 import "./Navbar.css";
 export const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);

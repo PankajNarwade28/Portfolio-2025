@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import "./Contact.css";
 import contactInfo from "../../util/contact"; 
 import ContactForm from "./ContactForm/ContactForm"; 
-
+import { linkedinLink, mailtoLink} from "../../util/links";
 import { ToastContainer, toast } from "react-toastify";
 import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 
@@ -107,14 +107,14 @@ export const Contact = () => {
             <h3>Prefer a quick chat?</h3>
             <p>Feel free to reach out directly via email or connect on social media</p>
             <div className="cta-buttons">
-              <a href="mailto:pankajnarwade258@gmail.com" className="cta-btn primary">
+              <a href={`${mailtoLink}`} className="cta-btn primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
                   <path d="M22 6l-10 7L2 6" stroke="currentColor" strokeWidth="2"/>
                 </svg>
                 Send Quick Email
               </a>
-              <a href="https://www.linkedin.com/in/pankaj-narwade-13a053260" target="_blank" rel="noopener noreferrer" className="cta-btn secondary">
+              <a href={`${linkedinLink}`} target="_blank" rel="noopener noreferrer" className="cta-btn secondary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" strokeWidth="2"/>
                   <rect x="2" y="9" width="4" height="12" stroke="currentColor" strokeWidth="2"/>

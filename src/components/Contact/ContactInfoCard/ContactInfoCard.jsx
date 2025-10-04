@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { username, githubUsername } from "../../../util/links"; 
 
 export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -8,8 +9,8 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
     const [loading, setLoading] = useState(false);
 
     // Replace with your desired LeetCode username
-    const username = 'Pankaj_Narwade_28'; 
-    const githubUsername = 'PankajNarwade28';
+    // const username = 'Pankaj_Narwade_28'; 
+    // const githubUsername = 'PankajNarwade28';
     // For leetcode, fetch the number of solved problems
     useEffect(() => {
         // Only fetch LeetCode stats if the card's platform is 'leetcode'

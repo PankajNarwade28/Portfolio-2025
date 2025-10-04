@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Footer.css"; 
-import { resumeLink } from "../../util/resume";
+import { resumeLink } from "../../util/links";
 export const Footer = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [isVisible, setIsVisible] = useState(false);
