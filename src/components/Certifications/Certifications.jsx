@@ -30,7 +30,6 @@ const CertificationCard = ({ certification }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="card-inner">
-        {/* Card Header with Image */}
         <div className="cert-image-container">
           <img 
             src={certification.image} 
@@ -38,13 +37,11 @@ const CertificationCard = ({ certification }) => {
             className={`cert-image ${imageLoaded ? 'loaded' : ''}`}
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {
-              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMkEyQTJBIi8+CjxwYXRoIGQ9Ik0xNDAgODBIMTYwVjEyMEgxNDBWODBaIiBmaWxsPSIjNEVDREM0Ii8+CjxwYXRoIGQ9Ik0xMjAgMTAwSDEwMFYxNDBIMTIwVjEwMFoiIGZpbGw9IiM0RUNEQ0QiLz4KPHRleHQgeD0iMTUwIiB5PSIxNzAiIGZpbGw9IiNDQ0MiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q2VydGlmaWNhdGU8L3RleHQ+Cjwvc3ZnPg==';
+              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMkEyQTJBIi8+CjxwYXRoIGQ9Ik0xNDAgODBIMTYwVjEyMEgxNDBWODBaIiBmaWxsPSIjNEVDREM0Ii8+CjxwYXRoIGQ9Ik0xMjAgMTAwSDEwMFYxNDBIMTIwVjEwMFoiIGZpbGw9IiM0RUNEQ0QiLz4KPC9zdmc+';
             }}
           />
-          {!imageLoaded && <div className="image-placeholder">📜</div>}
-          
-          {/* Hover Overlay with View Certificate Button */}
-          <div className={`image-overlay ${isHovered ? 'visible' : ''}`}>
+          {!imageLoaded && <div className="image-placeholder">Loading...</div>}
+          <div className="image-overlay">
             <a 
               href={certification.verifyLink}
               target="_blank"
@@ -58,23 +55,25 @@ const CertificationCard = ({ certification }) => {
               View Certificate
             </a>
           </div>
-          
-          {/* Status Badge */}
-          <div className="status-badge">
-            <span className="status-icon">✅</span>
-            <span className="status-text">{certification.status}</span>
-          </div>
+          <span 
+            className="status-badge" 
+            style={{ backgroundColor: getTypeColor(certification.type) }}
+          >
+            {getTypeIcon(certification.type)}
+          </span>
         </div>
 
-        {/* Card Content */}
         <div className="cert-content">
-          {/* Type Badge */}
-          <div className="cert-type-badge" style={{ backgroundColor: getTypeColor(certification.type) }}>
-            <span className="type-icon">{getTypeIcon(certification.type)}</span>
-            <span className="type-text">{certification.type}</span>
+          <div>
+            <span 
+              className="cert-type-badge" 
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+            >
+              <span className="type-icon">{getTypeIcon(certification.type)}</span>
+              <span className="type-text">{certification.type}</span>
+            </span>
           </div>
 
-          {/* Title and Issuer */}
           <div className="cert-header">
             <h3 className="cert-title">{certification.title}</h3>
             <div className="cert-meta">
@@ -84,24 +83,18 @@ const CertificationCard = ({ certification }) => {
             </div>
           </div>
 
-          {/* Credential ID */}
+          <div className="tech-stack">
+            {certification.skills.map((skill, index) => (
+              <span key={index} className="tech-tag">
+                {skill}
+              </span>
+            ))}
+          </div>
+
           <div className="credential-info">
             <span className="credential-label">Credential ID:</span>
             <span className="credential-id">{certification.credentialId}</span>
           </div>
-
-          {/* Skills */}
-          <div className="cert-skills">
-            <div className="skills-list-inline">
-              {certification.skills.map((skill, index) => (
-                <span key={index} className="skill-tag-small">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          
         </div>
       </div>
     </div>
@@ -148,7 +141,6 @@ export const Certifications = () => {
       </div>
 
       <div className="certifications-container">
-        {/* Header */}
         <div className="certifications-header">
           <div className="header-content">
             <h1 className="section-title">
@@ -160,7 +152,6 @@ export const Certifications = () => {
           </div>
         </div>
 
-        {/* Filter Controls */}
         <div className="certifications-controls">
           <div className="cert-filter-container">
             {filterOptions.map((option) => (
@@ -179,7 +170,6 @@ export const Certifications = () => {
           </div>
         </div>
 
-        {/* Results Info */}
         <div className="results-info">
           <div className="results-text">
             Showing <span className="highlight">{Math.min(visibleCertifications, filteredCertifications.length)}</span> of{" "}
@@ -187,7 +177,6 @@ export const Certifications = () => {
           </div>
         </div>
 
-        {/* Certifications Grid */}
         <div className="certifications-grid">
           {filteredCertifications.slice(0, visibleCertifications).map((certification, index) => (
             <div
@@ -200,7 +189,6 @@ export const Certifications = () => {
           ))}
         </div>
 
-        {/* Load More Button */}
         {hasMoreCertifications && (
           <div className="load-more-container">
             <button 
@@ -228,7 +216,6 @@ export const Certifications = () => {
           </div>
         )}
 
-        {/* No more certifications message */}
         {!hasMoreCertifications && filteredCertifications.length > 6 && (
           <div className="no-more-certifications">
             <div className="no-more-icon">🎉</div>
