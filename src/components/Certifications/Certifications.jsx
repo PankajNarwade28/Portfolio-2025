@@ -8,17 +8,19 @@ const CertificationCard = ({ certification }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getTypeColor = (type) => {
-    switch(type) {
-      case 'Professional': return '#4ECDC4';
-      case 'Certification': return '#FFE66D'; 
+    const lowerType = type.toLowerCase();
+    switch(lowerType) {
+      case 'professional': return '#4ECDC4';
+      case 'certification': return '#FFE66D'; 
       default: return '#4ECDC4';
     }
   };
 
   const getTypeIcon = (type) => {
-    switch(type) {
-      case 'Professional': return '🏆';
-      case 'Certification': return '📜'; 
+    const lowerType = type.toLowerCase();
+    switch(lowerType) {
+      case 'professional': return '🏆';
+      case 'certification': return '📜'; 
       default: return '📜';
     }
   };
@@ -70,7 +72,7 @@ const CertificationCard = ({ certification }) => {
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             >
               <span className="type-icon">{getTypeIcon(certification.type)}</span>
-              <span className="type-text">{certification.type}</span>
+              <span className="type-text">{certification.type.charAt(0).toUpperCase() + certification.type.slice(1)}</span>
             </span>
           </div>
 
