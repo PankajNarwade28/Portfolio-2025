@@ -15,8 +15,7 @@ const SKILLS = [
     skills: [
       { skill: "HTML5", percentage: "80%" },
       { skill: "CSS3", percentage: "75%" },
-      { skill: "React.js", percentage: "70%" },
-      
+      { skill: "React.js", percentage: "70%" },     
       { skill: "Bootstrap", percentage: "55%" },
     ],  
   },
