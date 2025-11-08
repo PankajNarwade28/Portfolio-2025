@@ -5,75 +5,44 @@ export const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
-  const [progress,setProgress] = useState(0);
-  // // Handle scroll effect
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollPosition = window.scrollY;
-  //     setScrolled(scrollPosition > 50);
+  // const [progress,setProgress] = useState(0);
+ 
+// Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setScrolled(scrollPosition > 50);
 
-  //     // Update active section based on scroll position
-  //     const sections = ["Home", "About",  "Project", "Contact","Footer"];
-  //     const currentSection = sections.find(section => {
-  //       const element = document.getElementById(section);
-  //       if (element) {
-  //         const rect = element.getBoundingClientRect();
-  //         return rect.top <= 100 && rect.bottom >= 100;
-  //       }
-  //       return false;
-  //     });
+      // Define a reference point (e.g., 100px down from the viewport top)
+      const NAVBAR_HEIGHT_OFFSET = 100;
 
-  //     if (currentSection) {
-  //       setActiveSection(currentSection);
-  //     }
-  //   };
+      // Update active section based on scroll position
+      const sections = ["Home", "About", "Project", "Certification", "Contact", "Footer"];
+      
+      // Find the last section whose top edge has passed the NAVBAR_HEIGHT_OFFSET line.
+      const currentSection = sections.slice().reverse().find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rectTop = element.getBoundingClientRect().top;
+          return rectTop <= NAVBAR_HEIGHT_OFFSET;
+        }
+        return false;
+      });
 
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-  // Handle scroll effect
-useEffect(() => {
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    setScrolled(scrollPosition > 50);
-
-    // Update active section based on scroll position
-    const sections = ["Home", "About", "Project", "Contact", "Certification", "Footer"];
-    const currentSection = sections.find(section => {
-      const element = document.getElementById(section);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        return rect.top <= 80 && rect.bottom >= 100;
+      if (currentSection) {
+        setActiveSection(currentSection);
+      } else if (scrollPosition < NAVBAR_HEIGHT_OFFSET && activeSection !== "Home") {
+          setActiveSection("Home");
       }
-      return false;
-    });
+      
+      // 🔥 Scroll progress calculation (Removed setProgress logic, JSX handles it)
+    };
 
-    if (currentSection) {
-      setActiveSection(currentSection);
-    }
+    handleScroll(); 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSection]);
 
-    // 🔥 Scroll progress calculation
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (window.scrollY / scrollHeight) * 100;
-
-    // If near footer → force 100%
-    const footer = document.getElementById("Footer");
-    if (footer) {
-      const rect = footer.getBoundingClientRect();
-      if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-        setProgress(100);
-      } else {
-        setProgress(scrolled);
-      }
-    } else {
-      setProgress(scrolled);
-    }
-  };
-
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
