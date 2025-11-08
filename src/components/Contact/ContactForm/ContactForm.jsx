@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react"; 
 import emailjs from "@emailjs/browser";
-import { toast } from "react-toastify";
 
 // ContactForm component now accepts setLoading and toast as props
 const ContactForm = ({ setLoading, toast }) => {

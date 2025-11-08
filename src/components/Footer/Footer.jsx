@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Footer.css"; 
 import { resumeLink } from "../../util/links";
 export const Footer = () => {
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -104,8 +104,8 @@ const socialLinks = [
               <ul className="nav-links">
                 {quickActions.map((action, index) => (
                   <li key={action.name} style={{ '--animation-delay': `${index * 0.1}s` }}>
-                    <a href={action.href} className="nav-link" target={action.href.startsWith('http') ? '_blank' : '_self'}>
-                      <span className="link-icon"><i class={action.icon}></i></span>
+                    <a href={action.href} className="nav-link" target={action.href.startsWith('http') ? '_blank' : '_self'} rel={action.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                      <span className="link-icon"><i className={action.icon}></i></span>
 
                       <span className="link-text">{action.name}</span>
                     </a>

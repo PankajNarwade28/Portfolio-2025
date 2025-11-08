@@ -1,21 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { username, githubUsername } from "../../../util/links"; 
+import { username } from "../../../util/links"; 
 
 export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => {
-    const [isHovered, setIsHovered] = useState(false);
     const [solvedCount, setSolvedCount] = useState(null);
-     const [repoCount, setRepoCount] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Replace with your desired LeetCode username
-    // const username = 'Pankaj_Narwade_28'; 
-    // const githubUsername = 'PankajNarwade28';
     // For leetcode, fetch the number of solved problems
     useEffect(() => {
         // Only fetch LeetCode stats if the card's platform is 'leetcode'
         if (platform === 'leetcode') {
             setLoading(true);
+            const leetcodeUsername = username;
             const fetchLeetCodeStats = async () => {
                 try {
                     const response = await fetch('/graphql', {
@@ -36,7 +32,7 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
                                     }
                                 }
                             `,
-                            variables: { username },
+                            variables: { username: leetcodeUsername },
                         }),
                     });
 
@@ -66,34 +62,7 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
             };
             fetchLeetCodeStats();
         }
-    }, [platform, username]);
-    // For GitHub, fetch the number of public repositories
-    useEffect(() => {
-    const fetchGithubStats = async () => {
-      try {
-        const response = await fetch(`https://api.github.com/users/${username}`);
-        
-        if (!response.ok) {
-          throw new Error(`GitHub user "${username}" not found.`);
-        }
-
-        const data = await response.json();
-        
-        // The total public repositories count is in the 'public_repos' field
-        setRepoCount(data.public_repos);
-
-      } catch (err) {
-        console.error('Error fetching GitHub stats:', err);
-        setRepoCount('N/A');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (username) {
-        fetchGithubStats();
-    }
-  }, [username]);
+    }, [platform]);
 
     const handleClick = () => {
         if (platform === 'email') {
@@ -116,8 +85,6 @@ export const ContactInfoCard = ({ iconUrl, text, link, platform, isActive }) => 
     return (
         <div
             className={`contact-info-card ${isActive ? 'active' : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             onClick={handleClick}
             style={{ '--platform-color': getPlatformColor(platform) }}
         >

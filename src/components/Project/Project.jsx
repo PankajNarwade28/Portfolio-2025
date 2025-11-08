@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./Project.css";
 import { PROJECTS } from "../../util/project.js";
 import { FaGithub, FaLink } from "react-icons/fa";
@@ -194,33 +194,19 @@ const ProjectCard = ({
 export const Project = () => {
   const [filter, setFilter] = useState("all");
   const [visibleProjects, setVisibleProjects] = useState(6);
-  const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("newest");
-  const observerRef = useRef();
 
-  // Filter and sort projects
+  // Filter projects
   const filteredProjects = PROJECTS.filter((project) => {
-    const matchesSearch =
-      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.tech.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    if (filter === "all") return matchesSearch;
+    if (filter === "all") return true;
 
     const projectTech = project.tech.toLowerCase();
     const projectCategory = project.category.toLowerCase();
 
     return (
-      matchesSearch &&
-      (projectTech.includes(filter.toLowerCase()) ||
-        projectCategory.includes(filter.toLowerCase()))
+      projectTech.includes(filter.toLowerCase()) ||
+      projectCategory.includes(filter.toLowerCase())
     );
-  }).sort((a, b) => {
-    if (sortBy === "newest") return 0;
-    if (sortBy === "oldest") return 0;
-    if (sortBy === "name") return a.title.localeCompare(b.title);
-    return 0;
   });
 
   const handleFilterChange = (newFilter) => {
@@ -295,12 +281,6 @@ export const Project = () => {
             </span>{" "}
             of <span className="highlight">{filteredProjects.length}</span>{" "}
             projects
-            {searchTerm && (
-              <span className="search-info">
-                {" "}
-                for "<span className="search-term">{searchTerm}</span>"
-              </span>
-            )}
           </div>
         </div>
 
