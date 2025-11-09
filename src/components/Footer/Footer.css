@@ -48,7 +48,7 @@
   height: 2px;
   background: linear-gradient(45deg, #40E0D0, #4ECDC4);
   border-radius: 50%;
-  animation: footerParticleFloat 12s ease-in-out infinite;
+  animation: footerParticleFloat 24s ease-in-out infinite;
   opacity: 0.4;
 }
 
@@ -511,6 +511,7 @@
 .social-title {
   font-size: 20px;
   font-weight: 600;
+  font-family: 'Playfair Display', serif;
   color: #ffffff;
   margin: 0;
   position: relative;
@@ -530,6 +531,7 @@
 .social-description {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
+  font-family: 'Oswald', sans-serif;
   line-height: 1.6;
   margin: 0;
 }
@@ -706,6 +708,7 @@
 .copyright p {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
+  font-family: 'Oswald', sans-serif;
   margin: 0;
 }
 

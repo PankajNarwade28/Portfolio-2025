@@ -64,6 +64,32 @@ export const Skills = ({ activeTab }) => {
     return icons[skillName] || '🛠️';
   };
 
+  const getSkillPrintStatement = (skillName) => {
+    const printStatements = {
+      'HTML5': '<h1>HTML5</h1>',
+      'CSS3': '.css { content: "CSS3"; }',
+      'JS': 'console.log("JavaScript");',
+      'React.js': 'console.log(<React.js />);',
+      'Node.js': 'console.log("Node.js");',
+      'Express.js': 'app.get("/", () => "Express.js");',
+      'MongoDB': 'db.collection.find({name: "MongoDB"})',
+      'Oracle': 'SELECT * FROM Oracle;',
+      'MySql': 'SELECT "MySQL" FROM database;',
+      'Git & Github': 'git commit -m "Git & Github"',
+      'Visual Studio Code': '// VS Code: Coding...',
+      'Bootstrap': '<div class="bootstrap">Bootstrap</div>',
+      'Eclipse': '// Eclipse IDE',
+      'ShadCN': '<ShadCN>UI Component</ShadCN>',
+      'Font Awesome': '<i class="fa">Font Awesome</i>',
+      'Postman': 'GET /api/postman',
+      'CPP': 'cout << "C++" << endl;',
+      'Core Java': 'System.out.println("Core Java");',
+      'Python': 'print("Python")',
+      'Next.js': 'export default Next.js',
+    };
+    return printStatements[skillName] || `print("${skillName}")`;
+  };
+
   return (
     <>
       <div className="section-header">
@@ -86,7 +112,13 @@ export const Skills = ({ activeTab }) => {
                   <div key={skill.skill} className="skill-item">
                     <div className="skill-header">
                       <div className="skill-info">
-                        <span className="skill-icon">{getSkillIcon(skill.skill)}</span>
+                        <span className="skill-icon-wrapper">
+                          <span className="skill-icon">{getSkillIcon(skill.skill)}</span>
+                          <span className="skill-icon-tooltip">
+                            <span className="tooltip-title">{skill.skill}</span>
+                            <span className="tooltip-code">{getSkillPrintStatement(skill.skill)}</span>
+                          </span>
+                        </span>
                         <span className="skill-name">{skill.skill}</span>
                       </div>
                       <span className="skill-percentage">{skill.percentage}</span>

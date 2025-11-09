@@ -35,14 +35,14 @@ export const Hero = () => {
   }, [currentChar, isDeleting, currentWord]);
 
   const techStack = [
-    { name: "MongoDB", icon: "🍃", color: "#47A248" },
-    { name: "Express.js", icon: "⚡", color: "#000000" },
-    { name: "React", icon: "⚛️", color: "#61DAFB" },
-    { name: "Node.js", icon: "🟢", color: "#339933" },
-    { name: "HTML5", icon: "📄", color: "#E34F26" },
-    { name: "CSS3", icon: "🎨", color: "#1572B6" },
-    { name: "JavaScript", icon: "📜", color: "#F7DF1E" },
-    { name: "SQL", icon: "🗄️", color: "#336791" }
+    { name: "MongoDB", icon: "🍃", color: "#47A248", code: 'db.collection.find({name: "MongoDB"})' },
+    { name: "Express.js", icon: "⚡", color: "#000000", code: 'app.get("/", () => "Express.js");' },
+    { name: "React", icon: "⚛️", color: "#61DAFB", code: 'console.log(<React />);' },
+    { name: "Node.js", icon: "🟢", color: "#339933", code: 'console.log("Node.js");' },
+    { name: "HTML5", icon: "📄", color: "#E34F26", code: '<h1>HTML5</h1>' },
+    { name: "CSS3", icon: "🎨", color: "#1572B6", code: '.css { content: "CSS3"; }' },
+    { name: "JavaScript", icon: "📜", color: "#F7DF1E", code: 'console.log("JavaScript");' },
+    { name: "SQL", icon: "🗄️", color: "#336791", code: 'SELECT "SQL" FROM database;' }
   ];
 
   return (
@@ -145,8 +145,8 @@ export const Hero = () => {
                 >
                   <div className="tech-icon-inner">
                     <span className="tech-emoji">{tech.icon}</span>
-                    <span className="tech-name">{tech.name}</span>
                   </div>
+                  <div className="tech-tooltip">{tech.name}</div>
                   <div className="tech-glow" style={{ '--tech-color': tech.color }}></div>
                 </div>
               ))}
@@ -227,12 +227,12 @@ export const Hero = () => {
           height: 4px;
           background: rgba(0, 180, 216, 0.6);
           border-radius: 50%;
-          animation: particleFloat 6s ease-in-out infinite;
+          animation: particleFloat 15s ease-in-out infinite;
         }
 
         .particle:nth-child(odd) {
           background: rgba(251, 133, 0, 0.6);
-          animation-duration: 8s;
+          animation-duration: 20s;
         }
 
         ${Array.from({ length: 20 }, (_, i) => `
@@ -328,6 +328,7 @@ export const Hero = () => {
           color: #ccc;
           margin-bottom: 1rem;
           font-weight: 400;
+          font-family: 'Oswald', sans-serif;
         }
 
         .company-highlight {
@@ -360,6 +361,7 @@ export const Hero = () => {
           color: #ccc;
           line-height: 1.6;
           margin-bottom: 2rem;
+          font-family: 'Oswald', sans-serif;
         }
 
         .highlight {
@@ -513,25 +515,61 @@ export const Hero = () => {
         }
 
         .floating-tech-icon:hover {
-          transform: scale(1.1) translateY(-5px);
+          transform: scale(1.15) translateY(-5px);
           background: rgba(255, 255, 255, 0.1);
+          box-shadow: 0 8px 20px rgba(0, 180, 216, 0.3);
+        }
+
+        .floating-tech-icon:hover .tech-tooltip {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(-8px);
         }
 
         .tech-icon-inner {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          justify-content: center;
           color: white;
+          position: relative;
+          z-index: 2;
         }
 
         .tech-emoji {
           font-size: 1.5rem;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
-        .tech-name {
-          font-size: 0.8rem;
+        .tech-tooltip {
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%) translateY(0);
+          background: linear-gradient(135deg, rgba(0, 180, 216, 0.95), rgba(78, 205, 196, 0.95));
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          font-size: 0.75rem;
           font-weight: 600;
+          font-family: 'Oswald', sans-serif;
           white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          pointer-events: none;
+          z-index: 1000;
+          box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tech-tooltip::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 6px solid transparent;
+          border-top-color: rgba(0, 180, 216, 0.95);
         }
 
         .tech-glow {
@@ -548,14 +586,14 @@ export const Hero = () => {
           opacity: 0.3;
         }
 
-        .tech-0 { top: 10%; left: 10%; }
-        .tech-1 { top: 5%; right: 15%; }
-        .tech-2 { top: 30%; left: -10%; }
-        .tech-3 { top: 25%; right: -5%; }
-        .tech-4 { bottom: 35%; left: 5%; }
-        .tech-5 { bottom: 30%; right: 10%; }
-        .tech-6 { bottom: 10%; left: 15%; }
-        .tech-7 { bottom: 5%; right: 20%; }
+        .tech-0 { top: 5%; left: -5%; }
+        .tech-1 { top: 2%; right: 5%; }
+        .tech-2 { top: 35%; left: -20%; }
+        .tech-3 { top: 30%; right: -15%; }
+        .tech-4 { bottom: 35%; left: -10%; }
+        .tech-5 { bottom: 32%; right: -5%; }
+        .tech-6 { bottom: 8%; left: 5%; }
+        .tech-7 { bottom: 2%; right: 10%; }
 
         .profile-image-container {
           position: absolute;

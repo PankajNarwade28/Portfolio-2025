@@ -18,19 +18,17 @@
   inset: 0;
 }
 
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #4ECDC4;
-  border-radius: 50%;
-  animation: particleFloat 10s ease-in-out infinite;
-  opacity: 0.6;
-}
-
-.particle:nth-child(odd) {
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #4ECDC4;
+    border-radius: 50%;
+    animation: particleFloat 20s ease-in-out infinite;
+    opacity: 0.6;
+  }.particle:nth-child(odd) {
   background: #FFE66D;
-  animation-duration: 15s;
+  animation-duration: 25s;
 }
 
 .gradient-orb {
@@ -75,6 +73,7 @@
   font-size: clamp(2rem, 5vw, 3rem);
   color: white;
   font-weight: 700;
+  font-family: 'Playfair Display', serif;
   margin-top: 0 !important;
   line-height: 1.2;
 }
@@ -89,6 +88,7 @@
 .section-subtitle {
   font-size: 1rem;
   color: #ccc;
+  font-family: 'Oswald', sans-serif;
   margin-bottom: 1.5rem;
   max-width: 500px;
   margin-left: auto;
@@ -358,6 +358,7 @@
   color: #ccc;
   line-height: 1.5;
   font-size: 0.95rem;
+  font-family: 'Oswald', sans-serif;
   margin-bottom: 1rem;
   flex: 1;
 }
