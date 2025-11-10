@@ -834,6 +834,20 @@ export const Hero = () => {
             height: 250px;
           }
 
+          .tech-tooltip {
+            position: fixed;
+            bottom: auto;
+            left: 50% !important;
+            top: 50%;
+            transform: translate(-50%, -50%) !important;
+            max-width: 85vw;
+            min-width: auto;
+            width: max-content;
+          }
+
+          .floating-tech-icon:hover .tech-tooltip {
+            transform: translate(-50%, -50%) !important;
+          }
          
         }
 
