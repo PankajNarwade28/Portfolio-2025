@@ -1,5 +1,6 @@
  
-# 🌐 Personal Portfolio  
+# 🌐 Personal Modern Portfolio  
+
 
 A modern and fully responsive **portfolio website** built with **React** and **Vanilla CSS**, designed with the help of **Claude AI**.  
 This portfolio highlights my projects, skills, and achievements with a focus on **great UI/UX, animations, and background effects**.  
@@ -82,3 +83,4 @@ If you’d like to connect, collaborate, or hire me:
 * Guidance & brainstorming with **Claude AI**
 
 ```
+
