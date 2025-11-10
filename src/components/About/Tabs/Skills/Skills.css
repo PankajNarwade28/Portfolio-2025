@@ -267,5 +267,6 @@
 
     .skill-item {
         cursor: default;
+        text-align: center;
     }
 }
