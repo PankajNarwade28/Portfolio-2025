@@ -479,6 +479,10 @@
     .section-title {
       font-size: 2rem;
     }
+
+    .project-item{
+      min-width: 90vw;
+    }
   }
 
   @media (max-width: 480px) {
@@ -518,6 +522,9 @@
     .action-btn {
       font-size: 0.85rem;
       padding: 0.4rem 0.7rem;
+    }
+    .project-item{
+      min-width: 95vw;
     }
   }
 
