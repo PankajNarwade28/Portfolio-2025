@@ -179,6 +179,7 @@
   animation-fill-mode: both;
   max-width: 500px;
   margin: 0 auto;
+  margin-bottom: 5px;
 }
 
 /* Certification Card */
@@ -569,6 +570,8 @@
   }
   .certification-item{
     min-width: 80vw;
+    max-width: 80vw;
+    margin-bottom: 10px;
   }
 }
 
