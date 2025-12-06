@@ -1,4 +1,4 @@
- 
+
 # 🌐 Personal Modern Portfolio  
 
 
@@ -79,8 +79,11 @@ If you’d like to connect, collaborate, or hire me:
 
 ## 🙌 Acknowledgements
 
-* Built with 💻 React & CSS
+* Built with 💻 React & CSS , Love.
 * Guidance & brainstorming with **Claude AI**
 
 ```
+
+
+
 
