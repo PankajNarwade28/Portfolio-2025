@@ -43,10 +43,10 @@ const ContactForm = ({ setLoading, toast }) => {
 
     try {
       await emailjs.sendForm(
-        "service_mszjm2s",
-        "template_57ke0yr",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         form.current,
-        { publicKey: "PiuldxkokUNi2N_rt" }
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY }
       );
       // The toast function is now called from the prop
       toast.success("Message sent successfully! I'll get back to you soon.");
