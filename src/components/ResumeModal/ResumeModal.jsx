@@ -14,11 +14,14 @@ export const ResumeModal = ({ isOpen, onClose, pdfUrl }) => {
   };
 
   const handlePrint = () => {
-    const iframe = document.querySelector('.pdf-iframe');
+    const iframe = document.querySelector('.resume-pdf-iframe');
     if (iframe) {
       iframe.contentWindow.print();
     }
   };
+
+  // Use Google Docs Viewer for better mobile compatibility
+  const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`;
 
   return (
     <div className="resume-modal-overlay" onClick={onClose}>
@@ -52,10 +55,9 @@ export const ResumeModal = ({ isOpen, onClose, pdfUrl }) => {
         </div>
         <div className="resume-modal-body">
           <iframe
-            src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`}
+            src={viewerUrl}
             title="Resume PDF"
             className="resume-pdf-iframe"
-            type="application/pdf"
           />
         </div>
       </div>
