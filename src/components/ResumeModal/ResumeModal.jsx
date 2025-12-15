@@ -52,9 +52,10 @@ export const ResumeModal = ({ isOpen, onClose, pdfUrl }) => {
         </div>
         <div className="resume-modal-body">
           <iframe
-            src={pdfUrl}
+            src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`}
             title="Resume PDF"
             className="resume-pdf-iframe"
+            type="application/pdf"
           />
         </div>
       </div>

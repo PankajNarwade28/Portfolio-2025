@@ -126,6 +126,9 @@
   height: 100%;
   border: none;
   background: white;
+  min-height: 400px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Mobile Responsive */
@@ -163,6 +166,10 @@
 
   .resume-download-btn {
     flex: 1;
+  }
+
+  .resume-pdf-iframe {
+    min-height: 300px;
   }
 }
 
