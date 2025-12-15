@@ -1,4 +1,4 @@
-export const resumeLink = "https://drive.google.com/file/d/1RCC_SjPkLGG433dfp36jZnGbXprkrYq3/view?usp=sharing";
+export const resumeLink = "/assets/pdf/pankaj_narwade_nov_25.pdf";
 
 export const instagramLink = "https://www.instagram.com/pankajnarwade.patil/";
 export const githubLink = "https://github.com/PankajNarwade28";

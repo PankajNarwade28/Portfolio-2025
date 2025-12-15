@@ -391,13 +391,13 @@
   }
 }
 
-.nav-section {
+.footer-nav-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.nav-title {
+.footer-nav-title {
   font-size: 20px;
   font-weight: 600;
   color: #ffffff;
@@ -405,7 +405,7 @@
   position: relative;
 }
 
-.nav-title::after {
+.footer-nav-title::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -416,7 +416,7 @@
   border-radius: 2px;
 }
 
-.nav-links {
+.footer-nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -425,7 +425,7 @@
   gap: 12px;
 }
 
-.nav-links li {
+.footer-nav-links li {
   animation: footerNavSlideIn 0.6s ease-out both;
   animation-delay: var(--animation-delay, 0s);
 }
@@ -441,7 +441,7 @@
   }
 }
 
-.nav-link {
+.footer-nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -452,14 +452,19 @@
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
-.nav-link:hover {
+.footer-nav-link:hover {
   color: #40E0D0;
   transform: translateX(5px);
 }
 
-.nav-link::before {
+.footer-nav-link::before {
   content: '';
   position: absolute;
   left: -10px;
@@ -471,7 +476,7 @@
   transition: width 0.3s ease;
 }
 
-.nav-link:hover::before {
+.footer-nav-link:hover::before {
   width: 6px;
 }
 
@@ -481,7 +486,7 @@
   transition: all 0.3s ease;
 }
 
-.nav-link:hover .link-icon {
+.footer-nav-link:hover .link-icon {
   transform: scale(1.2);
   opacity: 1;
 }
@@ -871,7 +876,7 @@
     font-size: 28px;
   }
   
-  .nav-title, .social-title {
+  .footer-nav-title, .social-title {
     font-size: 18px;
     text-align: center;
   }
@@ -930,11 +935,11 @@
     font-size: 16px;
   }
   
-  .nav-links {
+  .footer-nav-links {
     gap: 8px;
   }
   
-  .nav-link {
+  .footer-nav-link {
     font-size: 14px;
     padding: 6px 0;
   }
@@ -1025,7 +1030,7 @@
 }
 
 /* Focus Styles for Accessibility */
-.nav-link:focus,
+.footer-nav-link:focus,
 .social-link:focus,
 .contact-email-btn:focus,
 .newsletter-input:focus,
@@ -1043,11 +1048,11 @@
     border-top: 2px solid #40E0D0;
   }
   
-  .nav-link, .social-link {
+  .footer-nav-link, .social-link {
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
   
-  .nav-link:hover, .social-link:hover {
+  .footer-nav-link:hover, .social-link:hover {
     border-color: #40E0D0;
     background: rgba(64, 224, 208, 0.1);
   }

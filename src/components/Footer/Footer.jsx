@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Footer.css"; 
 import { resumeLink } from "../../util/links";
+import { ResumeModal } from "../ResumeModal/ResumeModal";
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,7 +30,7 @@ export const Footer = () => {
   }, []);
 
   const quickActions = [
-  { name: "Download Resume", href: resumeLink, icon: "/assets/images/download.png" },
+  { name: "Download Resume", action: () => setIsPdfOpen(true), icon: "/assets/images/download.png" },
   { name: "Email Me", href: "mailto:pankajnarwade258@gmail.com", icon: "/assets/images/email.png" }
 ];
 
@@ -99,16 +101,22 @@ const socialLinks = [
           <div className={`footer-nav ${isVisible ? 'animate-in' : ''}`}>
            
 
-            <div className="nav-section">
-              <h3 className="nav-title">Quick Actions</h3>
-              <ul className="nav-links">
+            <div className="footer-nav-section">
+              <h3 className="footer-nav-title">Quick Actions</h3>
+              <ul className="footer-nav-links">
                 {quickActions.map((action, index) => (
                   <li key={action.name} style={{ '--animation-delay': `${index * 0.1}s` }}>
-                    <a href={action.href} className="nav-link" target={action.href.startsWith('http') ? '_blank' : '_self'} rel={action.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                      <span className="link-icon"><i className={action.icon}></i></span>
-
-                      <span className="link-text">{action.name}</span>
-                    </a>
+                    {action.action ? (
+                      <button onClick={action.action} className="footer-nav-link">
+                        <span className="link-icon"><i className={action.icon}></i></span>
+                        <span className="link-text">{action.name}</span>
+                      </button>
+                    ) : (
+                      <a href={action.href} className="footer-nav-link" target={action.href?.startsWith('http') ? '_blank' : '_self'} rel={action.href?.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                        <span className="link-icon"><i className={action.icon}></i></span>
+                        <span className="link-text">{action.name}</span>
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -182,6 +190,12 @@ const socialLinks = [
           </div>
         </div>
       </div>
+
+      <ResumeModal 
+        isOpen={isPdfOpen} 
+        onClose={() => setIsPdfOpen(false)} 
+        pdfUrl={resumeLink} 
+      />
     </footer>
   );
 };

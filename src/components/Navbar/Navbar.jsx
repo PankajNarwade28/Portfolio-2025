@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { resumeLink } from "../../util/links";
+import { ResumeModal } from "../ResumeModal/ResumeModal";
 import "./Navbar.css";
 export const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
   // const [progress,setProgress] = useState(0);
  
 // Handle scroll effect
@@ -118,16 +120,14 @@ export const Navbar = () => {
             </ul>
 
             {/* Resume Button */}
-            <a
-              href={resumeLink}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={() => setIsPdfOpen(true)}
               className="resume-btn"
             >
               <span className="btn-icon">📄</span>
               <span>CV</span>
               <div className="btn-shine"></div>
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -188,16 +188,16 @@ export const Navbar = () => {
           </ul>
 
           <div className="mobile-nav-footer">
-            <a
-              href={resumeLink}
-              target="_blank"
-              rel="noreferrer"
+            <button
               className="mobile-resume-btn"
-              onClick={closeMenu}
+              onClick={() => {
+                setIsPdfOpen(true);
+                closeMenu();
+              }}
             >
               <span>📄</span>
-              <span>Download Resume</span>
-            </a>
+              <span>View Resume</span>
+            </button>
 
             <div className="mobile-social-links">
               <a href="https://www.linkedin.com/in/pankaj-narwade-13a053260" className="mobile-social-link">
@@ -237,6 +237,12 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <ResumeModal 
+        isOpen={isPdfOpen} 
+        onClose={() => setIsPdfOpen(false)} 
+        pdfUrl={resumeLink} 
+      />
 
       <style jsx>{`
         .navbar {
@@ -352,7 +358,7 @@ export const Navbar = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          padding: 0.75rem 1rem;
+          padding: 0.6rem 0.8rem;
           color: #ccc;
           text-decoration: none;
           border-radius: 25px;
@@ -420,11 +426,22 @@ export const Navbar = () => {
           overflow: hidden;
           border: none;
           cursor: pointer;
+          font-family: inherit;
         }
 
         .resume-btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+        }
+
+        .resume-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+
+        .resume-btn:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
         }
 
         .btn-icon {
@@ -653,17 +670,6 @@ export const Navbar = () => {
           opacity: 0.5;
           transition: all 0.3s ease;
         }
-
-        .mobile-nav-link:hover .mobile-nav-arrow,
-        .mobile-nav-link.active .mobile-nav-arrow {
-          opacity: 1;
-          transform: translateX(5px);
-        }
-
-        .mobile-nav-footer {
-          padding: 0 1.5rem;
-        }
-
         .mobile-resume-btn {
           display: flex;
           align-items: center;
@@ -678,6 +684,30 @@ export const Navbar = () => {
           font-weight: 600;
           margin-bottom: 1.5rem;
           transition: transform 0.3s ease;
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          font-family: inherit;
+        }
+
+        .mobile-resume-btn:hover {
+          transform: translateY(-2px);
+        }
+
+        .mobile-resume-btn:active {
+          transform: translateY(0);
+        }
+
+        .mobile-resume-btn:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
+        } border-radius: 12px;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          transition: transform 0.3s ease;
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
         }
 
         .mobile-resume-btn:hover {
