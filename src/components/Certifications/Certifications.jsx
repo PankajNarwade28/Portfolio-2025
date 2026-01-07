@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./Certifications.css";
 import { CERTIFICATIONS } from "../../util/certification";
+import { PDFViewerModal } from "../PDFViewerModal/PDFViewerModal";
 
 
-const CertificationCard = ({ certification }) => {
+const CertificationCard = ({ certification, onViewCertificate }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -44,10 +45,8 @@ const CertificationCard = ({ certification }) => {
           />
           {!imageLoaded && <div className="image-placeholder">Loading...</div>}
           <div className="image-overlay">
-            <a 
-              href={certification.verifyLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => onViewCertificate(certification)}
               className="view-cert-btn"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -55,7 +54,7 @@ const CertificationCard = ({ certification }) => {
                 <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
               </svg>
               View Certificate
-            </a>
+            </button>
           </div>
           <span 
             className="status-badge" 
@@ -107,6 +106,15 @@ export const Certifications = () => {
   const [filter, setFilter] = useState("all");
   const [visibleCertifications, setVisibleCertifications] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  const handleViewCertificate = (certification) => {
+    setSelectedCertificate(certification);
+  };
+
+  const handleCloseCertificate = () => {
+    setSelectedCertificate(null);
+  };
 
   // Filter certifications
   const filteredCertifications = CERTIFICATIONS.filter(cert => {
@@ -186,7 +194,10 @@ export const Certifications = () => {
               className="certification-item"
               style={{ '--delay': `${index * 0.1}s` }}
             >
-              <CertificationCard certification={certification} />
+              <CertificationCard 
+                certification={certification} 
+                onViewCertificate={handleViewCertificate}
+              />
             </div>
           ))}
         </div>
@@ -225,6 +236,18 @@ export const Certifications = () => {
           </div>
         )}
       </div>
+
+      {selectedCertificate && (
+        <PDFViewerModal 
+          isOpen={!!selectedCertificate}
+          onClose={handleCloseCertificate}
+          pdfUrl={selectedCertificate.verifyLink}
+          title={selectedCertificate.title}
+          downloadFileName={`${selectedCertificate.title.replace(/\s+/g, '_')}_Certificate.pdf`}
+          showPrint={false}
+          showDownload={false}
+        />
+      )}
     </div>
   );
 };
