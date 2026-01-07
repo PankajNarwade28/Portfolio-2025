@@ -76,10 +76,12 @@ export const PDFViewerModal = ({
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    if (isMobile || isIOS) {
-      setViewerType('google'); // Use Google Viewer for mobile
+    // For local PDFs, use native viewer with mobile-friendly settings
+    // Google Viewer only works with publicly accessible URLs
+    if (pdfUrl.startsWith('http') && (isMobile || isIOS)) {
+      setViewerType('google'); // Use Google Viewer for external mobile PDFs
     } else {
-      setViewerType('native'); // Use native browser PDF viewer for desktop
+      setViewerType('native'); // Use native browser PDF viewer for all local files
     }
     
     setTimeout(() => setIsLoading(false), 500);
@@ -116,7 +118,8 @@ export const PDFViewerModal = ({
       case 'google':
         return `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
       case 'native':
-        return `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
+        // Add parameters to force inline viewing on mobile
+        return `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=page-fit`;
       default:
         return pdfUrl;
     }

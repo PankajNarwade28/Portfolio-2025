@@ -337,6 +337,15 @@
   .pdf-viewer-footer {
     padding: 12px 18px;
   }
+  
+  /* Tablet PDF iframe optimization */
+  .pdf-viewer-content iframe {
+    width: 100% !important;
+    min-height: 500px !important;
+    border: none !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
 
   .pdf-viewer-info {
     font-size: 0.8rem;
@@ -370,6 +379,15 @@
 
   .pdf-viewer-loader p {
     font-size: 1rem;
+  }
+  
+  /* Mobile PDF iframe optimization */
+  .pdf-viewer-content iframe {
+    width: 100% !important;
+    min-height: 400px !important;
+    border: none !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 }
 
