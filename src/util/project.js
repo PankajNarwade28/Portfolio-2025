@@ -33,16 +33,16 @@ export const PROJECTS = [
     "status": "planning"
   },
   {
-    "id": 4,
-    "title": "Quiz App",
-    "tech": "React.js",
-    "description": "An interactive quiz application for testing knowledge, built with React.",
-    "github": null,
-    "liveDemo": null,
-    "image": "./assets/images/quiz.jpg",
-    "category": "Frontend",
-    "status": "in-progress"
-  },
+  "id": 4,
+  "title": "Store Management & Rating System",
+  "tech": "React.js, Node.js, MySQL , Express.js",
+  "description": "A full-stack role-based platform for managing stores and user feedback with secure JWT authentication and automated data logic.",
+  "github": "https://github.com/PankajNarwade28/Login_System_Roxiler_Intern",
+  "liveDemo": null,
+  "image": "./assets/images/login.jpg",
+  "category": "Full Stack",
+  "status": "completed"
+},
   {
     "id": 5,
     "title": "Cocktail's Bar Webpage",
@@ -54,17 +54,17 @@ export const PROJECTS = [
     "category": "Frontend",
     "status": "completed"
   },
-  {
+{
     "id": 6,
-    "title": "Parallax App",
-    "tech": "HTML, CSS, React.js",
-    "description": "A showcase of the parallax scrolling effect, demonstrating advanced CSS techniques.",
-    "github": null,
+    "title": "PrimeTrade Simulator",
+    "tech": "Next.js, Tailwind CSS, Express.js, Node.js, MySQL",
+    "description": "A System to Practice JWT authentication, and a persistent MySQL database.",
+    "github": "https://github.com/PankajNarwade28/Primetrade.ai_Task_Intern",
     "liveDemo": null,
-    "image": "./assets/images/parallax.jpg",
-    "category": "Frontend",
+    "image": "./assets/images/stock.jpg",
+    "category": "Full Stack",
     "status": "completed"
-  }, 
+},
   {
     "id": 7,
     "title": "User Management System",
@@ -73,7 +73,7 @@ export const PROJECTS = [
     "github": "https://github.com/PankajNarwade28/UserManagementApp.PDN.in",
     "liveDemo": null,
     "image": "./assets/images/usermg.jpg",
-    "category": "backend",
+    "category": "Full Stack",
     "status": "completed"
   },
   {
@@ -108,5 +108,27 @@ export const PROJECTS = [
     "image": "./assets/images/gsg.jpg",
     "category": "Frontend",
     "status": "completed"
+  },
+  {
+    "id": 11,
+    "title": "Parallax App",
+    "tech": "HTML, CSS, React.js",
+    "description": "A showcase of the parallax scrolling effect, demonstrating advanced CSS techniques.",
+    "github": null,
+    "liveDemo": null,
+    "image": "./assets/images/parallax.jpg",
+    "category": "Frontend",
+    "status": "completed"
+  }, 
+  {
+    "id": 12,
+    "title": "Quiz App",
+    "tech": "React.js",
+    "description": "An interactive quiz application for testing knowledge, built with React.",
+    "github": null,
+    "liveDemo": null,
+    "image": "./assets/images/quiz.jpg",
+    "category": "Frontend",
+    "status": "in-progress"
   },
 ];
