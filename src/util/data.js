@@ -4,9 +4,9 @@ const SKILLS = [
     icon: "./assets/images/img5.png",
     skills: [
       { skill: "CPP", percentage: "80%" },
+      { skill: "JS", percentage: "70%" },
       { skill: "Core Java", percentage: "65%" },
       { skill: "Python", percentage: "50%" },
-      { skill: "JS", percentage: "70%" },
     ],
   },
   {
@@ -33,27 +33,29 @@ const SKILLS = [
     title: "Database",
     icon: "./assets/images/img3.png",
     skills: [
-      { skill: "MongoDB", percentage: "75%" },
-      { skill: "Oracle", percentage: "70%" },
-      { skill: "MySql", percentage: "50%" },
+      { skill: "MySql", percentage: "70%" },
+      { skill: "MongoDB", percentage: "65%" },
+      { skill: "Oracle", percentage: "60%" },
+      { skill: "PostgreSQL", percentage: "50%" },
     ],
   },
   {
     title: "Tools",
     icon: "./assets/images/img4.png",
     skills: [
-      { skill: "Git & Github", percentage: "70%" },
-      { skill: "Visual Studio Code", percentage: "85%" },
+      { skill: "Git & Github", percentage: "80%" },
+      { skill: "Visual Studio Code", percentage: "75%" },
+      { skill: "XAMPP", percentage: "55%" },
       { skill: "Eclipse", percentage: "35%" },
-      { skill: "XAMPP", percentage: "45%" },
     ],
   },
   {
     title: "Utilities",
     icon: "./assets/images/img6.png",
     skills: [
-      { skill: "ShadCN", percentage: "40%" },
       { skill: "Font Awesome", percentage: "85%" },
+      { skill: "Material UI", percentage: "45%" },
+      { skill: "ShadCN", percentage: "40%" },
       { skill: "Postman", percentage: "55%" }, 
     ],
   },
