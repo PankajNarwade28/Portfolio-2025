@@ -30,16 +30,16 @@ export const PDFViewerModal = ({
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    // For local PDFs, use native viewer with mobile-friendly settings
-    // Google Viewer only works with publicly accessible URLs
-    if (pdfUrl.startsWith('http') && (isMobile || isIOS)) {
-      setViewerType('google'); // Use Google Viewer for external mobile PDFs
+    // Always use native viewer for better mobile compatibility
+    // Object tag with proper type works better than iframe on mobile
+    if (isMobile || isIOS) {
+      setViewerType('mobile'); // Mobile-optimized viewer
     } else {
-      setViewerType('native'); // Use native browser PDF viewer for all local files
+      setViewerType('native'); // Desktop native viewer
     }
     
     setTimeout(() => setIsLoading(false), 500);
-  }, [pdfUrl]);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -115,10 +115,11 @@ export const PDFViewerModal = ({
       : `${window.location.origin}${pdfUrl}`;
 
     switch(viewerType) {
-      case 'google':
-        return `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
+      case 'mobile':
+        // Mobile-optimized parameters - toolbar=0 hides native toolbar
+        return `${fullUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
       case 'native':
-        // Add parameters to force inline viewing on mobile
+        // Desktop parameters for better viewing
         return `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=page-fit`;
       default:
         return pdfUrl;
@@ -193,13 +194,38 @@ export const PDFViewerModal = ({
             </div>
           )}
           
-          <iframe
-            src={getPDFViewerUrl()}
-            title={title}
-            className="pdf-viewer-iframe"
-            onLoad={() => setIsLoading(false)}
-            style={{ opacity: isLoading ? 0 : 1 }}
-          />
+          {viewerType === 'mobile' ? (
+            <object
+              data={getPDFViewerUrl()}
+              type="application/pdf"
+              className="pdf-viewer-iframe"
+              onLoad={() => setIsLoading(false)}
+              style={{ opacity: isLoading ? 0 : 1 }}
+            >
+              <iframe
+                src={getPDFViewerUrl()}
+                title={title}
+                className="pdf-viewer-iframe"
+                onLoad={() => setIsLoading(false)}
+                style={{ opacity: isLoading ? 0 : 1 }}
+              >
+                <div className="pdf-viewer-fallback">
+                  <p>Your browser doesn't support inline PDF viewing.</p>
+                  <button onClick={handleDownload} className="pdf-viewer-download-btn">
+                    Download PDF Instead
+                  </button>
+                </div>
+              </iframe>
+            </object>
+          ) : (
+            <iframe
+              src={getPDFViewerUrl()}
+              title={title}
+              className="pdf-viewer-iframe"
+              onLoad={() => setIsLoading(false)}
+              style={{ opacity: isLoading ? 0 : 1 }}
+            />
+          )}
         </div>
 
         {/* Footer Info */}
