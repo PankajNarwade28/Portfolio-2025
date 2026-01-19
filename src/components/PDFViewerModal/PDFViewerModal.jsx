@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./PDFViewerModal.css";
 
 /**
@@ -25,6 +25,21 @@ export const PDFViewerModal = ({
 }) => {
   const [viewerType, setViewerType] = useState('google'); // 'google', 'native', or 'fallback'
   const [isLoading, setIsLoading] = useState(true);
+
+  const detectBestViewer = useCallback(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // For local PDFs, use native viewer with mobile-friendly settings
+    // Google Viewer only works with publicly accessible URLs
+    if (pdfUrl.startsWith('http') && (isMobile || isIOS)) {
+      setViewerType('google'); // Use Google Viewer for external mobile PDFs
+    } else {
+      setViewerType('native'); // Use native browser PDF viewer for all local files
+    }
+    
+    setTimeout(() => setIsLoading(false), 500);
+  }, [pdfUrl]);
 
   useEffect(() => {
     if (isOpen) {
@@ -70,22 +85,7 @@ export const PDFViewerModal = ({
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
-
-  const detectBestViewer = () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    // For local PDFs, use native viewer with mobile-friendly settings
-    // Google Viewer only works with publicly accessible URLs
-    if (pdfUrl.startsWith('http') && (isMobile || isIOS)) {
-      setViewerType('google'); // Use Google Viewer for external mobile PDFs
-    } else {
-      setViewerType('native'); // Use native browser PDF viewer for all local files
-    }
-    
-    setTimeout(() => setIsLoading(false), 500);
-  };
+  }, [isOpen, detectBestViewer]);
 
   const handleDownload = () => {
     const link = document.createElement('a');
