@@ -65,8 +65,19 @@ export const PROJECTS = [
     "category": "Full Stack",
     "status": "completed"
 },
-  {
+{
     "id": 7,
+    "title": "Task Management System",
+    "tech": "Next.js, Tailwind CSS, PostgreSQL",
+    "description": "Task Management System with Secure JWT authentication and Data management.",
+    "github": "https://github.com/PankajNarwade28/Primetrade.ai-Frontend-Dev-Intern-Task",
+    "liveDemo": null,
+    "image": "./assets/images/primetradeFrontend.jpg",
+    "category": "Full Stack",
+    "status": "completed"
+},
+  {
+    "id": 8,
     "title": "User Management System",
     "tech": "HTML, CSS, Mysql , express.js, Node.js",
     "description": "A user management system built with Node.js and Express, featuring user authentication and role-based access.",
@@ -77,7 +88,7 @@ export const PROJECTS = [
     "status": "completed"
   },
   {
-    "id":8,
+    "id":9,
     "title": "Online Voting System",
     "tech": "JSP, Servlet , MySQL, Tomcat",
     "description": "An online voting system built with JSP and Servlets, featuring user authentication and vote management.",
@@ -88,7 +99,7 @@ export const PROJECTS = [
     "status": "completed"
   }, 
   {
-    "id":9,
+    "id":10,
     "title": "Rock Paper Scissors Game",
     "tech": "JS, HTML, CSS",
     "description": "A classic Rock Paper Scissors game built with JavaScript, testing strategy and decision-making.",
@@ -99,7 +110,7 @@ export const PROJECTS = [
     "status": "completed"
   },
   {
-    "id": 10,
+    "id": 11,
     "title": "College Website Clone ",
     "tech": "HTML, CSS, Js , Github Pages",
     "description": "A clone of a college website, showcasing frontend development skills.",
@@ -110,7 +121,7 @@ export const PROJECTS = [
     "status": "completed"
   },
   {
-    "id": 11,
+    "id": 12,
     "title": "Parallax App",
     "tech": "HTML, CSS, React.js",
     "description": "A showcase of the parallax scrolling effect, demonstrating advanced CSS techniques.",
@@ -121,7 +132,7 @@ export const PROJECTS = [
     "status": "completed"
   }, 
   {
-    "id": 12,
+    "id": 13,
     "title": "Quiz App",
     "tech": "React.js",
     "description": "An interactive quiz application for testing knowledge, built with React.",
