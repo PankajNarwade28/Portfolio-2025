@@ -1,4 +1,4 @@
-export const resumeLink = "/assets/pdf/pankaj_narwade_nov_25.pdf";
+export const resumeLink = "/assets/pdf/RESUME.pdf";
 
 export const instagramLink = "https://www.instagram.com/pankajnarwade.patil/";
 export const githubLink = "https://github.com/PankajNarwade28";
