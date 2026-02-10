@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { resumeLink } from "../../util/links";
-import { ResumeModal } from "../ResumeModal/ResumeModal";
-import { useNavigate } from "react-router-dom";
+import { ResumeModal } from "../ResumeModal/ResumeModal"; 
 import "./Navbar.css";
-export const Navbar = () => {
-  const navigate = useNavigate();
+export const Navbar = () => { 
   const [openMenu, setOpenMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
@@ -145,19 +143,7 @@ export const Navbar = () => {
               <span className="btn-icon">📄</span>
               <span>CV</span>
               <div className="btn-shine"></div>
-            </button>
-            <button
-              // onClick={() => navigate("/admin")}
-              onClick={() => {
-                if (window.confirm("Restricted area. Continue?")) {
-                  navigate("/admin");
-                }
-              }}
-              className="admin-danger-btn"
-              title="Admin Area (Restricted)"
-            >
-              🛠️
-            </button>
+            </button> 
           </div>
 
           {/* Mobile Menu Button */}

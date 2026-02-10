@@ -5,6 +5,7 @@ import { About } from "./components/About/About";
 import { Project } from "./components/Project/Project";
 import { Certifications } from "./components/Certifications/Certifications";
 import { Contact } from "./components/Contact/Contact";
+import SecretAdminTrigger from "./components/Admin/SecretAdminTrigger";
 import { Footer } from "./components/Footer/Footer";
 import Admin from "./components/Admin/Admin";
 import Test from "./components/Test/Test";
@@ -24,6 +25,7 @@ function App() {
               <Project />
               <Certifications />
               <Contact />
+               <SecretAdminTrigger />
             </div>
             <Footer />
           </div>
