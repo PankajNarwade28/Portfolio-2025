@@ -1,28 +1,39 @@
-import "./App.css"; 
-import 'react-toastify/dist/ReactToastify.css';
+import { Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Hero } from "./components/Hero/Hero";
-import { About } from "./components/About/About"; 
+import { About } from "./components/About/About";
 import { Project } from "./components/Project/Project";
-import { Contact } from "./components/Contact/Contact";
-import { Footer } from "./components/Footer/Footer"; 
 import { Certifications } from "./components/Certifications/Certifications";
-function App() {
+import { Contact } from "./components/Contact/Contact";
+import { Footer } from "./components/Footer/Footer";
+import Admin from "./components/Admin/Admin";
+import Test from "./components/Test/Test";
 
+function App() {
   return (
-    <>
-    <div className="data-scroll-container" id="root">
-      <Navbar />
-      <div className="">
-        <Hero />
-        <About /> 
-        <Project />
-        <Certifications />
-        <Contact />
-      </div>
-      <Footer />
-      </div>
-    </>
+    <Routes>
+      {/* HOME ROUTE */}
+      <Route
+        path="/"
+        element={
+          <div className="data-scroll-container">
+            <Navbar />
+            <div>
+              <Hero />
+              <About />
+              <Project />
+              <Certifications />
+              <Contact />
+            </div>
+            <Footer />
+          </div>
+        }
+      />
+
+      {/* TEST ROUTE (NO NAVBAR / FOOTER) */}
+      <Route path="/test" element={<Test />} />
+      <Route path="/admin" element={<Admin />} />
+    </Routes>
   );
 }
 
