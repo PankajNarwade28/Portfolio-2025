@@ -15,6 +15,39 @@
           background: rgba(10, 10, 35, 0.95);
           box-shadow: 0 8px 32px rgba(0, 180, 216, 0.1);
         }
+.admin-btn {
+  padding: 10px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-danger-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d4d, #b30000);
+  color: white;
+  font-size: 22px;
+  border: 2px solid #ff8080;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.admin-danger-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+}
+
+.admin-danger-btn:active {
+  transform: scale(0.95);
+}
+
 
         .nav-container {
           max-width: 1400px;

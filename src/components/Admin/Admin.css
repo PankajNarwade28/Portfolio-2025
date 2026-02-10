@@ -1,0 +1,90 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h1 {
+  font-size: 28px;
+}
+
+.admin-badge {
+  background: #b91c1c;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Cards */
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.admin-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.admin-card h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #94a3b8;
+}
+
+.admin-card p {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.admin-card.danger {
+  border-color: #dc2626;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+}
+
+/* Actions */
+.admin-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.admin-actions button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #1e293b;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.admin-actions button:hover {
+  background: #334155;
+}
+
+.danger-btn {
+  background: #dc2626 !important;
+}
+
+.danger-btn:hover {
+  background: #991b1b !important;
+}

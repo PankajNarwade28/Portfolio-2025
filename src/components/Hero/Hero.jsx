@@ -1,48 +1,94 @@
 import React, { useState, useEffect } from "react";
 import "./Hero.css";
-import { instagramLink, githubLink ,linkedinLink} from "../../util/links";
+import { instagramLink, githubLink, linkedinLink } from "../../util/links"; 
+import { useNavigate } from "react-router-dom";
+
 export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState(""); 
+  const navigate = useNavigate();
 
   // Custom typewriter effect
   useEffect(() => {
-    const words = ["Frontend Developer", "Backend Developer", "Full Stack Developer", "Problem Solver"];
-    const timer = setTimeout(() => {
-      const currentFullWord = words[currentWord];
-      
-      if (!isDeleting) {
-        if (currentChar < currentFullWord.length) {
-          setDisplayText(currentFullWord.slice(0, currentChar + 1));
-          setCurrentChar(prev => prev + 1);
+    const words = [
+      "Frontend Developer",
+      "Backend Developer",
+      "Full Stack Developer",
+      "Problem Solver",
+    ];
+    const timer = setTimeout(
+      () => {
+        const currentFullWord = words[currentWord];
+
+        if (!isDeleting) {
+          if (currentChar < currentFullWord.length) {
+            setDisplayText(currentFullWord.slice(0, currentChar + 1));
+            setCurrentChar((prev) => prev + 1);
+          } else {
+            setTimeout(() => setIsDeleting(true), 1500);
+          }
         } else {
-          setTimeout(() => setIsDeleting(true), 1500);
+          if (currentChar > 0) {
+            setDisplayText(currentFullWord.slice(0, currentChar - 1));
+            setCurrentChar((prev) => prev - 1);
+          } else {
+            setIsDeleting(false);
+            setCurrentWord((prev) => (prev + 1) % words.length);
+          }
         }
-      } else {
-        if (currentChar > 0) {
-          setDisplayText(currentFullWord.slice(0, currentChar - 1));
-          setCurrentChar(prev => prev - 1);
-        } else {
-          setIsDeleting(false);
-          setCurrentWord(prev => (prev + 1) % words.length);
-        }
-      }
-    }, isDeleting ? 50 : 100);
+      },
+      isDeleting ? 50 : 100,
+    );
 
     return () => clearTimeout(timer);
   }, [currentChar, isDeleting, currentWord]);
 
   const techStack = [
-    { name: "MongoDB", icon: "🍃", color: "#47A248", code: 'db.collection.find({name: "MongoDB"})' },
-    { name: "Express.js", icon: "⚡", color: "#000000", code: 'app.get("/", () => "Express.js");' },
-    { name: "React", icon: "⚛️", color: "#61DAFB", code: 'console.log(<React />);' },
-    { name: "Node.js", icon: "🟢", color: "#339933", code: 'console.log("Node.js");' },
-    { name: "HTML5", icon: "📄", color: "#E34F26", code: '<h1>HTML5</h1>' },
-    { name: "CSS3", icon: "🎨", color: "#1572B6", code: '.css { content: "CSS3"; }' },
-    { name: "JavaScript", icon: "📜", color: "#F7DF1E", code: 'console.log("JavaScript");' },
-    { name: "SQL", icon: "🗄️", color: "#336791", code: 'SELECT "SQL" FROM database;' }
+    {
+      name: "MongoDB",
+      icon: "🍃",
+      color: "#47A248",
+      code: 'db.collection.find({name: "MongoDB"})',
+    },
+    {
+      name: "Express.js",
+      icon: "⚡",
+      color: "#000000",
+      code: 'app.get("/", () => "Express.js");',
+    },
+    {
+      name: "React",
+      icon: "⚛️",
+      color: "#61DAFB",
+      code: "console.log(<React />);",
+    },
+    {
+      name: "Node.js",
+      icon: "🟢",
+      color: "#339933",
+      code: 'console.log("Node.js");',
+    },
+    { name: "HTML5", icon: "📄", color: "#E34F26", code: "<h1>HTML5</h1>" },
+    {
+      name: "CSS3",
+      icon: "🎨",
+      color: "#1572B6",
+      code: '.css { content: "CSS3"; }',
+    },
+    {
+      name: "JavaScript",
+      icon: "📜",
+      color: "#F7DF1E",
+      code: 'console.log("JavaScript");',
+    },
+    {
+      name: "SQL",
+      icon: "🗄️",
+      color: "#336791",
+      code: 'SELECT "SQL" FROM database;',
+    },
   ];
 
   return (
@@ -68,66 +114,116 @@ export const Hero = () => {
               <span className="badge-dot"></span>
               Available for opportunities
             </div>
-            
+
             <h3 className="subtitle">
-              Full Stack Developer  <i >Intern </i>
+              Full Stack Developer <i>Intern </i>
               <span className="company-highlight">@Media Urbana</span>
             </h3>
-            
+
             <h1 className="main-title">
-              Building the 
+              Building the
               <span className="gradient-text"> future </span>
-              powered by 
+              powered by
               <span className="gradient-text"> technology</span>
               <span className="title-decoration">🚀</span>
             </h1>
-            
+
             <p className="description">
-              Passionate <span className="highlight">IT professional</span> dedicated to 
-              crafting innovative digital solutions with clean code and creative problem-solving.
+              Passionate <span className="highlight">IT professional</span>{" "}
+              dedicated to crafting innovative digital solutions with clean code
+              and creative problem-solving.
               <span className="emoji-highlight"> ✨💻</span>
             </p>
 
-            <div className="typewriter-container">
+            {/* <div className="typewriter-container">
               <span className="typewriter-label">I'm a </span>
               <span className="typewriter-text">
                 {displayText}
                 <span className="cursor">|</span>
               </span>
+            </div> */}
+            <div className="typewriter-container">
+             <button onClick={() => navigate("/test")}>
+  Go to Test
+</button>
             </div>
 
-          <div className="action-buttons">
-  <a href={`${githubLink}?tab=repositories`} target="_blank" rel="noopener noreferrer" style={{color: "inherit", textDecoration: "none"}}>
-    <button className="btn-primary">
-      <span>View My Work</span> 
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    </button>
-  </a>
-  <a href="#Contact2" style={{color: "inherit", textDecoration: "none"}}>
-    <button className="btn-secondary">
-      <span>Contact Me</span>
-    </button>
-  </a>
-</div>
+            <div className="action-buttons">
+              <a
+                href={`${githubLink}?tab=repositories`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                <button className="btn-primary">
+                  <span>View My Work</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12h14m-7-7l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </a>
+              <a
+                href="#Contact2"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                <button className="btn-secondary">
+                  <span>Contact Me</span>
+                </button>
+              </a>
+            </div>
 
             <div className="social-links">
-              <a href={`${linkedinLink}`} target="_blank" rel="noopener noreferrer" className="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              <a
+                href={`${linkedinLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
               </a>
-              <a href={`${githubLink}`} target="_blank" rel="noopener noreferrer" className="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              <a
+                href={`${githubLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
               </a>
-             <a href={`${instagramLink}`} target="_blank" rel="noopener noreferrer" className="social-link">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.67 1.636 4.85 4.85.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.636 4.67-4.85 4.85-.944.056-1.298.07-4.85.07s-3.906-.014-4.85-.07c-3.252-.148-4.67-1.636-4.85-4.85-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.636-4.67 4.85-4.85zm0-2.163c-3.259 0-3.668.014-4.944.072-4.358.211-6.775 2.671-6.996 6.996-.058 1.276-.073 1.685-.073 4.944s.015 3.668.073 4.944c.221 4.325 2.638 6.784 6.996 6.996 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.357-.212 6.773-2.671 6.995-6.996.058-1.276.072-1.684.072-4.944s-.014-3.668-.072-4.944c-.222-4.325-2.64-6.783-6.995-6.996-1.277-.058-1.685-.072-4.944-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.442.645-1.442 1.442s.646 1.442 1.442 1.442 1.442-.645 1.442-1.442-.646-1.442-1.442-1.442z"/>
-  </svg>
-</a>
+              <a
+                href={`${instagramLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.67 1.636 4.85 4.85.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.636 4.67-4.85 4.85-.944.056-1.298.07-4.85.07s-3.906-.014-4.85-.07c-3.252-.148-4.67-1.636-4.85-4.85-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.636-4.67 4.85-4.85zm0-2.163c-3.259 0-3.668.014-4.944.072-4.358.211-6.775 2.671-6.996 6.996-.058 1.276-.073 1.685-.073 4.944s.015 3.668.073 4.944c.221 4.325 2.638 6.784 6.996 6.996 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.357-.212 6.773-2.671 6.995-6.996.058-1.276.072-1.684.072-4.944s-.014-3.668-.072-4.944c-.222-4.325-2.64-6.783-6.995-6.996-1.277-.058-1.685-.072-4.944-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.442.645-1.442 1.442s.646 1.442 1.442 1.442 1.442-.645 1.442-1.442-.646-1.442-1.442-1.442z" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -138,16 +234,19 @@ export const Hero = () => {
             {/* Floating Tech Icons */}
             <div className="floating-tech-stack">
               {techStack.map((tech, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className={`floating-tech-icon tech-${index}`}
-                  style={{ '--delay': `${index * 0.5}s` }}
+                  style={{ "--delay": `${index * 0.5}s` }}
                 >
                   <div className="tech-icon-inner">
                     <span className="tech-emoji">{tech.icon}</span>
                   </div>
                   <div className="tech-tooltip">{tech.name}</div>
-                  <div className="tech-glow" style={{ '--tech-color': tech.color }}></div>
+                  <div
+                    className="tech-glow"
+                    style={{ "--tech-color": tech.color }}
+                  ></div>
                 </div>
               ))}
             </div>
@@ -183,16 +282,19 @@ export const Hero = () => {
                 <span className="stat-label">Years Exp</span>
               </div>
             </div> */}
-            
           </div>
-          
         </div>
       </div>
 
       <style jsx>{`
         .hero-container {
           min-height: 100vh;
-          background: linear-gradient(135deg, #0a0a23 0%, #1a1a3e 50%, #2d2d5f 100%);
+          background: linear-gradient(
+            135deg,
+            #0a0a23 0%,
+            #1a1a3e 50%,
+            #2d2d5f 100%
+          );
           position: relative;
           overflow: hidden;
           display: flex;
@@ -209,7 +311,7 @@ export const Hero = () => {
         .grid-overlay {
           position: absolute;
           inset: 0;
-          background-image: 
+          background-image:
             linear-gradient(rgba(0, 180, 216, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(0, 180, 216, 0.1) 1px, transparent 1px);
           background-size: 50px 50px;
@@ -235,14 +337,17 @@ export const Hero = () => {
           animation-duration: 20s;
         }
 
-        ${Array.from({ length: 20 }, (_, i) => `
+        ${Array.from(
+          { length: 20 },
+          (_, i) => `
           .particle-${i} {
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
             animation-delay: ${Math.random() * 6}s;
             animation-duration: ${4 + Math.random() * 4}s;
           }
-        `).join('')}
+        `,
+        ).join("")}
 
         .gradient-orb {
           position: absolute;
@@ -328,7 +433,7 @@ export const Hero = () => {
           color: #ccc;
           margin-bottom: 1rem;
           font-weight: 400;
-          font-family: 'Oswald', sans-serif;
+          font-family: "Oswald", sans-serif;
         }
 
         .company-highlight {
@@ -361,7 +466,7 @@ export const Hero = () => {
           color: #ccc;
           line-height: 1.6;
           margin-bottom: 2rem;
-          font-family: 'Oswald', sans-serif;
+          font-family: "Oswald", sans-serif;
         }
 
         .highlight {
@@ -399,7 +504,8 @@ export const Hero = () => {
           margin-bottom: 2rem;
         }
 
-        .btn-primary, .btn-secondary {
+        .btn-primary,
+        .btn-secondary {
           padding: 1rem 2rem;
           border: none;
           border-radius: 50px;
@@ -420,7 +526,7 @@ export const Hero = () => {
         }
 
         .btn-primary::before {
-          content: '';
+          content: "";
           position: absolute;
           inset: 0;
           background: linear-gradient(45deg, #fb8500, #00b4d8);
@@ -437,7 +543,8 @@ export const Hero = () => {
           box-shadow: 0 10px 25px rgba(0, 180, 216, 0.4);
         }
 
-        .btn-primary span, .btn-primary svg {
+        .btn-primary span,
+        .btn-primary svg {
           position: relative;
           z-index: 1;
         }
@@ -545,13 +652,17 @@ export const Hero = () => {
           bottom: 100%;
           left: 50%;
           transform: translateX(-50%) translateY(0);
-          background: linear-gradient(135deg, rgba(0, 180, 216, 0.95), rgba(78, 205, 196, 0.95));
+          background: linear-gradient(
+            135deg,
+            rgba(0, 180, 216, 0.95),
+            rgba(78, 205, 196, 0.95)
+          );
           color: white;
           padding: 0.5rem 1rem;
           border-radius: 8px;
           font-size: 0.75rem;
           font-weight: 600;
-          font-family: 'Oswald', sans-serif;
+          font-family: "Oswald", sans-serif;
           white-space: nowrap;
           opacity: 0;
           visibility: hidden;
@@ -563,7 +674,7 @@ export const Hero = () => {
         }
 
         .tech-tooltip::after {
-          content: '';
+          content: "";
           position: absolute;
           top: 100%;
           left: 50%;
@@ -586,14 +697,38 @@ export const Hero = () => {
           opacity: 0.3;
         }
 
-        .tech-0 { top: 5%; left: -5%; }
-        .tech-1 { top: 2%; right: 5%; }
-        .tech-2 { top: 35%; left: -20%; }
-        .tech-3 { top: 30%; right: -15%; }
-        .tech-4 { bottom: 35%; left: -10%; }
-        .tech-5 { bottom: 32%; right: -5%; }
-        .tech-6 { bottom: 8%; left: 5%; }
-        .tech-7 { bottom: 2%; right: 10%; }
+        .tech-0 {
+          top: 5%;
+          left: -5%;
+        }
+        .tech-1 {
+          top: 2%;
+          right: 5%;
+        }
+        .tech-2 {
+          top: 35%;
+          left: -20%;
+        }
+        .tech-3 {
+          top: 30%;
+          right: -15%;
+        }
+        .tech-4 {
+          bottom: 35%;
+          left: -10%;
+        }
+        .tech-5 {
+          bottom: 32%;
+          right: -5%;
+        }
+        .tech-6 {
+          bottom: 8%;
+          left: 5%;
+        }
+        .tech-7 {
+          bottom: 2%;
+          right: 10%;
+        }
 
         .profile-image-container {
           position: absolute;
@@ -730,49 +865,99 @@ export const Hero = () => {
         }
 
         @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
+          0%,
+          50% {
+            opacity: 1;
+          }
+          51%,
+          100% {
+            opacity: 0;
+          }
         }
 
         @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.7; transform: scale(1.2); }
+          0%,
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.7;
+            transform: scale(1.2);
+          }
         }
 
         @keyframes particleFloat {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-20px) rotate(120deg); }
-          66% { transform: translateY(10px) rotate(240deg); }
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          33% {
+            transform: translateY(-20px) rotate(120deg);
+          }
+          66% {
+            transform: translateY(10px) rotate(240deg);
+          }
         }
 
         @keyframes orbFloat {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(180deg); }
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-30px) rotate(180deg);
+          }
         }
 
         @keyframes gridMove {
-          from { transform: translateX(0); }
-          to { transform: translateX(50px); }
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(50px);
+          }
         }
 
         @keyframes techFloat {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
         }
 
         @keyframes ringRotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         @keyframes backdropPulse {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.1); opacity: 0.5; }
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.5;
+          }
         }
 
         @keyframes imageGlow {
-          0%, 100% { opacity: 0; }
-          50% { opacity: 0.2; }
+          0%,
+          100% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.2;
+          }
         }
 
         @media (max-width: 1024px) {
@@ -801,9 +986,9 @@ export const Hero = () => {
           .action-buttons {
             justify-content: center;
           }
-           .social-links {
+          .social-links {
             justify-content: center;
-          } 
+          }
         }
 
         @media (max-width: 768px) {
@@ -820,7 +1005,8 @@ export const Hero = () => {
             align-items: center;
           }
 
-          .btn-primary, .btn-secondary {
+          .btn-primary,
+          .btn-secondary {
             width: 200px;
             justify-content: center;
           }
@@ -848,7 +1034,6 @@ export const Hero = () => {
           .floating-tech-icon:hover .tech-tooltip {
             transform: translate(-50%, -50%) !important;
           }
-         
         }
 
         @media (max-width: 480px) {
