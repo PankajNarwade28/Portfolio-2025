@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [displayText, setDisplayText] = useState(""); 
+  const [isDeleting, setIsDeleting] = useState(false); 
+  const [displayText, setDisplayText] = useState("");
   const navigate = useNavigate();
 
   // Custom typewriter effect
@@ -25,6 +25,7 @@ export const Hero = () => {
         if (!isDeleting) {
           if (currentChar < currentFullWord.length) {
             setDisplayText(currentFullWord.slice(0, currentChar + 1));
+            console.log(displayText)
             setCurrentChar((prev) => prev + 1);
           } else {
             setTimeout(() => setIsDeleting(true), 1500);
