@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Hero.css";
-import { instagramLink, githubLink, linkedinLink } from "../../util/links"; 
+import { instagramLink, githubLink, linkedinLink } from "../../util/links";
 import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ export const Hero = () => {
       "Full Stack Developer",
       "Problem Solver",
     ];
+
     const timer = setTimeout(
       () => {
         const currentFullWord = words[currentWord];
@@ -25,7 +26,7 @@ export const Hero = () => {
         if (!isDeleting) {
           if (currentChar < currentFullWord.length) {
             setDisplayText(currentFullWord.slice(0, currentChar + 1));
-            console.log(displayText)
+            console.log(displayText); // optional, but note: may log stale value
             setCurrentChar((prev) => prev + 1);
           } else {
             setTimeout(() => setIsDeleting(true), 1500);
@@ -44,8 +45,10 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord ,displayText]);
-
+  }, [currentChar, isDeleting, currentWord]); // ✅ removed displayText
+  useEffect(() => {
+    console.log(displayText);
+  }, [displayText]);
   const techStack = [
     {
       name: "MongoDB",
@@ -144,9 +147,7 @@ export const Hero = () => {
               </span>
             </div> */}
             <div className="typewriter-container">
-             <button onClick={() => navigate("/test")}>
-  Go to Test
-</button>
+              <button onClick={() => navigate("/test")}>Go to Test</button>
             </div>
 
             <div className="action-buttons">
