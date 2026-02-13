@@ -44,7 +44,7 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord]);
+  }, [currentChar, isDeleting, currentWord ,displayText]);
 
   const techStack = [
     {
