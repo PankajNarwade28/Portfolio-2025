@@ -26,7 +26,6 @@ export const Hero = () => {
         if (!isDeleting) {
           if (currentChar < currentFullWord.length) {
             setDisplayText(currentFullWord.slice(0, currentChar + 1));
-            console.log(displayText); // optional, but note: may log stale value
             setCurrentChar((prev) => prev + 1);
           } else {
             setTimeout(() => setIsDeleting(true), 1500);
