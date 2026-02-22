@@ -9,14 +9,11 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 
 ## ✨ Features  
 - 🎨 **Clean and modern UI/UX**  
-- 🌀 **Smooth animations & background effects**  
-
+- 🌀 **Smooth animations & effectsfects**  
 - 📱 **Fully responsive** (desktop, tablet, mobile)  
 - 📧 **Email support/contact form**  
-- ⚡ Built with **React + Vanilla CSS** for performance  
-
----
-
+- ⚡ Built with **React + Vanilla CSS** for performance-
+  -add new 
 ## 🛠️ Tech Stack  
 - **Frontend:** React.js  
 - **Styling:** Vanilla CSS  
@@ -83,6 +80,7 @@ If you’d like to connect, collaborate, or hire me:
 * Guidance & brainstorming with **Claude AI**
 
 ```
+
 
 
 
