@@ -12,6 +12,12 @@ const SecretAdminTrigger = () => {
   const [sequence, setSequence] = useState([]);
   const [triggered, setTriggered] = useState(false);
   const timeoutRef = useRef(null);
+  const triggeredRef = useRef(false);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    triggeredRef.current = triggered;
+  }, [triggered]);
 
   // Reset sequence after timeout
   const resetSequence = useCallback(() => {
@@ -24,7 +30,7 @@ const SecretAdminTrigger = () => {
 
   // Add event to sequence and check if it matches
   const addToSequence = useCallback((event) => {
-    if (triggered) return;
+    if (triggeredRef.current) return;
 
     // Clear existing timeout
     if (timeoutRef.current) {
@@ -47,7 +53,7 @@ const SecretAdminTrigger = () => {
       
       return newSequence;
     });
-  }, [triggered, resetSequence]);
+  }, [resetSequence]);
 
   // Handle clicks
   useEffect(() => {
@@ -117,7 +123,7 @@ const SecretAdminTrigger = () => {
         }
       }
     }
-  }, [sequence, triggered, navigate]);
+  }, [sequence, triggered, navigate, resetSequence]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
