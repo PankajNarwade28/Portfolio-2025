@@ -12,7 +12,9 @@ This portfolio highlights my projects, skills, and achievements with a focus on 
 - 🌀 **Smooth animations & effectsfects**  
 - 📱 **Fully responsive** (desktop, tablet, mobile)  
 - 📧 **Email support/contact form**  
-- ⚡ Built with **React + Vanilla CSS** for performance-
+- ⚡ Built with **React + Vanilla CSS** for performance  
+
+---
 
 ## 🛠️ Tech Stack  
 - **Frontend:** React.js  
