@@ -41,6 +41,13 @@ const ContactForm = ({ setLoading, toast }) => {
 
     setLoading(true);
 
+    // Debug: Log environment variables (remove in production)
+    console.log("EmailJS Config:", {
+      serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY ? "Set" : "Missing"
+    });
+
     try {
       await emailjs.sendForm(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
@@ -54,8 +61,10 @@ const ContactForm = ({ setLoading, toast }) => {
       // Clear form fields
       form.current.reset();
     } catch (error) {
+      console.error("EmailJS Error:", error);
       // The toast function is now called from the prop
-      toast.error("Failed to send message. Please try again.");
+      const errorMessage = error?.text || error?.message || "Failed to send message. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

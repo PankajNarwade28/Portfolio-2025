@@ -4,6 +4,7 @@ import contactInfo from "../../util/contact";
 import ContactForm from "./ContactForm/ContactForm"; 
 import { linkedinLink, mailtoLink} from "../../util/links";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 
 
