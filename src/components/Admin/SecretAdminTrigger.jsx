@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
@@ -14,16 +14,16 @@ const SecretAdminTrigger = () => {
   const timeoutRef = useRef(null);
 
   // Reset sequence after timeout
-  const resetSequence = () => {
+  const resetSequence = useCallback(() => {
     setSequence([]);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-  };
+  }, []);
 
   // Add event to sequence and check if it matches
-  const addToSequence = (event) => {
+  const addToSequence = useCallback((event) => {
     if (triggered) return;
 
     // Clear existing timeout
@@ -47,7 +47,7 @@ const SecretAdminTrigger = () => {
       
       return newSequence;
     });
-  };
+  }, [triggered, resetSequence]);
 
   // Handle clicks
   useEffect(() => {
@@ -67,7 +67,7 @@ const SecretAdminTrigger = () => {
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [triggered]);
+  }, [addToSequence]);
 
   // Handle keyboard events
   useEffect(() => {
@@ -94,7 +94,7 @@ const SecretAdminTrigger = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [triggered]);
+  }, [addToSequence, resetSequence]);
 
   // Check if sequence is complete
   useEffect(() => {

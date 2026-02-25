@@ -145,9 +145,9 @@ export const Hero = () => {
                 <span className="cursor">|</span>
               </span>
             </div> */}
-            <div className="typewriter-container">
+            {/* <div className="typewriter-container">
               <button onClick={() => navigate("/test")}>Go to Test</button>
-            </div>
+            </div> */}
 
             <div className="action-buttons">
               <a
