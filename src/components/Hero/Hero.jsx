@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Hero.css";
-import { instagramLink, githubLink, linkedinLink } from "../../util/links"; 
+import { instagramLink, githubLink, linkedinLink , youtubeLink} from "../../util/links";
 
 export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [displayText, setDisplayText] = useState(""); 
+  const [displayText, setDisplayText] = useState("");
   // Custom typewriter effect
   useEffect(() => {
     const words = [
@@ -220,6 +220,21 @@ export const Hero = () => {
                   fill="currentColor"
                 >
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.67 1.636 4.85 4.85.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.636 4.67-4.85 4.85-.944.056-1.298.07-4.85.07s-3.906-.014-4.85-.07c-3.252-.148-4.67-1.636-4.85-4.85-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.636-4.67 4.85-4.85zm0-2.163c-3.259 0-3.668.014-4.944.072-4.358.211-6.775 2.671-6.996 6.996-.058 1.276-.073 1.685-.073 4.944s.015 3.668.073 4.944c.221 4.325 2.638 6.784 6.996 6.996 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.357-.212 6.773-2.671 6.995-6.996.058-1.276.072-1.684.072-4.944s-.014-3.668-.072-4.944c-.222-4.325-2.64-6.783-6.995-6.996-1.277-.058-1.685-.072-4.944-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.442.645-1.442 1.442s.646 1.442 1.442 1.442 1.442-.645 1.442-1.442-.646-1.442-1.442-1.442z" />
+                </svg>
+              </a>
+              <a
+                href={`${youtubeLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </a>
             </div>
