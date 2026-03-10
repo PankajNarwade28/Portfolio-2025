@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Hero.css";
-import { instagramLink, githubLink, linkedinLink } from "../../util/links";
-import { useNavigate } from "react-router-dom";
+import { instagramLink, githubLink, linkedinLink } from "../../util/links"; 
 
 export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [displayText, setDisplayText] = useState("");
-  const navigate = useNavigate();
-
+  const [displayText, setDisplayText] = useState(""); 
   // Custom typewriter effect
   useEffect(() => {
     const words = [
