@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-
-const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
+import LoginModal from "./LoginModal";
 
 // Required sequence: click, click, space, space, enter
 const REQUIRED_SEQUENCE = ['click', 'click', 'space', 'space', 'enter'];
@@ -11,6 +10,7 @@ const SecretAdminTrigger = () => {
   const navigate = useNavigate();
   const [sequence, setSequence] = useState([]);
   const [triggered, setTriggered] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const timeoutRef = useRef(null);
   const triggeredRef = useRef(false);
 
@@ -110,20 +110,23 @@ const SecretAdminTrigger = () => {
       if (isComplete) {
         setTriggered(true);
         resetSequence();
-
-        const input = window.prompt("🔒 Enter admin password:");
-
-        if (input && input.trim() === ADMIN_PASSWORD) {
-          console.log("✅ Admin access granted");
-          navigate("/admin", { replace: true });
-        } else {
-          alert("❌ Incorrect password");
-          console.log("❌ Admin access denied");
-          setTriggered(false);
-        }
+        setShowLoginModal(true);
       }
     }
-  }, [sequence, triggered, navigate, resetSequence]);
+  }, [sequence, triggered, resetSequence]);
+
+  // Handle successful login
+  const handleLoginSuccess = (token) => {
+    console.log("✅ Admin access granted");
+    setShowLoginModal(false);
+    navigate("/admin", { replace: true });
+  };
+
+  // Handle login modal close
+  const handleLoginClose = () => {
+    setShowLoginModal(false);
+    setTriggered(false);
+  };
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -134,7 +137,16 @@ const SecretAdminTrigger = () => {
     };
   }, []);
 
-  return null;
+  return (
+    <>
+      {showLoginModal && (
+        <LoginModal 
+          onClose={handleLoginClose}
+          onSuccess={handleLoginSuccess}
+        />
+      )}
+    </>
+  );
 };
 
 export default SecretAdminTrigger;

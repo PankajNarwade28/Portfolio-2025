@@ -18,6 +18,18 @@
   font-size: 28px;
 }
 
+.admin-user {
+  color: #00ff88;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .admin-badge {
   background: #b91c1c;
   color: #fff;
@@ -25,6 +37,23 @@
   border-radius: 6px;
   font-size: 12px;
   letter-spacing: 1px;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
 }
 
 /* Cards */
