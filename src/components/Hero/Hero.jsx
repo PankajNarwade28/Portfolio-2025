@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Hero.css";
 import { instagramLink, githubLink, linkedinLink , youtubeLink} from "../../util/links";
+import { authService } from "../../util/auth";
 
 export const Hero = () => {
+  const navigate = useNavigate();
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayText, setDisplayText] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication status
+  useEffect(() => {
+    setIsAuthenticated(authService.isAuthenticated());
+  }, []);
+
   // Custom typewriter effect
   useEffect(() => {
     const words = [
@@ -166,6 +176,24 @@ export const Hero = () => {
                   </svg>
                 </button>
               </a>
+             {isAuthenticated && (
+  <button 
+    className="btn-glass-admin"
+    onClick={() => navigate("/admin")}
+  >
+    <div className="btn-glow"></div>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="admin-icon">
+      <path
+        d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+    <span>Admin Panel</span>
+  </button>
+)}
               <a
                 href="#Contact2"
                 style={{ color: "inherit", textDecoration: "none" }}
@@ -557,7 +585,48 @@ export const Hero = () => {
         }
 
         .btn-primary span,
-        .btn-primary svg {
+        .
+
+        .btn-admin {
+          padding: 1rem 2rem;
+          border: none;
+          border-radius: 50px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: linear-gradient(135deg, #8338ec 0%, #b91c1c 100%);
+          color: white;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .btn-admin::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, #b91c1c 0%, #8338ec 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .btn-admin:hover::before {
+          opacity: 1;
+        }
+
+        .btn-admin:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(131, 56, 236, 0.4);
+        }
+
+        .btn-admin span,
+        .btn-admin svg {
+          position: relative;
+          z-index: 1;
+        }btn-primary svg {
           position: relative;
           z-index: 1;
         }
@@ -961,7 +1030,8 @@ export const Hero = () => {
             transform: scale(1.1);
             opacity: 0.5;
           }
-        }
+        },
+          .btn-admin
 
         @keyframes imageGlow {
           0%,
