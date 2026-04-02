@@ -23,8 +23,46 @@ export const PROJECTS = [
     category: "Full Stack",
     status: "completed",
   },
+
   {
     id: 2,
+    title: "BPL Admin Panel",
+    tech: "React, ExpressJs, MongoDB, Socket.io, Tailwind CSS",
+    description:
+      "A comprehensive management dashboard to control auctions, manage player listings, and manipulate real-time bidding states.",
+    github: "https://github.com/PankajNarwade28/BPL_Admin_Panel", // Update with actual repo link
+    liveDemo: "https://bpl-admin-panel.vercel.app/",
+    image: "./assets/images/bpl-admin.png",
+    category: "Full Stack",
+    status: "in-progress",
+  },
+  {
+    id: 3,
+    title: "BPL Big Screen Display",
+    tech: "React, Socket.io, ExpressJs, MongoDB Atlas",
+    description:
+      "A real-time auction visualizer featuring live bidding updates, instant notifications, and automated team summaries for public viewing.",
+    github: "https://github.com/PankajNarwade28/BPL_Big_Screen", // Update with actual repo link
+    liveDemo: "https://bpl-big-screen.vercel.app/",
+    image: "./assets/images/bpl-bigscreen.png",
+    category: "Full Stack",
+    status: "completed",
+  },
+  {
+    id: 4,
+    title: "BPL Captain App",
+    tech: "React, NodeJs, Socket.io, ExpressJs, MongoDB",
+    description:
+      "A dedicated player-bidding interface for captains to participate in live auctions, track sold/unsold players, and manage team downloads.",
+    github: "https://github.com/PankajNarwade28/BPL_Captain_App", // Update with actual repo link
+    liveDemo: "https://bpl-captain-app.vercel.app/",
+    image: "./assets/images/bpl-captain.png",
+    category: "Full Stack",
+    status: "completed",
+  },
+
+  {
+    id: 5,
     title: "Travlog Website",
     tech: "React.js, CSS",
     description:
@@ -36,7 +74,7 @@ export const PROJECTS = [
     status: "planning",
   },
   {
-    id: 3,
+    id: 6,
     title: "College Website Clone",
     tech: "HTML, CSS, React.js",
     description:
@@ -48,7 +86,7 @@ export const PROJECTS = [
     status: "planning",
   },
   {
-    id: 4,
+    id: 7,
     title: "Store Management & Rating System",
     tech: "React.js, Node.js, MySQL , Express.js",
     description:
@@ -60,7 +98,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 5,
+    id: 8,
     title: "Cocktail's Bar Webpage",
     tech: "Html, CSS, JS",
     description:
@@ -72,7 +110,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 6,
+    id: 9,
     title: "PrimeTrade Simulator",
     tech: "Next.js, Tailwind CSS, Express.js, Node.js, MySQL",
     description:
@@ -84,7 +122,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 7,
+    id: 10,
     title: "Task Management System",
     tech: "Next.js, Tailwind CSS, PostgreSQL",
     description:
@@ -97,7 +135,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 8,
+    id: 11,
     title: "User Management System",
     tech: "HTML, CSS, Mysql , express.js, Node.js",
     description:
@@ -109,7 +147,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 9,
+    id: 12,
     title: "Online Voting System",
     tech: "JSP, Servlet , MySQL, Tomcat",
     description:
@@ -121,7 +159,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 10,
+    id: 13,
     title: "Rock Paper Scissors Game",
     tech: "JS, HTML, CSS",
     description:
@@ -133,7 +171,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 11,
+    id: 14,
     title: "College Website Clone ",
     tech: "HTML, CSS, Js , Github Pages",
     description:
@@ -145,7 +183,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 12,
+    id: 15,
     title: "Parallax App",
     tech: "HTML, CSS, React.js",
     description:
@@ -157,7 +195,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 13,
+    id: 16,
     title: "Quiz App",
     tech: "React.js",
     description:

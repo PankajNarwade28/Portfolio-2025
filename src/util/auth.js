@@ -3,13 +3,13 @@ import { jwtDecode } from "jwt-decode";
 const TOKEN_KEY = "authToken";
 
 // Get the backend URL from environment or default to localhost
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
 export const authService = {
   // Login function
   login: async (username, password) => {
     try {
-      const response = await fetch(`${API_URL}api/auth/login`, {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -85,7 +85,7 @@ export const authService = {
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/auth/verify`, {
+      const response = await fetch(`${API_BASE}/api/auth/verify`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
