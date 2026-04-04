@@ -56,6 +56,7 @@ export const authService = {
         return false;
       }
     } catch (err) {
+      console.error("Invalid token:", err);
       authService.logout(); // Remove invalid token
       return false;
     }
@@ -72,6 +73,7 @@ export const authService = {
     try {
       return jwtDecode(token);
     } catch (err) {
+      console.error("Invalid token:", err);
       return null;
     }
   },
@@ -95,6 +97,7 @@ export const authService = {
       const data = await response.json();
       return data.valid;
     } catch (error) {
+      console.error("Error verifying token:", error);
       return false;
     }
   },

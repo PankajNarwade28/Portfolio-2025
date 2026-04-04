@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import LoginModal from "./LoginModal";
+import { useNavigate } from "react-router-dom"; 
+import LoginModal from "./Login/LoginModal";  
 
 // Required sequence: click, click, space, space, enter
 const REQUIRED_SEQUENCE = ['click', 'click', 'space', 'space', 'enter'];
