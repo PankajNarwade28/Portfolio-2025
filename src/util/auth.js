@@ -1,110 +1,62 @@
 import { jwtDecode } from "jwt-decode";
+import { supabase } from "../lib/supabase";
 
 const TOKEN_KEY = "authToken";
 
-// Get the backend URL from environment or default to localhost
-const API_BASE = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
-
 export const authService = {
-  // Login function
-  login: async (username, password) => {
+  // ✅ SUPABASE LOGIN
+  login: async (email, password) => {
     try {
-      const response = await fetch(`${API_BASE}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Login failed");
+      if (error) {
+        return { success: false, error: error.message };
       }
 
-      const data = await response.json();
-      localStorage.setItem(TOKEN_KEY, data.token);
-      return { success: true, token: data.token, user: data.user };
-    } catch (error) {
-      return { success: false, error: error.message };
+      const token = data.session.access_token;
+
+      localStorage.setItem(TOKEN_KEY, token);
+
+      return {
+        success: true,
+        token,
+        user: data.user,
+      };
+
+    } catch (err) {
+      return { success: false, error: "Login failed" };
     }
   },
 
-  // Logout function
-  logout: () => {
-    localStorage.removeItem(TOKEN_KEY);
+  logout: async () => {
+    await supabase.auth.signOut();
+    localStorage.clear();
   },
 
-  // Get stored token
-  getToken: () => {
-    return localStorage.getItem(TOKEN_KEY);
-  },
+  getToken: () => localStorage.getItem(TOKEN_KEY),
 
-  // Check if user is authenticated
   isAuthenticated: () => {
-    const token = authService.getToken();
-    
-    if (!token) {
-      return false;
-    }
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) return false;
 
     try {
       const decoded = jwtDecode(token);
-      // Check if token is expired
-      if (decoded.exp * 1000 > Date.now()) {
-        return true;
-      } else {
-        authService.logout(); // Remove expired token
-        return false;
-      }
-    } catch (err) {
-      console.error("Invalid token:", err);
-      authService.logout(); // Remove invalid token
+      return decoded.exp * 1000 > Date.now();
+    } catch {
       return false;
     }
   },
 
-  // Get decoded token data
   getUser: () => {
-    const token = authService.getToken();
-    
-    if (!token) {
-      return null;
-    }
-
-    try {
-      return jwtDecode(token);
-    } catch (err) {
-      console.error("Invalid token:", err);
-      return null;
-    }
+    const token = localStorage.getItem(TOKEN_KEY);
+    return token ? jwtDecode(token) : null;
   },
 
-  // Verify token with backend (optional)
-  verifyToken: async () => {
-    const token = authService.getToken();
-    
-    if (!token) {
-      return false;
-    }
-
-    try {
-      const response = await fetch(`${API_BASE}/api/auth/verify`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-      return data.valid;
-    } catch (error) {
-      console.error("Error verifying token:", error);
-      return false;
-    }
-  },
-
-  // Get authorization header for API calls
   getAuthHeader: () => {
-    const token = authService.getToken();
-    return token ? { "Authorization": `Bearer ${token}` } : {};
+    const token = localStorage.getItem(TOKEN_KEY);
+    return token ? { Authorization: `Bearer ${token}` } : {};
   },
 };

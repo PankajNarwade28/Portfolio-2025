@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./LoginModal.css";
 
 const LoginModal = ({ onClose, onSuccess }) => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -16,7 +17,7 @@ const LoginModal = ({ onClose, onSuccess }) => {
       // Import auth service
       const { authService } = await import("../../../util/auth");
       
-      const result = await authService.login(username, password);
+      const result = await authService.login(email, password);
 
       if (result.success) {
         onSuccess(result.token);
@@ -50,13 +51,13 @@ const LoginModal = ({ onClose, onSuccess }) => {
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter username"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
               required
               autoFocus
               disabled={loading}

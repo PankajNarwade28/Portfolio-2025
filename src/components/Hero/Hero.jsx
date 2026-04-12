@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Hero.css";
-import { instagramLink, githubLink, linkedinLink , youtubeLink} from "../../util/links";
+import {
+  instagramLink,
+  githubLink,
+  linkedinLink,
+  youtubeLink,
+} from "../../util/links";
 import { authService } from "../../util/auth";
 
 export const Hero = () => {
@@ -176,24 +181,30 @@ export const Hero = () => {
                   </svg>
                 </button>
               </a>
-             {isAuthenticated && (
-  <button 
-    className="btn-glass-admin"
-    onClick={() => navigate("/admin")}
-  >
-    <div className="btn-glow"></div>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="admin-icon">
-      <path
-        d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-    <span>Admin Panel</span>
-  </button>
-)}
+              {isAuthenticated && (
+                <button
+                  className="btn-glass-admin"
+                  onClick={() => navigate("/admin")}
+                >
+                  <div className="btn-glow"></div>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="admin-icon"
+                  >
+                    <path
+                      d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span>Admin Panel</span>
+                </button>
+              )}
               <a
                 href="#Contact2"
                 style={{ color: "inherit", textDecoration: "none" }}
@@ -585,9 +596,7 @@ export const Hero = () => {
         }
 
         .btn-primary span,
-        .
-
-        .btn-admin {
+        . .btn-admin {
           padding: 1rem 2rem;
           border: none;
           border-radius: 50px;
@@ -626,7 +635,8 @@ export const Hero = () => {
         .btn-admin svg {
           position: relative;
           z-index: 1;
-        }btn-primary svg {
+        }
+        btn-primary svg {
           position: relative;
           z-index: 1;
         }
@@ -1030,10 +1040,9 @@ export const Hero = () => {
             transform: scale(1.1);
             opacity: 0.5;
           }
-        },
-          .btn-admin
-
-        @keyframes imageGlow {
+        }
+        ,
+        .btn-admin @keyframes imageGlow {
           0%,
           100% {
             opacity: 0;
