@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Hero } from "./components/Hero/Hero";
 import { About } from "./components/About/About";
@@ -6,9 +6,14 @@ import { Project } from "./components/Project/Project";
 import { Certifications } from "./components/Certifications/Certifications";
 import { Contact } from "./components/Contact/Contact";
 import SecretAdminTrigger from "./components/Admin/SecretAdminTrigger";
-import { Footer } from "./components/Footer/Footer"; 
+import { Footer } from "./components/Footer/Footer";
 import Admin from "./components/Admin/Admin";
-import Test from "./components/Test/Test";
+import Test from "./components/Test/Test"; 
+import Dashboard from "./components/Admin/Component/Dashboard/Dashboard"; 
+import ManageSkills from "./components/Admin/Component/Skills/Skills";
+import ManageCertificates from "./components/Admin/Component/Certificates/Certificates";
+import ManageAbout from "./components/Admin/Component/About/About";
+import ManageProjects from "./components/Admin/Component/Projects/Projects";
 
 function App() {
   return (
@@ -25,7 +30,7 @@ function App() {
               <Project />
               <Certifications />
               <Contact />
-               <SecretAdminTrigger />
+              <SecretAdminTrigger />
             </div>
             <Footer />
           </div>
@@ -34,7 +39,15 @@ function App() {
 
       {/* TEST ROUTE (NO NAVBAR / FOOTER) */}
       <Route path="/test" element={<Test />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={<Admin />}>
+        <Route index element={<Navigate to="dashboard" />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="my-projects" element={<ManageProjects />} />
+        <Route path="my-skills" element={<ManageSkills />} />
+        <Route path="my-about" element={<ManageAbout />} />
+        <Route path="my-certificates" element={<ManageCertificates />} />
+        {/* Add more admin routes here */}
+      </Route>
     </Routes>
   );
 }

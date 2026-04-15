@@ -117,3 +117,52 @@
 .danger-btn:hover {
   background: #991b1b !important;
 }
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background: #0f172a;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+  cursor: pointer;
+}
+
+.main {
+  flex: 1;
+  background: #f1f5f9;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: white;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  width: 200px;
+}
+
+.green {
+  border-left: 5px solid #22c55e;
+}
+
+.red {
+  border-left: 5px solid #ef4444;
+}
