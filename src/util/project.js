@@ -147,6 +147,18 @@ export const PROJECTS = [
     status: "completed",
   },
   {
+  id: 12,
+  title: "Portfolio Website",
+  tech: "React.js,  AOS, Vanilla CSS, Netlify",
+  description:
+    "This is my first portfolio developed using React to learn core concepts like components, hooks, and modern UI development. AOS, responsive design , and is deployed on Netlify ",
+  github: "https://github.com/PankajNarwade28/Portfolio-Pankaj-Narwade",
+  liveDemo: "https://pankajnarwade.netlify.app/",
+  image: "./assets/images/portfolio.png",
+  category: "frontend",
+  status: "completed",
+},
+  {
     id: 12,
     title: "Online Voting System",
     tech: "JSP, Servlet , MySQL, Tomcat",
