@@ -147,19 +147,19 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-  id: 12,
-  title: "Portfolio Website",
-  tech: "React.js,  AOS, Vanilla CSS, Netlify",
-  description:
-    "This is my first portfolio developed using React to learn core concepts like components, hooks, and modern UI development. AOS, responsive design , and is deployed on Netlify ",
-  github: "https://github.com/PankajNarwade28/Portfolio-Pankaj-Narwade",
-  liveDemo: "https://pankajnarwade.netlify.app/",
-  image: "./assets/images/portfolio.png",
-  category: "frontend",
-  status: "completed",
-},
-  {
     id: 12,
+    title: "Portfolio Website",
+    tech: "React.js,  AOS, Vanilla CSS, Netlify",
+    description:
+      "This is my first portfolio developed using React to learn core concepts like components, hooks, and modern UI development. AOS, responsive design , and is deployed on Netlify ",
+    github: "https://github.com/PankajNarwade28/Portfolio-Pankaj-Narwade",
+    liveDemo: "https://pankajnarwade.netlify.app/",
+    image: "./assets/images/portfolio.png",
+    category: "frontend",
+    status: "completed",
+  },
+  {
+    id: 13,
     title: "Online Voting System",
     tech: "JSP, Servlet , MySQL, Tomcat",
     description:
@@ -171,7 +171,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 13,
+    id: 14,
     title: "Rock Paper Scissors Game",
     tech: "JS, HTML, CSS",
     description:
@@ -183,7 +183,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 14,
+    id: 15,
     title: "College Website Clone ",
     tech: "HTML, CSS, Js , Github Pages",
     description:
@@ -195,7 +195,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 15,
+    id: 16,
     title: "Parallax App",
     tech: "HTML, CSS, React.js",
     description:
@@ -207,7 +207,7 @@ export const PROJECTS = [
     status: "completed",
   },
   {
-    id: 16,
+    id: 17,
     title: "Quiz App",
     tech: "React.js",
     description:
