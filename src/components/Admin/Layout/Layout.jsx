@@ -1,5 +1,6 @@
 import Navbar from "./Navbar/Navbar";
 import Sidebar from "./Sidebar/Sidebar";
+import Snowfall from 'react-snowfall'
 import { Outlet } from "react-router-dom";
 
 const Layout = ({ user, onLogout }) => {
@@ -20,11 +21,13 @@ const Layout = ({ user, onLogout }) => {
         </div>
 
         {/* Scrollable Content */}
-        <div className="mt-16 p-4 overflow-y-auto h-screen">
+        <div className="mt-16 overflow-y-auto h-screen">
           <Outlet />
         </div>
 
       </div>
+      <Snowfall 
+      snowflakeCount={30}/>
     </div>
   );
 };
