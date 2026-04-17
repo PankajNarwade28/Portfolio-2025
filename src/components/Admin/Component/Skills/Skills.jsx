@@ -16,7 +16,7 @@ const ManageSkills = () => {
     skill_name: "",
     percentage: "",
     emoji: "",
-    print_statement: "", // Added to match your JSX
+    print_statement: "", 
     order_index: 1,
     category_id: "",
   });
@@ -33,6 +33,8 @@ const ManageSkills = () => {
     }
   };
 
+
+  // Reorder skills within a category based on order_index not implemented in this code snippet, but can be done by sorting skill_items before rendering
   useEffect(() => {
     fetchData();
   }, []);
