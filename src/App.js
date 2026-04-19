@@ -1,4 +1,5 @@
 import { Routes, Route,Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Hero } from "./components/Hero/Hero";
 import { About } from "./components/About/About";
@@ -14,8 +15,13 @@ import ManageSkills from "./components/Admin/Component/Skills/Skills";
 import ManageCertificates from "./components/Admin/Component/Certificates/Certificates";
 import ManageAbout from "./components/Admin/Component/About/About";
 import ManageProjects from "./components/Admin/Component/Projects/Projects";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
+
 
 function App() {
+  useEffect(() => { AOS.init(); }, []);
   return (
     <Routes>
       {/* HOME ROUTE */}

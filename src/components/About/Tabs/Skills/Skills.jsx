@@ -157,65 +157,68 @@ export const Skills = ({ activeTab }) => {
             </div>
 
             <div className="skills-list">
-              {category.skill_items?.map((skill, skillIndex) => {
-                const skillId = `${categoryIndex}-${skillIndex}`;
-                return (
-                  <div key={skill.id} className="skill-item">
-                    <div className="skill-header">
-                      <div className="skill-info">
-                        <span className="skill-icon-wrapper">
-                          <span className="skill-icon">
-                            {/* Use the emoji stored in the DB */}
-                            {skill.emoji || "💡"}
-                          </span>
-                          <span className="skill-icon-tooltip">
-                            <span className="tooltip-title">
-                              {skill.skill_name}
+              {category.skill_items
+                ?.slice() // avoid mutating original array
+                .sort((a, b) => a.order_index - b.order_index) // 👈 KEY FIX
+                .map((skill, skillIndex) => {
+                  const skillId = `${categoryIndex}-${skillIndex}`; // 👈 IMPORTANT (add back)
+                  return (
+                    <div key={skill.id} className="skill-item">
+                      <div className="skill-header">
+                        <div className="skill-info">
+                          <span className="skill-icon-wrapper">
+                            <span className="skill-icon">
+                              {/* Use the emoji stored in the DB */}
+                              {skill.emoji || "💡"}
                             </span>
-                            <span className="tooltip-code">
-                              {/* Use the statement from DB, or fallback to util */}
-                              {skill.print_statement ||
-                                getSkillPrintStatement(skill.skill_name)}
+                            <span className="skill-icon-tooltip">
+                              <span className="tooltip-title">
+                                {skill.skill_name}
+                              </span>
+                              <span className="tooltip-code">
+                                {/* Use the statement from DB, or fallback to util */}
+                                {skill.print_statement ||
+                                  getSkillPrintStatement(skill.skill_name)}
+                              </span>
                             </span>
                           </span>
-                        </span>
-                        <span className="skill-name">{skill.skill_name}</span>
-                      </div>
-                      <span className="skill-percentage">
-                        {skill.percentage}
-                      </span>
-                    </div>
-
-                    {/* Map through your categories and skills */}
-                    {!loading && skillsData.length > 0 && (
-                      <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden">
-                        <div
-                          className="skill-progress-bar-container h-full w-full"
-                          data-skill-id={skillId} // We observe this container
-                        >
-                          <div
-                            className="h-full transition-all duration-1000 ease-out"
-                            style={{
-                              // Only show width if visibleSkills has been set to true for this ID
-                              width: visibleSkills[skillId]
-                                ? `${parseInt(skill.percentage)}%`
-                                : "0%",
-                              backgroundColor:
-                                categoryIndex === 0
-                                  ? "#4ECDC4"
-                                  : categoryIndex === 1
-                                    ? "#45B7D1"
-                                    : categoryIndex === 2
-                                      ? "#96CEB4"
-                                      : "#FFEAA7",
-                            }}
-                          ></div>
+                          <span className="skill-name">{skill.skill_name}</span>
                         </div>
+                        <span className="skill-percentage">
+                          {skill.percentage}
+                        </span>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+
+                      {/* Map through your categories and skills */}
+                      {!loading && skillsData.length > 0 && (
+                        <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden">
+                          <div
+                            className="skill-progress-bar-container h-full w-full"
+                            data-skill-id={skillId} // We observe this container
+                          >
+                            <div
+                              className="h-full transition-all duration-1000 ease-out"
+                              style={{
+                                // Only show width if visibleSkills has been set to true for this ID
+                                width: visibleSkills[skillId]
+                                  ? `${parseInt(skill.percentage)}%`
+                                  : "0%",
+                                backgroundColor:
+                                  categoryIndex === 0
+                                    ? "#4ECDC4"
+                                    : categoryIndex === 1
+                                      ? "#45B7D1"
+                                      : categoryIndex === 2
+                                        ? "#96CEB4"
+                                        : "#FFEAA7",
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
             </div>
           </div>
         ))}
