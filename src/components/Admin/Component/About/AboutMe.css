@@ -1,0 +1,116 @@
+/* ManageAboutMe.css */
+
+.manage-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #112240; /* Dark navy background */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: #ccd6f6;
+  font-family: 'Inter', sans-serif;
+}
+
+.manage-container h2 {
+  text-align: center;
+  color: #64ffda; /* Teal highlight */
+  margin-bottom: 30px;
+  font-size: 2rem;
+  border-bottom: 2px solid #233554;
+  padding-bottom: 15px;
+}
+
+.manage-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two column layout */
+  gap: 20px;
+}
+
+/* Make summary and drivers take full width */
+.manage-form label[for="passionate_summary"],
+.manage-form label[for="drivers"],
+.manage-form textarea,
+.manage-form .full-width {
+  grid-column: span 2;
+}
+
+.manage-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.manage-form label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #8892b0;
+}
+
+.manage-form input, 
+.manage-form textarea {
+  padding: 12px;
+  background: #0a192f;
+  border: 1px solid #233554;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.manage-form input:focus, 
+.manage-form textarea:focus {
+  outline: none;
+  border-color: #64ffda;
+  box-shadow: 0 0 8px rgba(100, 255, 218, 0.2);
+}
+
+.manage-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.manage-form input[type="file"] {
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Button Styling */
+.manage-form button {
+  grid-column: span 2;
+  margin-top: 20px;
+  padding: 15px;
+  background: #64ffda;
+  color: #0a192f;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.manage-form button:hover {
+  background: #52d1b2;
+  transform: translateY(-2px);
+}
+
+.manage-form button:disabled {
+  background: #495670;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .manage-form {
+    grid-template-columns: 1fr;
+  }
+  .manage-form label,
+  .manage-form input,
+  .manage-form textarea,
+  .manage-form button {
+    grid-column: span 1;
+  }
+}

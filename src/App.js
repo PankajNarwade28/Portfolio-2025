@@ -12,11 +12,11 @@ import Admin from "./components/Admin/Admin";
 import Test from "./components/Test/Test"; 
 import Dashboard from "./components/Admin/Component/Dashboard/Dashboard"; 
 import ManageSkills from "./components/Admin/Component/Skills/Skills";
-import ManageCertificates from "./components/Admin/Component/Certificates/Certificates";
-import ManageAbout from "./components/Admin/Component/About/About";
+import ManageCertificates from "./components/Admin/Component/Certificates/Certificates"; 
 import ManageProjects from "./components/Admin/Component/Projects/Projects";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import ManageAboutMe from "./components/Admin/Component/About/AboutMe";
 
 
 
@@ -31,7 +31,7 @@ function App() {
           <div className="data-scroll-container">
             <Navbar />
             <div>
-              <Hero />
+              <Hero /> 
               <About />
               <Project />
               <Certifications />
@@ -49,8 +49,8 @@ function App() {
         <Route index element={<Navigate to="dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="my-projects" element={<ManageProjects />} />
-        <Route path="my-skills" element={<ManageSkills />} />
-        <Route path="my-about" element={<ManageAbout />} />
+        <Route path="my-skills" element={<ManageSkills />} /> 
+        <Route path="my-about" element={<ManageAboutMe />} />
         <Route path="my-certificates" element={<ManageCertificates />} />
         {/* Add more admin routes here */}
       </Route>

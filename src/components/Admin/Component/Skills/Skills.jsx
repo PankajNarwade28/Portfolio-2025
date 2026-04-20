@@ -155,8 +155,6 @@ const ManageSkills = () => {
     }
   };
 
-  
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0e27] via-[#1a1f3a] to-[#0a0e27] text-gray-100 p-6">
       <div className="max-w-7xl mx-auto relative z-10">
@@ -249,6 +247,14 @@ const ManageSkills = () => {
                   </option>
                 ))}
               </select>
+              <textarea
+                placeholder="Print Statement"
+                value={newSkill.print_statement || ""}
+                onChange={(e) =>
+                  setNewSkill({ ...newSkill, print_statement: e.target.value })
+                }
+                className="col-span-2 bg-white/5 border border-gray-600/30 rounded-lg px-3 py-2"
+              ></textarea>
             </div>
             <button
               onClick={addSkill}

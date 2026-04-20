@@ -164,6 +164,7 @@
 
 .skill-item:hover .skill-icon-tooltip {
     opacity: 1;
+    max-width: 300px;
     visibility: visible;
     transform: translateY(0);
 }
@@ -194,7 +195,7 @@
 }
 
 .skill-progress-bar {
-    height: 100%;
+    height: 100%; 
     border-radius: 4px;
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
