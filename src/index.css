@@ -18,3 +18,15 @@ body {
   }
 } 
 
+/* add in global css */
+.input {
+  @apply bg-[#1f2937] p-2 rounded-md outline-none;
+}
+
+.btn-primary {
+  @apply bg-purple-600 px-4 py-2 rounded-md;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 px-4 py-2 rounded-md;
+}

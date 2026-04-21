@@ -57,9 +57,7 @@ export const Hero = () => {
 
     return () => clearTimeout(timer);
   }, [currentChar, isDeleting, currentWord]); // ✅ removed displayText
-  useEffect(() => {
-    console.log(displayText);
-  }, [displayText]);
+ 
   const techStack = [
     {
       name: "MongoDB",
@@ -132,7 +130,7 @@ export const Hero = () => {
 
             <h3 className="subtitle">
               Full Stack Developer <i>Intern </i>
-              <span className="company-highlight">@Media Urbana</span>
+              <span className="company-highlight">@KVNCraft Technologies</span>
             </h3>
 
             <h1 className="main-title">

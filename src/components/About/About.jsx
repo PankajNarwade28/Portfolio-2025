@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./About.css";  
 import "./style.css"
-import { Skills } from "./Tabs/Skills/Skills";
-import { Education } from "./Tabs/Education/Education";
+import { Skills } from "./Tabs/Skills/Skills"; 
 import { Achievement } from "./Tabs/Achievement/Achievement";
 import AboutMe from "./Tabs/Aboutme/Aboutme";
+import EducationSection from "./Tabs/Education/Education";
 
 export const About = () => {
   const [activeTab, setActiveTab] = useState('about'); 
@@ -63,7 +63,7 @@ export const About = () => {
 
         {activeTab === 'education' && (
           <div className="content-section education-section">
-           <Education />
+           <EducationSection />
           </div>
         )}
 

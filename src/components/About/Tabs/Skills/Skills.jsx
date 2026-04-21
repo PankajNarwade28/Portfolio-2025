@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { SKILLS, getSkillPrintStatement } from "../../../../util/data";
+import {  getSkillPrintStatement } from "../../../../util/data";
 import axios from "axios";
 import "./Skills.css";
 import Loading from "../LoadingEmpty/Loading";
@@ -71,12 +71,12 @@ export const Skills = ({ activeTab }) => {
     }
   };
 
-  if (loading) return <Loading message="Loading Technical Arsenal..." />;
+  if (loading) return <Loading message="Loading Skill Section..." />;
   if (skillsData.length === 0)
     return (
       <Empty
         title="No Skills Found"
-        description="It seems the proficiency matrix is currently empty."
+        description="It seems the Skill section is currently empty."
         onRetry={fetchSkills}
       />
     );
@@ -132,34 +132,42 @@ export const Skills = ({ activeTab }) => {
                           {skill.percentage}
                         </span>
                       </div>
-{!loading && skillsData.length > 0 && (
-  <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden relative">
-    
-    {/* 1. The Container Observed by IntersectionObserver */}
-    <div
-      className="skill-progress-bar-container h-full w-full relative"
-      data-skill-id={skillId}
-    >
-      {/* 2. The Colored Progress Bar */}
-      <div
-        className="h-full transition-all duration-1000 ease-out relative z-10"
-        style={{
-          width: visibleSkills[skillId] ? `${parseInt(skill.percentage)}%` : "0%",
-          backgroundColor: 
-            categoryIndex === 0 ? "#4ECDC4" : 
-            categoryIndex === 1 ? "#45B7D1" : 
-            categoryIndex === 2 ? "#96CEB4" : "#FFEAA7",
-          boxShadow: visibleSkills[skillId] ? "0 0 10px rgba(78, 205, 196, 0.2)" : "none"
-        }}
-      />
+                      {!loading && skillsData.length > 0 && (
+                        <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden relative">
+                          {/* 1. The Container Observed by IntersectionObserver */}
+                          <div
+                            className="skill-progress-bar-container h-full w-full relative"
+                            data-skill-id={skillId}
+                          >
+                            {/* 2. The Colored Progress Bar */}
+                            <div
+                              className="h-full transition-all duration-1000 ease-out relative z-10"
+                              style={{
+                                width: visibleSkills[skillId]
+                                  ? `${Number.parseInt(skill.percentage)}%`
+                                  : "0%",
+                                backgroundColor:
+                                  categoryIndex === 0
+                                    ? "#4ECDC4"
+                                    : categoryIndex === 1
+                                      ? "#45B7D1"
+                                      : categoryIndex === 2
+                                        ? "#96CEB4"
+                                        : "#FFEAA7",
+                                boxShadow: visibleSkills[skillId]
+                                  ? "0 0 10px rgba(78, 205, 196, 0.2)"
+                                  : "none",
+                              }}
+                            />
 
-      {/* 3. The Full-Width Glass Shimmer (Sibling to the bar) */}
-      {visibleSkills[skillId] && (
-        <div className="glass-shimmer-full absolute inset-0 w-full h-full z-20" />
-      )}
-    </div>
-  </div>
-)}  </div>
+                            {/* 3. The Full-Width Glass Shimmer (Sibling to the bar) */}
+                            {visibleSkills[skillId] && (
+                              <div className="glass-shimmer-full absolute inset-0 w-full h-full z-20" />
+                            )}
+                          </div>
+                        </div>
+                      )}{" "}
+                    </div>
                   );
                 })}
             </div>

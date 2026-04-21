@@ -169,5 +169,5 @@ const EDUCATION = [
   }
 ];
 
-export { SKILLS, ACHIEVEMENTS, EDUCATION , getSkillPrintStatement}; 
+export {  ACHIEVEMENTS,  getSkillPrintStatement}; 
  
