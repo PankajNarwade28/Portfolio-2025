@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Trash2, Plus, Save, X, Sparkles, Code, Award } from "lucide-react";
+import { Trash2, Plus, Save, X, Sparkles, Code, Award, FileArchive } from "lucide-react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
+import Loading from "../LoadingEmpty/Loading";
+import Empty from "../LoadingEmpty/Empty";
 
 const ManageSkills = () => {
   const [data, setData] = useState([]);
@@ -44,6 +46,7 @@ const ManageSkills = () => {
 
   // --- REORDER LOGIC ---
   const onDragEnd = async (result, categoryId) => {
+    setLoading(true);
     if (!result.destination) return;
 
     const categoryIndex = data.findIndex((cat) => cat.id === categoryId);
@@ -81,6 +84,8 @@ const ManageSkills = () => {
       // This catches the 403 or 500 errors gracefully
       console.error("Failed to save order:", err.response?.data || err.message);
       fetchData(); // Rollback UI
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -123,6 +128,7 @@ const ManageSkills = () => {
   };
 
   const addSkill = async () => {
+    setLoading(true);
     if (!newSkill.skill_name.trim() || !newSkill.category_id)
       return alert("Required fields missing");
     try {
@@ -138,22 +144,40 @@ const ManageSkills = () => {
       fetchData();
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteCategory = async (id) => {
+    setLoading(true);
     if (window.confirm("Delete category?")) {
       await axios.delete(`http://localhost:5000/api/categories/${id}`);
       fetchData();
     }
+    setLoading(false);
   };
 
   const deleteSkill = async (id) => {
+    setLoading(true);
     if (window.confirm("Delete skill?")) {
       await axios.delete(`http://localhost:5000/api/skills/${id}`);
       fetchData();
     }
+    setLoading(false);
   };
+
+  if (loading) {
+    return (
+      <Loading message="Updating Skill Data..." />
+    )
+  }
+
+  if(!data.length) {
+    return (
+      <Empty message="No skill data found. Please add your skills." />
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0e27] via-[#1a1f3a] to-[#0a0e27] text-gray-100 p-6">

@@ -74,17 +74,40 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Aboutme.css";
+import Loading from "../LoadingEmpty/Loading";
+import Empty from "../LoadingEmpty/Empty";
 
 const AboutMe = () => {
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/about-me")
-      .then(res => setProfile(res.data))
-      .catch(err => console.error(err));
-  }, []);
+useEffect(() => {
+  setLoading(true); // Ensure loading starts as true
+  
+  axios.get("http://localhost:5000/api/about-me")
+    .then(res => {
+      setProfile(res.data);
+      console.log("Profile data loaded:", res.data);
+    })
+    .catch(err => {
+      console.error("Connection Interrupted:", err);
+    })
+    .finally(() => {
+      // This runs regardless of success or failure
+      setLoading(false); 
+    });
+}, []);
+ 
 
-  if (!profile) return <div className="loading">Loading...</div>;
+  if (loading) return <Loading message="Loading About Me..." />;
+  if (!profile)
+    return (
+      <Empty
+        title="No Profile Found"
+        description="It seems the profile information is currently unavailable."
+        // onRetry={fetchSkills}
+      />
+    );
 
   return (
     <>
