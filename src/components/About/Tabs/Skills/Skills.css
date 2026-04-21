@@ -271,3 +271,46 @@
         /* text-align: center; */
     }
 }
+
+.glass-shimmer {
+  /* Semi-transparent white gradient for the glass look */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%) skewX(-20deg);
+  animation: slide-shimmer 2.5s infinite linear;
+}
+.glass-shimmer-full {
+  /* Diagonal glass beam */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  /* Initial position off-screen to the left */
+  transform: translateX(-100%) skewX(-30deg);
+  animation: full-slide 3s infinite ease-in-out;
+  pointer-events: none; /* Ensure it doesn't block clicks */
+}
+
+@keyframes full-slide {
+  0% {
+    transform: translateX(-100%) skewX(-30deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    /* Slides past the 100% width of the grey container */
+    transform: translateX(200%) skewX(-30deg);
+    opacity: 0;
+  }
+}

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { SKILLS, getSkillPrintStatement } from "../../../../util/data";
 import axios from "axios";
 import "./Skills.css";
+import Loading from "../LoadingEmpty/Loading";
+import Empty from "../LoadingEmpty/Empty";
 
 // Skills component now accepts `activeTab` as a prop
 export const Skills = ({ activeTab }) => {
@@ -12,20 +14,19 @@ export const Skills = ({ activeTab }) => {
 
   // 1. Fetch Data Effect
   useEffect(() => {
-    const fetchSkills = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get("http://localhost:5000/api/skills");
-        setSkillsData(res.data);
-      } catch (error) {
-        console.error("Error fetching skills:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchSkills();
   }, []);
-
+  const fetchSkills = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("http://localhost:5000/api/skills");
+      setSkillsData(res.data);
+    } catch (error) {
+      console.error("Error fetching skills:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   // 2. Animation Effect (The Robust Part)
   useEffect(() => {
     // Only proceed if we are on the skills tab AND loading is finished
@@ -62,7 +63,6 @@ export const Skills = ({ activeTab }) => {
     };
   }, [activeTab, loading, skillsData]); // Re-run when loading finishes or data changes
 
-
   const parseIcon = (icon) => {
     try {
       return icon.startsWith("{") ? JSON.parse(icon).url : icon;
@@ -71,22 +71,15 @@ export const Skills = ({ activeTab }) => {
     }
   };
 
-  
-
-  if (loading) {
+  if (loading) return <Loading message="Loading Technical Arsenal..." />;
+  if (skillsData.length === 0)
     return (
-      <div className="skills-loading text-white text-center text-lg">
-        Loading skills...
-      </div>
+      <Empty
+        title="No Skills Found"
+        description="It seems the proficiency matrix is currently empty."
+        onRetry={fetchSkills}
+      />
     );
-  }
-  if (skillsData.length === 0) {
-    return (
-      <div className="skills-loading text-white text-center text-lg">
-        No skills data available.
-      </div>
-    );
-  }
   return (
     <>
       <div className="section-header">
@@ -139,41 +132,39 @@ export const Skills = ({ activeTab }) => {
                           {skill.percentage}
                         </span>
                       </div>
+{!loading && skillsData.length > 0 && (
+  <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden relative">
+    
+    {/* 1. The Container Observed by IntersectionObserver */}
+    <div
+      className="skill-progress-bar-container h-full w-full relative"
+      data-skill-id={skillId}
+    >
+      {/* 2. The Colored Progress Bar */}
+      <div
+        className="h-full transition-all duration-1000 ease-out relative z-10"
+        style={{
+          width: visibleSkills[skillId] ? `${parseInt(skill.percentage)}%` : "0%",
+          backgroundColor: 
+            categoryIndex === 0 ? "#4ECDC4" : 
+            categoryIndex === 1 ? "#45B7D1" : 
+            categoryIndex === 2 ? "#96CEB4" : "#FFEAA7",
+          boxShadow: visibleSkills[skillId] ? "0 0 10px rgba(78, 205, 196, 0.2)" : "none"
+        }}
+      />
 
-                      {/* Map through your categories and skills */}
-                      {!loading && skillsData.length > 0 && (
-                        <div className="skill-progress-wrapper bg-white/5 rounded-full h-2 w-full overflow-hidden">
-                          <div
-                            className="skill-progress-bar-container h-full w-full"
-                            data-skill-id={skillId} // We observe this container
-                          >
-                            <div
-                              className="h-full transition-all duration-1000 ease-out"
-                              style={{
-                                // Only show width if visibleSkills has been set to true for this ID
-                                width: visibleSkills[skillId]
-                                  ? `${parseInt(skill.percentage)}%`
-                                  : "0%",
-                                backgroundColor:
-                                  categoryIndex === 0
-                                    ? "#4ECDC4"
-                                    : categoryIndex === 1
-                                      ? "#45B7D1"
-                                      : categoryIndex === 2
-                                        ? "#96CEB4"
-                                        : "#FFEAA7",
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+      {/* 3. The Full-Width Glass Shimmer (Sibling to the bar) */}
+      {visibleSkills[skillId] && (
+        <div className="glass-shimmer-full absolute inset-0 w-full h-full z-20" />
+      )}
+    </div>
+  </div>
+)}  </div>
                   );
                 })}
             </div>
           </div>
         ))}
-       
       </div>
     </>
   );
