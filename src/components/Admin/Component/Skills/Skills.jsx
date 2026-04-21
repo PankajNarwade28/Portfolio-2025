@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Trash2, Plus, Save, X, Sparkles, Code, Award, FileArchive } from "lucide-react";
+import { Trash2, Plus, Save, X, Sparkles, Code, Award } from "lucide-react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
 import Loading from "../LoadingEmpty/Loading";

@@ -38,13 +38,7 @@ const ManageAboutMe = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handleDriverChange = (index, value) => {
-    const updatedDrivers = [...formData.drivers];
-    updatedDrivers[index] = value;
-    setFormData((prev) => ({ ...prev, drivers: updatedDrivers }));
-  };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

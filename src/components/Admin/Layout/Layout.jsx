@@ -21,7 +21,7 @@ const Layout = ({ user, onLogout }) => {
         </div>
 
         {/* Scrollable Content */}
-        <div className="mt-16 overflow-y-auto h-screen">
+        <div className="mt-16 overflow-y-auto h-screen bg-slate-900 p-6">
           <Outlet />
         </div>
 
