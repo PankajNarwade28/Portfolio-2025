@@ -5,6 +5,7 @@ import axios from "axios";
 import "./Skills.css";
 import Loading from "../LoadingEmpty/Loading";
 import Empty from "../LoadingEmpty/Empty";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 // Skills component now accepts `activeTab` as a prop
 export const Skills = ({ activeTab }) => {
@@ -19,7 +20,7 @@ export const Skills = ({ activeTab }) => {
   const fetchSkills = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/skills");
+      const res = await axios.get(`${API_BASE}api/skills`);
       setSkillsData(res.data);
     } catch (error) {
       console.error("Error fetching skills:", error);

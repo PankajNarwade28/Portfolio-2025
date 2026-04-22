@@ -23,16 +23,18 @@ const ManageAboutMe = () => {
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const API_BASE = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     setLoading(true);
     // Load current data on mount
     axios
-      .get("http://localhost:5000/api/about-me")
+      .get(`${API_BASE}api/about-me`)
       .then((res) => setFormData(res.data))
       .catch((err) => console.error("Error loading profile:", err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [API_BASE]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +52,7 @@ const ManageAboutMe = () => {
         uploadData.append("file", file);
         uploadData.append("folder", "About_images"); // Match this with backend req.body.folder
         const uploadRes = await axios.post(
-          "http://localhost:5000/api/upload/image",
+          `${API_BASE}api/upload/image`,
           uploadData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -60,7 +62,7 @@ const ManageAboutMe = () => {
       }
 
       const finalData = { ...formData, profile_pic_url: imageUrl };
-      await axios.put("http://localhost:5000/api/about-me", finalData);
+      await axios.put(`${API_BASE}api/about-me`, finalData);
 
       alert("Profile updated successfully!");
     } catch (err) {
@@ -103,32 +105,43 @@ const ManageAboutMe = () => {
               </h3>
 
               <div className="relative group">
-                <div className="w-56 h-56 rounded-[3rem] bg-[#1f2937] overflow-hidden border-4 border-[#111827] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform group-hover:scale-[1.02]">
-                  {file ? (
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt="Preview"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-500">
-                      <HiOutlineTerminal size={64} className="opacity-20" />
-                    </div>
-                  )}
-                </div>
-                <input
-                  type="file"
-                  id="p-img"
-                  className="hidden"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-                <label
-                  htmlFor="p-img"
-                  className="absolute -bottom-2 -right-2 bg-cyan-500 text-white p-4 rounded-2xl shadow-lg cursor-pointer hover:scale-110 transition-transform"
-                >
-                  <HiOutlineCloudUpload size={24} />
-                </label>
-              </div>
+  <div className="w-56 h-56 rounded-[3rem] bg-[#1f2937] overflow-hidden border-4 border-[#111827] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform group-hover:scale-[1.02]">
+    {file ? (
+      /* 1. Show the new file being uploaded */
+      <img
+        src={URL.createObjectURL(file)}
+        alt="Preview"
+        className="w-full h-full object-cover"
+      />
+    ) : formData.profile_pic_url ? (
+      /* 2. If no new file, show the existing profile picture from your database */
+      <img
+        src={formData.profile_pic_url}
+        alt="Current Profile"
+        className="w-full h-full object-cover"
+      />
+    ) : (
+      /* 3. Fallback if both are empty */
+      <div className="w-full h-full flex flex-col items-center justify-center text-gray-500">
+        <HiOutlineTerminal size={64} className="opacity-20" />
+      </div>
+    )}
+  </div>
+  
+  <input
+    type="file"
+    id="p-img"
+    className="hidden"
+    onChange={(e) => setFile(e.target.files[0])}
+  />
+  
+  <label
+    htmlFor="p-img"
+    className="absolute -bottom-2 -right-2 bg-cyan-500 text-white p-4 rounded-2xl shadow-lg cursor-pointer hover:scale-110 transition-transform"
+  >
+    <HiOutlineCloudUpload size={24} />
+  </label>
+</div>
 
               <div className="mt-8 w-full bg-[#111827] p-4 rounded-2xl border border-white/5">
                 <p className="text-[10px] text-gray-500 font-mono text-center">

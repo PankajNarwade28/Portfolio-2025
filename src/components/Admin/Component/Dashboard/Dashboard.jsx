@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; 
 import StatusCard from "../../Layout/StatusCard/StatusCard";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 const Dashboard = () => {
   const [backendStatus, setBackendStatus] = useState("Checking...");
@@ -9,7 +10,7 @@ const Dashboard = () => {
   const fetchStatus = async () => {
     try {
       const res1 = await axios.get(
-        "http://localhost:5000/api/status/backend"
+        `${API_BASE}api/status/backend`
       );
       setBackendStatus(res1.data.status);
     } catch {
@@ -18,7 +19,7 @@ const Dashboard = () => {
 
     try {
       const res2 = await axios.get(
-        "http://localhost:5000/api/status/database"
+        `${API_BASE}api/status/database`
       );
       setDbStatus(res2.data.status);
     } catch {

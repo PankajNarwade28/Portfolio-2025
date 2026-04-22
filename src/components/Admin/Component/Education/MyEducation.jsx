@@ -12,7 +12,8 @@ import Empty from "../LoadingEmpty/Empty";
 import { toast } from "sonner";
 import { useCallback } from "react";
 
-const API = "http://localhost:5000/api/education";
+const API_BASE = process.env.REACT_APP_API_URL;
+
 
 const initialForm = {
   degree: "",
@@ -38,7 +39,7 @@ const ManageEducation = () => {
  const fetchEducation = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get(API);
+      const res = await axios.get(`${API_BASE}api/education`);
       setEducationList(res.data);
       console.log("Fetched education data:", res.data);
 
@@ -84,9 +85,9 @@ const ManageEducation = () => {
     setLoading(true);
     try {
       if (selectedId && !String(selectedId).startsWith("temp-")) {
-        await axios.put(`${API}/${selectedId}`, formData);
+        await axios.put(`${API_BASE}api/education/${selectedId}`, formData);
       } else {
-        await axios.post(API, formData);
+        await axios.post(`${API_BASE}api/education`, formData);
       } 
     toast("Education history synced successfully!"); 
       fetchEducation();

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Aboutme.css";
 import Loading from "../LoadingEmpty/Loading";
 import Empty from "../LoadingEmpty/Empty";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 const AboutMe = () => {
   const [profile, setProfile] = useState(null);
@@ -11,7 +12,7 @@ const fetchProfile = async () => {
   try {
     setLoading(true);
 
-    const res = await axios.get("http://localhost:5000/api/about-me");
+    const res = await axios.get(`${API_BASE}api/about-me`);
 
     setProfile(res.data);
     console.log("Profile data loaded:", res.data);
