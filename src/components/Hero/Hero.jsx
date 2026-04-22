@@ -24,6 +24,7 @@ export const Hero = () => {
 
   // Custom typewriter effect
   useEffect(() => {
+    console.log(displayText); // ✅ log displayText to see the changes
     const words = [
       "Frontend Developer",
       "Backend Developer",
@@ -56,7 +57,7 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord]); // ✅ removed displayText
+  }, [currentChar, isDeleting, currentWord , displayText]); // ✅ removed displayText
  
   const techStack = [
     {

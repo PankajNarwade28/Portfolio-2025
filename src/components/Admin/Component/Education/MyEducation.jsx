@@ -10,6 +10,7 @@ import axios from "axios";
 import Loading from "../LoadingEmpty/Loading";
 import Empty from "../LoadingEmpty/Empty";
 import { toast } from "sonner";
+import { useCallback } from "react";
 
 const API = "http://localhost:5000/api/education";
 
@@ -34,12 +35,13 @@ const ManageEducation = () => {
   const [formData, setFormData] = useState(initialForm);
   const [loading, setLoading] = useState(false);
 
-  const fetchEducation = async () => {
+ const fetchEducation = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(API);
-      setEducationList(res.data); 
+      setEducationList(res.data);
       console.log("Fetched education data:", res.data);
+
       // Auto-select first item on initial load
       if (res.data.length > 0 && selectedId === null) {
         setSelectedId(res.data[0].id);
@@ -47,16 +49,15 @@ const ManageEducation = () => {
       }
     } catch (err) {
       console.error("Fetch error:", err);
-
       toast("Something went wrong!");
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedId]); // include dependencies used inside
 
   useEffect(() => {
     fetchEducation();
-  }, []);
+  }, [fetchEducation]);
 
   const handleSelect = (edu) => {
     setSelectedId(edu.id);

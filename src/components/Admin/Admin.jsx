@@ -13,7 +13,7 @@ const Admin = () => {
     } else {
       setUser(authService.getUser());
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     authService.logout();
