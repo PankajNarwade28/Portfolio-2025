@@ -8,19 +8,14 @@ import {
   youtubeLink,
 } from "../../util/links";
 import { authService } from "../../util/auth";
-import axios from "axios"; 
-const API_BASE = process.env.REACT_APP_API_URL;
 
 export const Hero = () => {
   const navigate = useNavigate();
   const [currentWord, setCurrentWord] = useState(0);
-  const [personalData, setPersonalData] = useState(null);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayText, setDisplayText] = useState("");
-  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
 
   // Check authentication status
   useEffect(() => {
@@ -29,26 +24,14 @@ export const Hero = () => {
 
   // Custom typewriter effect
   useEffect(() => {
-    setLoading(true);
-    // console.log(displayText); // ✅ log displayText to see the changes
-    const defaultWords = [
+    console.log(displayText); // ✅ log displayText to see the changes
+    const words = [
       "Frontend Developer",
       "Backend Developer",
       "Full Stack Developer",
       "Problem Solver",
     ];
 
-    const backendTitles = personalData?.professional_titles;
-
-    // ✅ Use backend titles if available, otherwise defaults
-    const wordsSource =
-      backendTitles && backendTitles.length > 0 ? backendTitles : defaultWords;
-
-    // ✅ Pick one word based on currentWord index
-    const words =
-      backendTitles && backendTitles.length > 0 ? backendTitles : defaultWords;
-
-    setLoading(false);
     const timer = setTimeout(
       () => {
         const currentFullWord = words[currentWord];
@@ -74,8 +57,8 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord, displayText]); // ✅ removed displayText
-
+  }, [currentChar, isDeleting, currentWord , displayText]); // ✅ removed displayText
+ 
   const techStack = [
     {
       name: "MongoDB",
@@ -122,34 +105,6 @@ export const Hero = () => {
     },
   ];
 
-  const FetchPersonalInfo = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_BASE}/api/personal/info`);
-      console.log("Personal Info:", response.data); // ✅ log the response data
-      setPersonalData(response.data);
-    } catch (error) {
-      console.error("Error fetching personal info:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    FetchPersonalInfo();
-  }, []);
-  
-  if(loading) {
-    return (
-      <div className="hero-container" id="Home">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <span>Loading...</span>
-        </div>
-      </div>
-    );
-  }
-  
   return (
     <div className="hero-container" id="Home">
       {/* Animated Background */}
@@ -175,11 +130,8 @@ export const Hero = () => {
             </div>
 
             <h3 className="subtitle">
-              {personalData?.designation || "Full Stack Web Developer"}
-              <i>Intern </i> &nbsp;
-              <span className="company-highlight">
-                {personalData?.current_company || "Unavailable"}
-              </span>
+              Full Stack Developer <i>Intern </i>
+              <span className="company-highlight">@KVNCraft Technologies</span>
             </h3>
 
             <h1 className="main-title">
@@ -197,13 +149,16 @@ export const Hero = () => {
               <span className="emoji-highlight"> ✨💻</span>
             </p>
 
-            <div className="typewriter-container">
+            {/* <div className="typewriter-container">
               <span className="typewriter-label">I'm a </span>
               <span className="typewriter-text">
                 {displayText}
                 <span className="cursor">|</span>
               </span>
-            </div>
+            </div> */}
+            {/* <div className="typewriter-container">
+              <button onClick={() => navigate("/test")}>Go to Test</button>
+            </div> */}
 
             <div className="action-buttons">
               <a
@@ -252,7 +207,6 @@ export const Hero = () => {
               <a
                 href="#Contact2"
                 style={{ color: "inherit", textDecoration: "none" }}
-                onClick={FetchPersonalInfo}
               >
                 <button className="btn-secondary">
                   <span>Contact Me</span>
