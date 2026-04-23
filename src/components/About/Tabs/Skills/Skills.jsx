@@ -20,7 +20,7 @@ export const Skills = ({ activeTab }) => {
   const fetchSkills = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_BASE}api/skills`);
+      const res = await axios.get(`${API_BASE}/api/skills`);
       setSkillsData(res.data);
     } catch (error) {
       console.error("Error fetching skills:", error);

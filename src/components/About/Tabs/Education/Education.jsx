@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { getEducation } from "../../../../api/education.api";
+import React, { useEffect, useState } from "react"; 
 import "./Education.css";
 import Loading from "../LoadingEmpty/Loading";
 import Empty from "../LoadingEmpty/Empty";
+import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 const EducationSection = () => {
   const [education, setEducation] = useState([]);
@@ -14,11 +15,11 @@ const EducationSection = () => {
 
   const fetchEducation = async () => {
     setLoading(true);
-    try {
-      const data = await getEducation();
+    try { 
+      const format = await axios.get(`${API_BASE}/api/education`);
 
       // 🔁 Transform DB → UI format
-      const formatted = data.map((edu) => ({
+      const formatted = format.data.map((edu) => ({
         id: edu.id,
         degree: edu.degree,
         institution: edu.college_name,
