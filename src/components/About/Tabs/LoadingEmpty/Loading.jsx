@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loading = ({ message = "Synchronizing Data..." }) => {
   return (
-    <div className="min-h-[400px] w-full flex flex-col items-center justify-center space-y-6 bg-[#0f172a] rounded-[2.5rem] border border-white/5 transition-all duration-500">
+    <div className="min-h-[600px] w-full flex flex-col items-center justify-center space-y-6 bg-[#0f172a] rounded-[2.5rem] border border-white/5 transition-all duration-500">
       {/* Themed Spinner Core */}
       <div className="relative flex items-center justify-center">
         {/* Outer Rotating Ring */}

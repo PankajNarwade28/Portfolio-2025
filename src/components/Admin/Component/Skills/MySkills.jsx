@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Trash2, Plus, Save, X, Sparkles, Code, Award } from "lucide-react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
-import Loading from "../LoadingEmpty/Loading";
-import Empty from "../LoadingEmpty/Empty";
+import Loading from "../LoadingEmpty/MyLoading";
+import Empty from "../LoadingEmpty/MyEmpty";
 const API_BASE = process.env.REACT_APP_API_URL; 
 const ManageSkills = () => {
   const [data, setData] = useState([]);

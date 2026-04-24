@@ -15,8 +15,7 @@ const fetchProfile = async () => {
 
     const res = await axios.get(`${API_BASE}/api/about-me`);
 
-    setProfile(res.data);
-    console.log("Profile data loaded:", res.data);
+    setProfile(res.data); 
   } catch (err) {
     console.error("Connection Interrupted:", err);
   } finally {

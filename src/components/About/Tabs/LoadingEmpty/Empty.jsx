@@ -6,7 +6,7 @@ const Empty = ({
   onRetry 
 }) => {
   return (
-    <div className="min-h-[400px] w-full flex flex-col items-center justify-center bg-[#161e31] rounded-[2.5rem] border border-[#45cba7]/10 p-10 text-center shadow-2xl">
+    <div className="min-h-[600px] w-full flex flex-col items-center justify-center bg-[#161e31] rounded-[2.5rem] border border-[#45cba7]/10 p-10 text-center shadow-2xl">
       {/* Visual Indicator */}
       <div className="mb-8 relative">
         <div className="w-24 h-24 rounded-[2rem] bg-slate-800/50 flex items-center justify-center border border-white/10 rotate-12 group-hover:rotate-0 transition-transform duration-500">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../util/auth";  
 import AdminLayout from "./Layout/Layout";
-import Dashboard from "./Component/Dashboard/Dashboard"; 
+import Dashboard from "./Component/Dashboard/MyDashboard"; 
 const Admin = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);

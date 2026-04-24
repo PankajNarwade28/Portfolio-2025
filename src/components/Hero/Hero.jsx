@@ -24,7 +24,7 @@ export const Hero = () => {
 
   // Custom typewriter effect
   useEffect(() => {
-    console.log(displayText); // ✅ log displayText to see the changes
+    // console.log(displayText); // ✅ log displayText to see the changes
     const words = [
       "Frontend Developer",
       "Backend Developer",

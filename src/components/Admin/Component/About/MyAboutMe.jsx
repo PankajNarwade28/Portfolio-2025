@@ -7,9 +7,9 @@ import {
   HiOutlineDatabase,
 } from "react-icons/hi";
 import axios from "axios";
-import "./AboutMe.css";
-import Loading from "../LoadingEmpty/Loading";
-import Empty from "../LoadingEmpty/Empty";
+import "./MyAboutMe.css";
+import Loading from "../LoadingEmpty/MyLoading";
+import Empty from "../LoadingEmpty/MyEmpty";
 const ManageAboutMe = () => {
   const [formData, setFormData] = useState({
     full_name: "",
@@ -25,7 +25,6 @@ const ManageAboutMe = () => {
   const [loading, setLoading] = useState(false);
   const API_BASE = process.env.REACT_APP_API_URL;
 
-
   useEffect(() => {
     setLoading(true);
     // Load current data on mount
@@ -40,7 +39,7 @@ const ManageAboutMe = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -77,11 +76,11 @@ const ManageAboutMe = () => {
   }
 
   if (!formData.full_name) {
-    return <Empty message="No profile data found. Please add your details." />;
+    return <Empty title="No profile data found. Please add your details." />;
   }
 
   return (
-    <div className="h-[92vh] overflow-hidden bg-[#0b0f1a] text-white py-10 md:py-12 font-sans selection:bg-purple-500/30">
+    <div className="h-full bg-[#0b0f1a] text-white py-10 md:py-12 font-sans selection:bg-purple-500/30">
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Header Section */}
         <header className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -105,43 +104,43 @@ const ManageAboutMe = () => {
               </h3>
 
               <div className="relative group">
-  <div className="w-56 h-56 rounded-[3rem] bg-[#1f2937] overflow-hidden border-4 border-[#111827] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform group-hover:scale-[1.02]">
-    {file ? (
-      /* 1. Show the new file being uploaded */
-      <img
-        src={URL.createObjectURL(file)}
-        alt="Preview"
-        className="w-full h-full object-cover"
-      />
-    ) : formData.profile_pic_url ? (
-      /* 2. If no new file, show the existing profile picture from your database */
-      <img
-        src={formData.profile_pic_url}
-        alt="Current Profile"
-        className="w-full h-full object-cover"
-      />
-    ) : (
-      /* 3. Fallback if both are empty */
-      <div className="w-full h-full flex flex-col items-center justify-center text-gray-500">
-        <HiOutlineTerminal size={64} className="opacity-20" />
-      </div>
-    )}
-  </div>
-  
-  <input
-    type="file"
-    id="p-img"
-    className="hidden"
-    onChange={(e) => setFile(e.target.files[0])}
-  />
-  
-  <label
-    htmlFor="p-img"
-    className="absolute -bottom-2 -right-2 bg-cyan-500 text-white p-4 rounded-2xl shadow-lg cursor-pointer hover:scale-110 transition-transform"
-  >
-    <HiOutlineCloudUpload size={24} />
-  </label>
-</div>
+                <div className="w-56 h-56 rounded-[3rem] bg-[#1f2937] overflow-hidden border-4 border-[#111827] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform group-hover:scale-[1.02]">
+                  {file ? (
+                    /* 1. Show the new file being uploaded */
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : formData.profile_pic_url ? (
+                    /* 2. If no new file, show the existing profile picture from your database */
+                    <img
+                      src={formData.profile_pic_url}
+                      alt="Current Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    /* 3. Fallback if both are empty */
+                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-500">
+                      <HiOutlineTerminal size={64} className="opacity-20" />
+                    </div>
+                  )}
+                </div>
+
+                <input
+                  type="file"
+                  id="p-img"
+                  className="hidden"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+
+                <label
+                  htmlFor="p-img"
+                  className="absolute -bottom-2 -right-2 bg-cyan-500 text-white p-4 rounded-2xl shadow-lg cursor-pointer hover:scale-110 transition-transform"
+                >
+                  <HiOutlineCloudUpload size={24} />
+                </label>
+              </div>
 
               <div className="mt-8 w-full bg-[#111827] p-4 rounded-2xl border border-white/5">
                 <p className="text-[10px] text-gray-500 font-mono text-center">
@@ -197,13 +196,26 @@ const ManageAboutMe = () => {
                     className="w-full bg-[#111827] border border-white/5 focus:border-purple-500 p-4 rounded-2xl text-sm font-medium outline-none transition-all"
                   />
                 </div>
+                {/* Years of Learning */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                    <HiOutlineTerminal /> Years of Learning
+                  </label>
+                  <input
+                    type="number"
+                    name="years_learning"
+                    value={formData.years_learning}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#111827] border border-white/5 focus:border-purple-500 p-4 rounded-2xl text-sm font-medium outline-none transition-all"
+                  />
+                </div>
 
                 {/* Drivers */}
-                <div className="space-y-2">
+                <div className="md:col-span-2 space-y-2">
                   <label className="text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                     <HiOutlineSparkles /> Core Drivers
                   </label>
-                  <input
+                  <input 
                     value={formData.drivers.join(", ")}
                     onChange={(e) =>
                       setFormData({
@@ -211,7 +223,7 @@ const ManageAboutMe = () => {
                         drivers: e.target.value.split(", "),
                       })
                     }
-                    className="w-full bg-[#111827] border border-white/5 focus:border-purple-500 p-4 rounded-2xl text-sm font-medium outline-none transition-all"
+                    className="w-full bg-[#111827] border border-white/5 focus:border-purple-500 p-5 rounded-[1.5rem] text-sm font-medium outline-none transition-all resize-none"
                     placeholder="Innovation, Reliability..."
                   />
                 </div>

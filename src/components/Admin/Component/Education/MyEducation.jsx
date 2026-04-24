@@ -7,8 +7,8 @@ import {
   HiOutlinePlusCircle,
 } from "react-icons/hi";
 import axios from "axios";
-import Loading from "../LoadingEmpty/Loading";
-import Empty from "../LoadingEmpty/Empty";
+import Loading from "../LoadingEmpty/MyLoading";
+import Empty from "../LoadingEmpty/MyEmpty";
 import { toast } from "sonner";
 import { useCallback } from "react";
 
@@ -122,7 +122,7 @@ const ManageEducation = () => {
     return <Loading message="Loading Timeline..." />;
 
   if(!loading && educationList.length === 0)
-    return <Empty message="No education history found." description="Please check Database or Backend Hosting for Education Data." onRetry={fetchEducation} />;
+    return <Empty title="No education history found." description="Please check Database or Backend Hosting for Education Data." onRetry={fetchEducation} />;
 
   return (
     <div className="min-h-screen bg-[#0b0f1a] text-white p-6 md:p-10 font-sans">

@@ -57,6 +57,14 @@ const Sidebar = () => {
           Education 
         </NavLink>
         <NavLink
+          to="/admin/my-achievements"
+          className={({ isActive }) =>
+            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
+          }
+        >
+          Achievements 
+        </NavLink> 
+        <NavLink
           to="/admin/my-certificates"
           className={({ isActive }) =>
             `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`

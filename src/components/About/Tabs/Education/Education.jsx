@@ -45,7 +45,7 @@ const EducationSection = () => {
   if (!education.length) {
     return (
       <Empty
-        message="No education records found."
+        title="No education records found."
         description="Check Backend on Hosting Platform or Database."
         onRetry={fetchEducation}
       />
