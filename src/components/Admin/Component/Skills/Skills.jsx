@@ -25,7 +25,7 @@ const ManageSkills = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_BASE}api/categories`);
+      const res = await axios.get(`${API_BASE}/api/categories`);
       // Ensure skills are sorted by order_index when they arrive
       const sortedData = (res.data || []).map((cat) => ({
         ...cat,
@@ -69,7 +69,7 @@ const ManageSkills = () => {
 
     try {
       const response = await axios.put(
-        `${API_BASE}api/skills/reorder`,
+        `${API_BASE}/api/skills/reorder`,
         {
           items: updatedItems,
         },
@@ -94,7 +94,7 @@ const ManageSkills = () => {
     const formData = new FormData();
     formData.append("file", file);
     const res = await axios.post(
-      `${API_BASE}api/upload/image`,
+      `${API_BASE}/api/upload/image`,
       formData,
     );
     return res.data;
@@ -114,7 +114,7 @@ const ManageSkills = () => {
     if (!newCategory.trim()) return alert("Enter a category title");
     let iconUrl = iconFile ? await uploadImage(iconFile) : "";
     try {
-      await axios.post(`${API_BASE}api/categories`, {
+      await axios.post(`${API_BASE}/api/categories`, {
         title: newCategory,
         icon_url: iconUrl,
         order_index: data.length + 1,
@@ -132,7 +132,7 @@ const ManageSkills = () => {
     if (!newSkill.skill_name.trim() || !newSkill.category_id)
       return alert("Required fields missing");
     try {
-      await axios.post(`${API_BASE}api/skills`, newSkill);
+      await axios.post(`${API_BASE}/api/skills`, newSkill);
       setNewSkill({
         skill_name: "",
         percentage: "",
@@ -152,7 +152,7 @@ const ManageSkills = () => {
   const deleteCategory = async (id) => {
     setLoading(true);
     if (window.confirm("Delete category?")) {
-      await axios.delete(`${API_BASE}api/categories/${id}`);
+      await axios.delete(`${API_BASE}/api/categories/${id}`);
       fetchData();
     }
     setLoading(false);
@@ -161,7 +161,7 @@ const ManageSkills = () => {
   const deleteSkill = async (id) => {
     setLoading(true);
     if (window.confirm("Delete skill?")) {
-      await axios.delete(`${API_BASE}api/skills/${id}`);
+      await axios.delete(`${API_BASE}/api/skills/${id}`);
       fetchData();
     }
     setLoading(false);

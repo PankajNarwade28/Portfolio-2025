@@ -30,7 +30,7 @@ const ManageAboutMe = () => {
     setLoading(true);
     // Load current data on mount
     axios
-      .get(`${API_BASE}api/about-me`)
+      .get(`${API_BASE}/api/about-me`)
       .then((res) => setFormData(res.data))
       .catch((err) => console.error("Error loading profile:", err))
       .finally(() => setLoading(false));
@@ -52,7 +52,7 @@ const ManageAboutMe = () => {
         uploadData.append("file", file);
         uploadData.append("folder", "About_images"); // Match this with backend req.body.folder
         const uploadRes = await axios.post(
-          `${API_BASE}api/upload/image`,
+          `${API_BASE}/api/upload/image`,
           uploadData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -62,7 +62,7 @@ const ManageAboutMe = () => {
       }
 
       const finalData = { ...formData, profile_pic_url: imageUrl };
-      await axios.put(`${API_BASE}api/about-me`, finalData);
+      await axios.put(`${API_BASE}/api/about-me`, finalData);
 
       alert("Profile updated successfully!");
     } catch (err) {

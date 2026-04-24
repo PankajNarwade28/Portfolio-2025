@@ -10,7 +10,7 @@ const Dashboard = () => {
   const fetchStatus = async () => {
     try {
       const res1 = await axios.get(
-        `${API_BASE}api/status/backend`
+        `${API_BASE}/api/status/backend`
       );
       setBackendStatus(res1.data.status);
     } catch {
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     try {
       const res2 = await axios.get(
-        `${API_BASE}api/status/database`
+        `${API_BASE}/api/status/database`
       );
       setDbStatus(res2.data.status);
     } catch {
