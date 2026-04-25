@@ -10,6 +10,7 @@ import axios from "axios";
 import "./MyAboutMe.css";
 import Loading from "../LoadingEmpty/MyLoading";
 import Empty from "../LoadingEmpty/MyEmpty";
+import { toast } from "sonner";
 const ManageAboutMe = () => {
   const [formData, setFormData] = useState({
     full_name: "",
@@ -63,9 +64,9 @@ const ManageAboutMe = () => {
       const finalData = { ...formData, profile_pic_url: imageUrl };
       await axios.put(`${API_BASE}/api/about-me`, finalData);
 
-      alert("Profile updated successfully!");
+      toast("Profile updated successfully!");
     } catch (err) {
-      alert("Failed to update: " + err.message);
+      toast("Failed to update: " + err.message);
     } finally {
       setLoading(false);
     }

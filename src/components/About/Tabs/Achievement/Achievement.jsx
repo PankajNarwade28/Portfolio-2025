@@ -3,7 +3,7 @@ import "./Achievement.css";
 import axios from "axios";
 import Empty from "../LoadingEmpty/Empty";
 import Loading from "../LoadingEmpty/Loading";
-const API_BASE = process.env.REACT_APP_API_URL;
+const API_BASE = process.env.REACT_APP_API_URL; 
 export const Achievement = () => {
   const [achievements, setAchievements] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
