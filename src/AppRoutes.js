@@ -16,6 +16,7 @@ import ManageProjects from "./components/Admin/Component/Projects/MyProjects";
 import ManageAboutMe from "./components/Admin/Component/About/MyAboutMe";
 import MyEducation from "./components/Admin/Component/Education/MyEducation";
 import MyAchievements from "./components/Admin/Component/Achievements/MyAchievements";
+import MyTech from "./components/Admin/Component/Tech/MyTech";
 const AppRoutes = () => {
   return (
      <Routes>
@@ -49,6 +50,7 @@ const AppRoutes = () => {
         <Route path="my-about" element={<ManageAboutMe />} />
         <Route path="my-education" element={<MyEducation   />} />
         <Route path="my-achievements" element={<MyAchievements />} />
+        <Route path="my-tech" element={<MyTech />} />
         <Route path="my-certificates" element={<ManageCertificates />} />
         {/* Add more admin routes here */}
       </Route>

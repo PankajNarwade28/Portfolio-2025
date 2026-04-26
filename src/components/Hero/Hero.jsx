@@ -8,12 +8,18 @@ import {
   youtubeLink,
 } from "../../util/links";
 import { authService } from "../../util/auth";
+import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export const Hero = () => {
   const navigate = useNavigate();
   const [currentWord, setCurrentWord] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({});
+  const [techData, setTechData] = useState([]);
+  const [linksData, setLinksData] = useState([]);
   const [displayText, setDisplayText] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -22,21 +28,71 @@ export const Hero = () => {
     setIsAuthenticated(authService.isAuthenticated());
   }, []);
 
+  const FetchPersonalInfo = async () => {
+    setLoading(true);
+    try {
+      const data = await axios.get(`${API_BASE}/api/personal/info`);
+      setData(data.data);
+      console.log("Personal Info:", data.data);
+    } catch (error) {
+      console.error("Error fetching personal info:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const FetchTechStack = async () => {
+    setLoading(true);
+    try {
+      const techdata = await axios.get(`${API_BASE}/api/personal/tech`);
+      setTechData(techdata.data);
+      console.log("Tech Stack:", techdata.data);
+    } catch (error) {
+      console.error("Error fetching tech stack:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const FetchLinks = async () => {
+    setLoading(true);
+    try {
+      const linksData = await axios.get(`${API_BASE}/api/personal/links`);
+      setLinksData(linksData.data);
+      console.log("Social Links:", linksData.data);
+    } catch (error) {
+      console.error("Error fetching social links:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    FetchPersonalInfo();
+    FetchTechStack();
+    FetchLinks();
+  }, []);
+
   // Custom typewriter effect
   useEffect(() => {
-    // console.log(displayText); // ✅ log displayText to see the changes
-    const words = [
+    // console.log(displayText);
+    const defaultWords = [
       "Frontend Developer",
       "Backend Developer",
       "Full Stack Developer",
       "Problem Solver",
     ];
 
+    const words = loading
+      ? ["Loading..."]
+      : data?.professional_titles?.length > 0
+        ? data.professional_titles.map((t) => t.trim())
+        : defaultWords;
     const timer = setTimeout(
       () => {
         const currentFullWord = words[currentWord];
 
-        if (!isDeleting) {
+        if (!loading && !isDeleting) {
           if (currentChar < currentFullWord.length) {
             setDisplayText(currentFullWord.slice(0, currentChar + 1));
             setCurrentChar((prev) => prev + 1);
@@ -57,53 +113,53 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord , displayText]); // ✅ removed displayText
- 
-  const techStack = [
-    {
-      name: "MongoDB",
-      icon: "🍃",
-      color: "#47A248",
-      code: 'db.collection.find({name: "MongoDB"})',
-    },
-    {
-      name: "Express.js",
-      icon: "⚡",
-      color: "#000000",
-      code: 'app.get("/", () => "Express.js");',
-    },
-    {
-      name: "React",
-      icon: "⚛️",
-      color: "#61DAFB",
-      code: "console.log(<React />);",
-    },
-    {
-      name: "Node.js",
-      icon: "🟢",
-      color: "#339933",
-      code: 'console.log("Node.js");',
-    },
-    { name: "HTML5", icon: "📄", color: "#E34F26", code: "<h1>HTML5</h1>" },
-    {
-      name: "CSS3",
-      icon: "🎨",
-      color: "#1572B6",
-      code: '.css { content: "CSS3"; }',
-    },
-    {
-      name: "JavaScript",
-      icon: "📜",
-      color: "#F7DF1E",
-      code: 'console.log("JavaScript");',
-    },
-    {
-      name: "SQL",
-      icon: "🗄️",
-      color: "#336791",
-      code: 'SELECT "SQL" FROM database;',
-    },
-  ];
+  }, [currentChar, isDeleting, currentWord, displayText]); // ✅ removed displayText
+
+  // const techStack = [
+  //   {
+  //     name: "MongoDB",
+  //     icon: "🍃",
+  //     color: "#47A248",
+  //     code: 'db.collection.find({name: "MongoDB"})',
+  //   },
+  //   {
+  //     name: "Express.js",
+  //     icon: "⚡",
+  //     color: "#000000",
+  //     code: 'app.get("/", () => "Express.js");',
+  //   },
+  //   {
+  //     name: "React",
+  //     icon: "⚛️",
+  //     color: "#61DAFB",
+  //     code: "console.log(<React />);",
+  //   },
+  //   {
+  //     name: "Node.js",
+  //     icon: "🟢",
+  //     color: "#339933",
+  //     code: 'console.log("Node.js");',
+  //   },
+  //   { name: "HTML5", icon: "📄", color: "#E34F26", code: "<h1>HTML5</h1>" },
+  //   {
+  //     name: "CSS3",
+  //     icon: "🎨",
+  //     color: "#1572B6",
+  //     code: '.css { content: "CSS3"; }',
+  //   },
+  //   {
+  //     name: "JavaScript",
+  //     icon: "📜",
+  //     color: "#F7DF1E",
+  //     code: 'console.log("JavaScript");',
+  //   },
+  //   {
+  //     name: "SQL",
+  //     icon: "🗄️",
+  //     color: "#336791",
+  //     code: 'SELECT "SQL" FROM database;',
+  //   },
+  // ];
 
   return (
     <div className="hero-container" id="Home">
@@ -130,8 +186,14 @@ export const Hero = () => {
             </div>
 
             <h3 className="subtitle">
-              Full Stack Developer <i>Intern </i>
-              <span className="company-highlight">@KVNCraft Technologies</span>
+              {/* Full Stack Developer <i>Intern </i> */}
+              {data.designation && <span>{data.designation}</span>}
+              {data.current_company && (
+                <span className="company-highlight">
+                  {" "}
+                  @{data.current_company}
+                </span>
+              )}
             </h3>
 
             <h1 className="main-title">
@@ -149,13 +211,13 @@ export const Hero = () => {
               <span className="emoji-highlight"> ✨💻</span>
             </p>
 
-            {/* <div className="typewriter-container">
+            <div className="typewriter-container">
               <span className="typewriter-label">I'm a </span>
               <span className="typewriter-text">
                 {displayText}
                 <span className="cursor">|</span>
               </span>
-            </div> */}
+            </div>
             {/* <div className="typewriter-container">
               <button onClick={() => navigate("/test")}>Go to Test</button>
             </div> */}
@@ -284,19 +346,21 @@ export const Hero = () => {
           <div className="image-container">
             {/* Floating Tech Icons */}
             <div className="floating-tech-stack">
-              {techStack.map((tech, index) => (
+              {techData.map((tech, index) => (
                 <div
-                  key={index}
+                  key={tech.id}
                   className={`floating-tech-icon tech-${index}`}
                   style={{ "--delay": `${index * 0.5}s` }}
                 >
                   <div className="tech-icon-inner">
-                    <span className="tech-emoji">{tech.icon}</span>
+                    <span className="tech-emoji">{tech.icon_symbol}</span>
                   </div>
+
                   <div className="tech-tooltip">{tech.name}</div>
+
                   <div
                     className="tech-glow"
-                    style={{ "--tech-color": tech.color }}
+                    style={{ "--tech-color": tech.hex_color }}
                   ></div>
                 </div>
               ))}
@@ -308,11 +372,13 @@ export const Hero = () => {
               <div className="image-ring ring-1"></div>
               <div className="image-ring ring-2"></div>
               <div className="image-ring ring-3"></div>
-              <img
-                src="./assets/images/image-04.png"
-                alt="Pankaj Digambar Narwade"
-                className="profile-image"
-              />
+              {!loading && data.profile_img && (
+                <img
+                  src={data.profile_img}
+                  alt="Pankaj Digambar Narwade"
+                  className="profile-image"
+                />
+              )}
               <div className="image-glow"></div>
             </div>
 
