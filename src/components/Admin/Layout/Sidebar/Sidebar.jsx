@@ -73,6 +73,14 @@ const Sidebar = () => {
           Certificates
         </NavLink>
         <NavLink
+          to="/admin/my-tech"
+          className={({ isActive }) =>
+            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
+          }
+        >
+          Tech Stack
+        </NavLink>
+        <NavLink
           to="/"
           className={({ isActive }) =>
             `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
