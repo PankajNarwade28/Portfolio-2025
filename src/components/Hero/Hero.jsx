@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Hero.css";
-import {
-  instagramLink,
-  githubLink,
-  linkedinLink,
-  youtubeLink,
-} from "../../util/links";
+import "./Hero.css"; 
 import { authService } from "../../util/auth";
 import axios from "axios";
 const API_BASE = process.env.REACT_APP_API_URL;
@@ -19,7 +13,12 @@ export const Hero = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [techData, setTechData] = useState([]);
-  const [linksData, setLinksData] = useState([]);
+  const [links, setLinks] = useState({
+    instagramLink: "",
+    githubLink: "",
+    linkedinLink: "",
+    youtubeLink: "",
+  });
   const [displayText, setDisplayText] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -57,9 +56,29 @@ export const Hero = () => {
   const FetchLinks = async () => {
     setLoading(true);
     try {
-      const linksData = await axios.get(`${API_BASE}/api/personal/links`);
-      setLinksData(linksData.data);
-      console.log("Social Links:", linksData.data);
+      const res = await axios.get(`${API_BASE}/api/personal/links`);
+      const links = res.data;
+
+      const instagramLink = links.find(
+        (item) => item.display_text === "Instagram",
+      )?.link_url;
+      const githubLink = links.find(
+        (item) => item.display_text === "GitHub",
+      )?.link_url;
+      const linkedinLink = links.find(
+        (item) => item.display_text === "LinkedIn",
+      )?.link_url;
+      const youtubeLink = links.find(
+        (item) => item.display_text === "YouTube",
+      )?.link_url;
+
+      // store in state (optional)
+      setLinks({
+        instagramLink,
+        githubLink,
+        linkedinLink,
+        youtubeLink,
+      });
     } catch (error) {
       console.error("Error fetching social links:", error);
     } finally {
@@ -83,11 +102,15 @@ export const Hero = () => {
       "Problem Solver",
     ];
 
-    const words = loading
-      ? ["Loading..."]
-      : data?.professional_titles?.length > 0
-        ? data.professional_titles.map((t) => t.trim())
-        : defaultWords;
+    let words;
+
+    if (loading) {
+      words = ["Loading..."];
+    } else if (data?.professional_titles?.length > 0) {
+      words = data.professional_titles.map((t) => t.trim());
+    } else {
+      words = defaultWords;
+    }
     const timer = setTimeout(
       () => {
         const currentFullWord = words[currentWord];
@@ -113,53 +136,7 @@ export const Hero = () => {
     );
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord, displayText]); // ✅ removed displayText
-
-  // const techStack = [
-  //   {
-  //     name: "MongoDB",
-  //     icon: "🍃",
-  //     color: "#47A248",
-  //     code: 'db.collection.find({name: "MongoDB"})',
-  //   },
-  //   {
-  //     name: "Express.js",
-  //     icon: "⚡",
-  //     color: "#000000",
-  //     code: 'app.get("/", () => "Express.js");',
-  //   },
-  //   {
-  //     name: "React",
-  //     icon: "⚛️",
-  //     color: "#61DAFB",
-  //     code: "console.log(<React />);",
-  //   },
-  //   {
-  //     name: "Node.js",
-  //     icon: "🟢",
-  //     color: "#339933",
-  //     code: 'console.log("Node.js");',
-  //   },
-  //   { name: "HTML5", icon: "📄", color: "#E34F26", code: "<h1>HTML5</h1>" },
-  //   {
-  //     name: "CSS3",
-  //     icon: "🎨",
-  //     color: "#1572B6",
-  //     code: '.css { content: "CSS3"; }',
-  //   },
-  //   {
-  //     name: "JavaScript",
-  //     icon: "📜",
-  //     color: "#F7DF1E",
-  //     code: 'console.log("JavaScript");',
-  //   },
-  //   {
-  //     name: "SQL",
-  //     icon: "🗄️",
-  //     color: "#336791",
-  //     code: 'SELECT "SQL" FROM database;',
-  //   },
-  // ];
+  }, [currentChar, isDeleting, currentWord, displayText , links, loading , data]); 
 
   return (
     <div className="hero-container" id="Home">
@@ -181,10 +158,9 @@ export const Hero = () => {
         <div className="hero-content">
           <div className="content-animation">
             <div className="badge">
-              <span className="badge-dot"></span>
+              <span className="badge-dot"> </span>
               Available for opportunities
             </div>
-
             <h3 className="subtitle">
               {/* Full Stack Developer <i>Intern </i> */}
               {data.designation && <span>{data.designation}</span>}
@@ -195,7 +171,6 @@ export const Hero = () => {
                 </span>
               )}
             </h3>
-
             <h1 className="main-title">
               Building the
               <span className="gradient-text"> future </span>
@@ -203,14 +178,12 @@ export const Hero = () => {
               <span className="gradient-text"> technology</span>
               <span className="title-decoration">🚀</span>
             </h1>
-
             <p className="description">
               Passionate <span className="highlight">IT professional</span>{" "}
               dedicated to crafting innovative digital solutions with clean code
               and creative problem-solving.
               <span className="emoji-highlight"> ✨💻</span>
             </p>
-
             <div className="typewriter-container">
               <span className="typewriter-label">I'm a </span>
               <span className="typewriter-text">
@@ -221,27 +194,28 @@ export const Hero = () => {
             {/* <div className="typewriter-container">
               <button onClick={() => navigate("/test")}>Go to Test</button>
             </div> */}
-
             <div className="action-buttons">
-              <a
-                href={`${githubLink}?tab=repositories`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                <button className="btn-primary">
-                  <span>View My Work</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 12h14m-7-7l7 7-7 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </a>
+              {links.githubLink && (
+                <a
+                  href={`${links.githubLink}?tab=repositories`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <button className="btn-primary">
+                    <span>View My Work</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M5 12h14m-7-7l7 7-7 7"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </a>
+              )}
               {isAuthenticated && (
                 <button
                   className="btn-glass-admin"
@@ -275,69 +249,73 @@ export const Hero = () => {
                 </button>
               </a>
             </div>
-
-            <div className="social-links">
-              <a
-                href={`${linkedinLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+            {(links.githubLink ||
+              links.linkedinLink ||
+              links.instagramLink ||
+              links.youtubeLink) && (
+              <div className="social-links">
+                <a
+                  href={`${links.linkedinLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
                 >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-              </a>
-              <a
-                href={`${githubLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </a>
+                <a
+                  href={`${links.githubLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
                 >
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-              </a>
-              <a
-                href={`${instagramLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                </a>
+                <a
+                  href={`${links.instagramLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
                 >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.67 1.636 4.85 4.85.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.636 4.67-4.85 4.85-.944.056-1.298.07-4.85.07s-3.906-.014-4.85-.07c-3.252-.148-4.67-1.636-4.85-4.85-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.636-4.67 4.85-4.85zm0-2.163c-3.259 0-3.668.014-4.944.072-4.358.211-6.775 2.671-6.996 6.996-.058 1.276-.073 1.685-.073 4.944s.015 3.668.073 4.944c.221 4.325 2.638 6.784 6.996 6.996 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.357-.212 6.773-2.671 6.995-6.996.058-1.276.072-1.684.072-4.944s-.014-3.668-.072-4.944c-.222-4.325-2.64-6.783-6.995-6.996-1.277-.058-1.685-.072-4.944-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.442.645-1.442 1.442s.646 1.442 1.442 1.442 1.442-.645 1.442-1.442-.646-1.442-1.442-1.442z" />
-                </svg>
-              </a>
-              <a
-                href={`${youtubeLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.67 1.636 4.85 4.85.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.636 4.67-4.85 4.85-.944.056-1.298.07-4.85.07s-3.906-.014-4.85-.07c-3.252-.148-4.67-1.636-4.85-4.85-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.636-4.67 4.85-4.85zm0-2.163c-3.259 0-3.668.014-4.944.072-4.358.211-6.775 2.671-6.996 6.996-.058 1.276-.073 1.685-.073 4.944s.015 3.668.073 4.944c.221 4.325 2.638 6.784 6.996 6.996 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.357-.212 6.773-2.671 6.995-6.996.058-1.276.072-1.684.072-4.944s-.014-3.668-.072-4.944c-.222-4.325-2.64-6.783-6.995-6.996-1.277-.058-1.685-.072-4.944-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.442.645-1.442 1.442s.646 1.442 1.442 1.442 1.442-.645 1.442-1.442-.646-1.442-1.442-1.442z" />
+                  </svg>
+                </a>
+                <a
+                  href={`${links.youtubeLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
                 >
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-              </a>
-            </div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
