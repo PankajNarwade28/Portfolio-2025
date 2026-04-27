@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useMemo} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Hero.css"; 
 import { authService } from "../../util/auth";
@@ -11,7 +11,7 @@ export const Hero = () => {
   const [currentChar, setCurrentChar] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null); // Initialize as null to check if data arrived
   const [techData, setTechData] = useState([]);
   const [links, setLinks] = useState({
     instagramLink: "",
@@ -22,121 +22,85 @@ export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check authentication status
+  // 1. Initial Data Fetching
   useEffect(() => {
     setIsAuthenticated(authService.isAuthenticated());
+
+    const fetchAllData = async () => {
+      try {
+        const [personalRes, techRes, linksRes] = await Promise.all([
+          axios.get(`${API_BASE}/api/personal/info`),
+          axios.get(`${API_BASE}/api/personal/tech`),
+          axios.get(`${API_BASE}/api/personal/links`)
+        ]);
+
+        setData(personalRes.data);
+        setTechData(techRes.data);
+        
+        const fetchedLinks = linksRes.data;
+        setLinks({
+          instagramLink: fetchedLinks.find(i => i.display_text === "Instagram")?.link_url || "",
+          githubLink: fetchedLinks.find(i => i.display_text === "GitHub")?.link_url || "",
+          linkedinLink: fetchedLinks.find(i => i.display_text === "LinkedIn")?.link_url || "",
+          youtubeLink: fetchedLinks.find(i => i.display_text === "YouTube")?.link_url || "",
+        });
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+
+    // 2. Fallback Safety: If backend fails/takes too long (60s), stop loading
+    const safetyTimer = setTimeout(() => {
+      setLoading(false);
+    }, 60000);
+
+    return () => clearTimeout(safetyTimer);
   }, []);
 
-  const FetchPersonalInfo = async () => {
-    setLoading(true);
-    try {
-      const data = await axios.get(`${API_BASE}/api/personal/info`);
-      setData(data.data);
-      console.log("Personal Info:", data.data);
-    } catch (error) {
-      console.error("Error fetching personal info:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // 3. Dynamic Word Selection (Reacts instantly to 'data' or 'loading' changes)
+  const words = useMemo(() => {
+    const defaultWords = ["Frontend Developer", "Backend Developer", "Full Stack Developer", "Problem Solver"];
+    if (loading && !data) return ["Loading..."];
+    if (data?.professional_titles?.length > 0) return data.professional_titles.map(t => t.trim());
+    return defaultWords;
+  }, [loading, data]);
 
-  const FetchTechStack = async () => {
-    setLoading(true);
-    try {
-      const techdata = await axios.get(`${API_BASE}/api/personal/tech`);
-      setTechData(techdata.data);
-      console.log("Tech Stack:", techdata.data);
-    } catch (error) {
-      console.error("Error fetching tech stack:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const FetchLinks = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${API_BASE}/api/personal/links`);
-      const links = res.data;
-
-      const instagramLink = links.find(
-        (item) => item.display_text === "Instagram",
-      )?.link_url;
-      const githubLink = links.find(
-        (item) => item.display_text === "GitHub",
-      )?.link_url;
-      const linkedinLink = links.find(
-        (item) => item.display_text === "LinkedIn",
-      )?.link_url;
-      const youtubeLink = links.find(
-        (item) => item.display_text === "YouTube",
-      )?.link_url;
-
-      // store in state (optional)
-      setLinks({
-        instagramLink,
-        githubLink,
-        linkedinLink,
-        youtubeLink,
-      });
-    } catch (error) {
-      console.error("Error fetching social links:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // 4. Optimized Typewriter Effect
   useEffect(() => {
-    FetchPersonalInfo();
-    FetchTechStack();
-    FetchLinks();
-  }, []);
-
-  // Custom typewriter effect
-  useEffect(() => {
-    // console.log(displayText);
-    const defaultWords = [
-      "Frontend Developer",
-      "Backend Developer",
-      "Full Stack Developer",
-      "Problem Solver",
-    ];
-
-    let words;
-
-    if (loading) {
-      words = ["Loading..."];
-    } else if (data?.professional_titles?.length > 0) {
-      words = data.professional_titles.map((t) => t.trim());
-    } else {
-      words = defaultWords;
+    const currentFullWord = words[currentWord] || "";
+    
+    // Reset char index if the word list changes (e.g., from "Loading..." to real data)
+    if (currentChar > currentFullWord.length && !isDeleting) {
+        setCurrentChar(0);
+        setDisplayText("");
     }
-    const timer = setTimeout(
-      () => {
-        const currentFullWord = words[currentWord];
 
-        if (!loading && !isDeleting) {
-          if (currentChar < currentFullWord.length) {
-            setDisplayText(currentFullWord.slice(0, currentChar + 1));
-            setCurrentChar((prev) => prev + 1);
-          } else {
-            setTimeout(() => setIsDeleting(true), 1500);
-          }
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        if (currentChar < currentFullWord.length) {
+          setDisplayText(currentFullWord.slice(0, currentChar + 1));
+          setCurrentChar(prev => prev + 1);
         } else {
-          if (currentChar > 0) {
-            setDisplayText(currentFullWord.slice(0, currentChar - 1));
-            setCurrentChar((prev) => prev - 1);
-          } else {
-            setIsDeleting(false);
-            setCurrentWord((prev) => (prev + 1) % words.length);
-          }
+          // Pause at the end of the word
+          setTimeout(() => setIsDeleting(true), 1500);
         }
-      },
-      isDeleting ? 50 : 100,
-    );
+      } else {
+        if (currentChar > 0) {
+          setDisplayText(currentFullWord.slice(0, currentChar - 1));
+          setCurrentChar(prev => prev - 1);
+        } else {
+          setIsDeleting(false);
+          setCurrentWord(prev => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timer);
-  }, [currentChar, isDeleting, currentWord, displayText , links, loading , data]); 
+  }, [currentChar, isDeleting, currentWord, words]); // Dependencies are clean and reactive
 
   return (
     <div className="hero-container" id="Home">
@@ -161,14 +125,15 @@ export const Hero = () => {
               <span className="badge-dot"> </span>
               Available for opportunities
             </div>
-            <h3 className="subtitle">
-              {/* Full Stack Developer <i>Intern </i> */}
-              {data.designation && <span>{data.designation}</span>}
-              {data.current_company && (
-                <span className="company-highlight">
-                  {" "}
-                  @{data.current_company}
-                </span>
+           <h3 className="subtitle">
+              {data?.designation ? (
+                <span>{data.designation}</span>
+              ) : !loading ? (
+                <span>Full Stack Developer</span> 
+              ) : null}
+              
+              {data?.current_company && (
+                <span className="company-highlight"> @{data.current_company}</span>
               )}
             </h3>
             <h1 className="main-title">
@@ -350,13 +315,11 @@ export const Hero = () => {
               <div className="image-ring ring-1"></div>
               <div className="image-ring ring-2"></div>
               <div className="image-ring ring-3"></div>
-              {!loading && data.profile_img && (
-                <img
-                  src={data.profile_img}
-                  alt="Pankaj Digambar Narwade"
-                  className="profile-image"
-                />
-              )}
+               {data?.profile_img ? (
+                 <img src={data.profile_img} alt="Profile" className="profile-image" />
+               ) : !loading ? (
+                 <div className="profile-image-fallback"> {/* CSS for a default avatar or icon */} </div>
+               ) : null}
               <div className="image-glow"></div>
             </div>
 
