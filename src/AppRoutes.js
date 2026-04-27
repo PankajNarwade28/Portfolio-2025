@@ -19,11 +19,10 @@ import MyEducation from "./components/Admin/Component/Education/MyEducation";
 import MyAchievements from "./components/Admin/Component/Achievements/MyAchievements";
 import MyTech from "./components/Admin/Component/Tech/MyTech";
 import LoadingAnimation from "./components/LoadingAnimation/LoadingAnimation";
-import { use } from "react";
+
 
 const API_BASE = process.env.REACT_APP_API_URL;
-const AppRoutes = () => {
-  const [data, setData] = useState(null);   
+const AppRoutes = () => { 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
   let interval;
@@ -38,8 +37,7 @@ const AppRoutes = () => {
       
       if (response.ok) {
         const result = await response.json();
-        console.log("Backend is healthy");
-        setData(result);
+        console.log("Backend is healthy" + JSON.stringify(result)); 
         setLoading(false);
         clearInterval(interval); // Stop polling on success
         return; // Exit function

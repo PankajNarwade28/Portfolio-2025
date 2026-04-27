@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+ 
 
 export default function LoadingAnimation() {
   const canvasRef = useRef(null);
@@ -24,7 +25,7 @@ export default function LoadingAnimation() {
       }, 400);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [messages.length]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -146,7 +147,7 @@ export default function LoadingAnimation() {
     frame();
     return () => cancelAnimationFrame(animId);
   }, []);
-
+ 
   return (
     <div style={{
       width: '100vw',

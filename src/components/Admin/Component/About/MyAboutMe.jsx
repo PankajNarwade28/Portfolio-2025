@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useCallback} from "react";
 import {
   HiOutlineUser,
   HiOutlineCloudUpload,
   HiOutlineSparkles,
   HiOutlineTerminal,
   HiOutlineDatabase,
-} from "react-icons/hi";
+} from "react-icons/hi"; 
 import axios from "axios";
 import "./MyAboutMe.css";
 import Loading from "../LoadingEmpty/MyLoading";
@@ -75,18 +75,18 @@ const ManageAboutMe = () => {
     }
   };
 
-  const fetchTitles = async () => {
+  const fetchTitles = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/about-me/titles`);
       setTitles(res.data);
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [API_BASE]);
 
   useEffect(() => {
     if (activeTab === "titles") fetchTitles();
-  }, [activeTab]);
+  }, [activeTab , fetchTitles]);
 
   if (loading) {
     return <Loading message="Updating Profile Data..." />;
