@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
 import Loading from "../LoadingEmpty/MyLoading";
 import Empty from "../LoadingEmpty/MyEmpty";
-const API_BASE = process.env.REACT_APP_API_URL; 
+const API_BASE = process.env.REACT_APP_API_URL;
 const ManageSkills = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,12 +68,9 @@ const ManageSkills = () => {
     console.log("Reorder API response:", newData);
 
     try {
-      const response = await axios.put(
-        `${API_BASE}/api/skills/reorder`,
-        {
-          items: updatedItems,
-        },
-      );
+      const response = await axios.put(`${API_BASE}/api/skills/reorder`, {
+        items: updatedItems,
+      });
       console.log("Sending items:", updatedItems);
       console.log("Response:", response.data);
       // SAFETY CHECK: Ensure response and response.data exist
@@ -84,7 +81,7 @@ const ManageSkills = () => {
       // This catches the 403 or 500 errors gracefully
       console.error("Failed to save order:", err.response?.data || err.message);
       fetchData(); // Rollback UI
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -93,10 +90,7 @@ const ManageSkills = () => {
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    const res = await axios.post(
-      `${API_BASE}/api/upload/image`,
-      formData,
-    );
+    const res = await axios.post(`${API_BASE}/api/upload/image`, formData);
     return res.data;
   };
 
@@ -168,15 +162,11 @@ const ManageSkills = () => {
   };
 
   if (loading) {
-    return (
-      <Loading message="Updating Skill Data..." />
-    )
+    return <Loading message="Updating Skill Data..." />;
   }
 
-  if(!data.length) {
-    return (
-      <Empty message="No skill data found. Please add your skills." />
-    )
+  if (!data.length) {
+    return <Empty message="No skill data found. Please add your skills." />;
   }
 
   return (
@@ -315,8 +305,6 @@ const ManageSkills = () => {
                     <Trash2 size={20} />
                   </button>
                 </div>
-
-                {/* DRAG AND DROP AREA */}
                 <DragDropContext onDragEnd={(res) => onDragEnd(res, cat.id)}>
                   <Droppable droppableId={String(cat.id)}>
                     {(provided) => (
@@ -334,9 +322,12 @@ const ManageSkills = () => {
                             {(provided, snapshot) => (
                               <div
                                 ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className={`flex items-center justify-between p-4 bg-white/5 border rounded-xl transition-colors ${snapshot.isDragging ? "border-cyan-500 bg-cyan-500/10" : "border-gray-700/20"}`}
+                                {...provided.draggableProps} // container stays draggable
+                                className={`flex items-center justify-between p-4 bg-white/5 border rounded-xl transition-colors ${
+                                  snapshot.isDragging
+                                    ? "border-cyan-500 bg-cyan-500/10"
+                                    : "border-gray-700/20"
+                                }`}
                               >
                                 <div className="flex items-center gap-4">
                                   <div className="text-2xl">
@@ -356,12 +347,24 @@ const ManageSkills = () => {
                                     </code>
                                   </div>
                                 </div>
-                                <button
-                                  onClick={() => deleteSkill(skill.id)}
-                                  className="text-gray-500 hover:text-red-400"
-                                >
-                                  <X size={18} />
-                                </button>
+
+                                <div className="flex items-center gap-2 ">
+                                  {/* Drag handle (four dots) */}
+                                  <span
+                                    {...provided.dragHandleProps}
+                                    className="cursor-grab text-gray-400 hover:text-white transition-colors p-1"
+                                    title="Drag to reorder"
+                                  >
+                                    ⋮⋮
+                                  </span>
+
+                                  <button
+                                    onClick={() => deleteSkill(skill.id)}
+                                    className="text-gray-500 hover:text-red-400"
+                                  >
+                                    <X size={18} />
+                                  </button>
+                                </div>
                               </div>
                             )}
                           </Draggable>
