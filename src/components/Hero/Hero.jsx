@@ -35,6 +35,7 @@ export const Hero = () => {
         ]);
 
         setData(personalRes.data);
+        console.log("Personal Info:", personalRes.data);
         setTechData(techRes.data);
         
         const fetchedLinks = linksRes.data;
@@ -121,11 +122,16 @@ export const Hero = () => {
         {/* Left Content */}
         <div className="hero-content">
           <div className="content-animation">
-            <div className="badge">
-              <span className="badge-dot"> </span>
-              Available for opportunities
-            </div>
-           <h3 className="subtitle">
+            {data?.is_available ? (
+              <div className="badge">
+                <span className="badge-dot"> </span>
+                Available for opportunities
+              </div>
+            ) : <div className="badge">
+                <span className="badge-dot-red"> </span>
+                Not Available for opportunities
+              </div>}
+            <h3 className="subtitle">
               {data?.designation ? (
                 <span>{data.designation}</span>
               ) : !loading ? (
@@ -482,6 +488,13 @@ export const Hero = () => {
           width: 8px;
           height: 8px;
           background: #00ff00;
+          border-radius: 50%;
+          animation: pulse 2s ease-in-out infinite;
+        }
+        .badge-dot-red {
+          width: 8px;
+          height: 8px;
+          background: #ff0000;
           border-radius: 50%;
           animation: pulse 2s ease-in-out infinite;
         }

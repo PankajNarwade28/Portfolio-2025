@@ -12,12 +12,10 @@ import Loading from "../LoadingEmpty/MyLoading";
 import Empty from "../LoadingEmpty/MyEmpty";
 import { toast } from "sonner";
 const ManageAboutMe = () => {
-  const [personalInfo, setPersonalInfo] = useState({
-    full_name: "",
+  const [personalInfo, setPersonalInfo] = useState({ 
     current_company: "",
     designation: "",
-    is_available: true,
-    profile_img: "",
+    is_available: true, 
     resume_url: "",
   });
   const [formData, setFormData] = useState({
@@ -90,7 +88,8 @@ const ManageAboutMe = () => {
       }
 
       const finalData = { ...formData, profile_pic_url: imageUrl };
-      await axios.put(`${API_BASE}/api/about-me`, finalData);
+      await axios.put(`${API_BASE}/api/personal/info`, finalData);
+      console.log("Updated Profile Data:", finalData);
 
       toast("Profile updated successfully!");
     } catch (err) {
