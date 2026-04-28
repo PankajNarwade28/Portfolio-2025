@@ -1,18 +1,16 @@
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-  const baseStyle =
-    "p-3 rounded-lg text-left transition duration-200";
-
+  const baseStyle = "p-3 rounded-lg text-left transition duration-200";
   const activeStyle = "bg-slate-800 text-white";
   const inactiveStyle = "text-gray-300 hover:bg-slate-800";
 
   return (
-    <div className="w-64 h-screen bg-slate-900 text-white flex flex-col p-5">
+    // Changed w-64 to w-full and h-screen to h-full
+    <div className="w-full h-full bg-slate-900 text-white flex flex-col p-5">
       <h2 className="text-2xl font-bold mb-8">Qurtubiks</h2>
 
       <nav className="flex flex-col gap-4">
-
         <NavLink
           to="/admin/dashboard"
           className={({ isActive }) =>
@@ -48,6 +46,7 @@ const Sidebar = () => {
         >
           About 
         </NavLink>
+        
         <NavLink
           to="/admin/my-education"
           className={({ isActive }) =>
@@ -56,6 +55,7 @@ const Sidebar = () => {
         >
           Education 
         </NavLink>
+
         <NavLink
           to="/admin/my-achievements"
           className={({ isActive }) =>
@@ -64,6 +64,7 @@ const Sidebar = () => {
         >
           Achievements 
         </NavLink> 
+
         <NavLink
           to="/admin/my-certificates"
           className={({ isActive }) =>
@@ -72,6 +73,7 @@ const Sidebar = () => {
         >
           Certificates
         </NavLink>
+
         <NavLink
           to="/admin/my-tech"
           className={({ isActive }) =>
@@ -80,6 +82,7 @@ const Sidebar = () => {
         >
           Tech Stack
         </NavLink>
+
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -93,7 +96,5 @@ const Sidebar = () => {
     </div>
   );
 };
-  
- 
 
 export default Sidebar;

@@ -1,33 +1,37 @@
 import Navbar from "./Navbar/Navbar";
 import Sidebar from "./Sidebar/Sidebar";
-import Snowfall from 'react-snowfall'
+import Snowfall from "react-snowfall";
 import { Outlet } from "react-router-dom";
+
+// Standardized to w-64 to match your original Sidebar design
+const SIDEBAR_WIDTH = "w-64"; 
 
 const Layout = ({ user, onLogout }) => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen w-screen overflow-hidden bg-slate-900 text-white relative">
       
-      {/* Sidebar - FIXED */}
-      <div className="w-64 fixed h-full">
+      {/* ✅ Sidebar (Stays fixed on the left naturally via flex) */}
+      <aside className={`${SIDEBAR_WIDTH} flex-shrink-0 h-full border-r border-slate-800 z-40`}>
         <Sidebar />
-      </div>
+      </aside>
 
-      {/* Main Section */}
-      <div className="flex-1 ml-64 flex flex-col">
+      {/* ✅ Main Section (Takes up the rest of the screen) */}
+      <div className="flex-1 flex flex-col min-w-0 h-full relative z-30">
         
-        {/* Navbar - FIXED */}
-        <div className="fixed top-0 left-64 right-0 z-50">
+        {/* ✅ Navbar (Sits naturally at the top of the flex-col) */}
+        <header>
           <Navbar user={user} onLogout={onLogout} />
-        </div>
+        </header>
 
-        {/* Scrollable Content */}
-        <div className="mt-16 overflow-y-auto h-screen bg-slate-900 p-6">
+        {/* ✅ Scrollable Content Area */}
+        <main className="flex-1 overflow-y-auto p-6">
           <Outlet />
-        </div>
+        </main>
 
       </div>
-      <Snowfall 
-      snowflakeCount={30}/>
+
+      {/* ✅ Snow (Overlays everything naturally) */}
+      <Snowfall snowflakeCount={20} className="!fixed inset-0 pointer-events-none z-50" />
     </div>
   );
 };
