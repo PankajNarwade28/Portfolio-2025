@@ -9,15 +9,18 @@
   padding: 0.8rem;
   transition: all 0.3s ease-in;
 }
+
 .ProjectFile-content:hover {
   background-image: none;
   background-color: white;
 }
+
 .project-image {
   background-size: cover;
   position: relative;
   margin-bottom: 0.65rem;
 }
+
 .project-image img {
   width: 100%;
   height: auto;
@@ -25,13 +28,14 @@
   border-radius: 0.65rem;
   margin: 0;
 }
+
 .project-info {
   display: flex;
   justify-content: space-between;
 }
+
 .livedemo a {
   padding: 0.2rem;
-  /* margin-top: 0.5rem; */
   background: #fff;
   color: #fb8500;
   border: 1px solid #03045e;
@@ -40,15 +44,18 @@
   font-weight: 300;
   font-size: 0.8rem;
 }
+
 .livedemo a:hover {
   background: #fb8500;
   color: #fff;
 }
+
 .project-info h4 {
   padding: 0;
   margin: 0;
   color: #fb8500;
 }
+
 .project-info p {
   padding: 0;
   margin: 0;
@@ -63,16 +70,17 @@
     flex-wrap: wrap;
     padding: 0.4rem;
   }
+  
   .project-image img {
     min-width: 90vw;
     height: auto;
   }
 
-  .project-item{
+  .project-item {
     min-width: 90vw;
   }
 
-  .card-inner{
+  .card-inner {
     min-width: 90vw;
   }
 }

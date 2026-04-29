@@ -1,11 +1,12 @@
 import React from "react";
 import "./ProjectFile.css";
-export const ProjectFile = ({ title, tech, image, link }) => {
+
+export const ProjectFile = ({ title, tech, thumbnail_url, link }) => {
   return (
     <>
       <div className="ProjectFile-content" data-aos="flip-up">
         <div className="project-image">
-          <img src={image} alt="" />
+          <img src={thumbnail_url} alt={title} />
         </div>
         <div className="project-info">
           <div>
