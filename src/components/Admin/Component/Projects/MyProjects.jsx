@@ -22,7 +22,7 @@ const MyProjects = () => {
 
   const [file, setFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
-
+  const [isFullscreen, setIsFullscreen] = useState(false);
   /* ================= FETCH ================= */
   const fetchProjects = async () => {
     const res = await axios.get(`${API_BASE}/api/projects`);
@@ -405,18 +405,87 @@ const MyProjects = () => {
                  file:bg-slate-700 file:text-white hover:file:bg-slate-600 transition-colors"
                   />
 
-                  {/* Preview if available */}
-                  {(file || form.thumbnail_url) && (
+                 {/* Preview if available */}
+              {(file || form.thumbnail_url) && (
+                <>
+                  {/* Thumbnail with Hover Overlay */}
+                  <div
+                    className="relative group shrink-0 h-20 w-auto inline-block cursor-pointer rounded border border-slate-700 overflow-hidden"
+                    onClick={() => setIsFullscreen(true)}
+                  >
                     <img
                       src={
                         file ? URL.createObjectURL(file) : form.thumbnail_url
                       }
                       alt="Thumbnail Preview"
-                      className="h-20 object-cover rounded border border-slate-700 shrink-0"
+                      className="h-full w-full object-cover"
                     />
+
+                    {/* Dark overlay with expand icon that appears on hover */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Full Screen Modal */}
+                  {isFullscreen && (
+                    <div
+                      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm cursor-zoom-out"
+                      onClick={() => setIsFullscreen(false)}
+                    >
+                      {/* Close Button */}
+                      <button
+                        className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsFullscreen(false);
+                        }}
+                      >
+                        <svg
+                          className="w-8 h-8"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+
+                      {/* Full Image */}
+                      <img
+                        src={
+                          file ? URL.createObjectURL(file) : form.thumbnail_url
+                        }
+                        alt="Full Screen Preview"
+                        className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl cursor-default"
+                        onClick={(e) => e.stopPropagation()} // Prevents closing when clicking the image itself
+                      />
+                    </div>
                   )}
+                </>
+              )}
+                  
                 </div>
               </div>
+
+              
 
               {/* Action Buttons */}
               <div className="flex justify-end gap-3 pt-6 mt-4 border-t border-slate-700">
