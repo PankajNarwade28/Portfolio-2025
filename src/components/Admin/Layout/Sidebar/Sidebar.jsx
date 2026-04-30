@@ -19,6 +19,14 @@ const Sidebar = () => {
         >
           Dashboard
         </NavLink>
+        <NavLink
+          to="/admin/my-about"
+          className={({ isActive }) =>
+            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
+          }
+        >
+          About
+        </NavLink>
 
         <NavLink
           to="/admin/my-projects"
@@ -28,7 +36,14 @@ const Sidebar = () => {
         >
           Projects
         </NavLink>
-
+        <NavLink
+          to="/admin/my-certificates"
+          className={({ isActive }) =>
+            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
+          }
+        >
+          Certificates
+        </NavLink>
         <NavLink
           to="/admin/my-skills"
           className={({ isActive }) =>
@@ -38,22 +53,15 @@ const Sidebar = () => {
           Skills
         </NavLink>
 
-        <NavLink
-          to="/admin/my-about"
-          className={({ isActive }) =>
-            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
-          }
-        >
-          About 
-        </NavLink>
         
+
         <NavLink
           to="/admin/my-education"
           className={({ isActive }) =>
             `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
           }
         >
-          Education 
+          Education
         </NavLink>
 
         <NavLink
@@ -62,16 +70,7 @@ const Sidebar = () => {
             `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
           }
         >
-          Achievements 
-        </NavLink> 
-
-        <NavLink
-          to="/admin/my-certificates"
-          className={({ isActive }) =>
-            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
-          }
-        >
-          Certificates
+          Achievements
         </NavLink>
 
         <NavLink
@@ -91,7 +90,6 @@ const Sidebar = () => {
         >
           View Portfolio
         </NavLink>
-
       </nav>
     </div>
   );
