@@ -278,19 +278,17 @@ const MyCertificates = () => {
         ))}
       </div>
 
-      {/* MODAL */}
+   {/* MODAL */}
 {isFormVisible && (
   <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 p-4">
     <form
       onSubmit={handleSubmit}
-      // Increased max-w to 2xl to allow horizontal layout to breathe
       className="bg-slate-800 p-6 rounded-lg w-full max-w-2xl space-y-6 shadow-xl max-h-[90vh] overflow-y-auto"
     >
       <h2 className="text-xl font-bold mb-4 border-b border-slate-700 pb-2">
         {editingId ? "Edit" : "Add"} Certificate
       </h2>
 
-      {/* Changed to CSS Grid for horizontal side-by-side layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         
         {/* Title */}
@@ -339,7 +337,18 @@ const MyCertificates = () => {
           </select>
         </div>
 
-        {/* Skills - Spans full width (both columns) */}
+        {/* Credential ID - Spans full width */}
+        <div className="flex flex-col gap-1 md:col-span-2">
+          <label className="text-sm text-gray-400">Credential ID (Optional)</label>
+          <input
+            placeholder="e.g. 6826e4cb400a2f3f..."
+            value={form.credential_id}
+            onChange={(e) => setForm({ ...form, credential_id: e.target.value })}
+            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
+          />
+        </div>
+
+        {/* Skills - Spans full width */}
         <div className="flex flex-col gap-1 md:col-span-2">
           <label className="text-sm text-gray-400">Skills (comma separated)</label>
           <input
