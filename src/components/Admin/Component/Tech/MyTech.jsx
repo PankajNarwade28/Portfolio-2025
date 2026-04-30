@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"; 
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import axios from "axios";
-const API_BASE = process.env.REACT_APP_API_URL;
+const API_BASE = process.env.REACT_APP_API_URL; 
 
 export default function MyTech() {
   const [techStack, setTechStack] = useState([]);

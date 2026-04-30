@@ -68,36 +68,47 @@ const ManageAboutMe = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      let imageUrl = formData.profile_pic_url;
+  e.preventDefault();
+  setLoading(true);
 
-      if (file) {
-        const uploadData = new FormData();
-        uploadData.append("file", file);
-        uploadData.append("folder", "About_images"); // Match this with backend req.body.folder
-        const uploadRes = await axios.post(
-          `${API_BASE}/api/upload/image`,
-          uploadData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          },
-        );
-        imageUrl = uploadRes.data.url;
-      }
+  try {
+    /* ================= PROFILE IMAGE ================= */
+    let imageUrl = formData.profile_pic_url;
 
-      const finalData = { ...formData, profile_pic_url: imageUrl };
-      await axios.put(`${API_BASE}/api/personal/info`, finalData);
-      console.log("Updated Profile Data:", finalData);
+    if (file) {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+      uploadData.append("folder", "About_images");
 
-      toast("Profile updated successfully!");
-    } catch (err) {
-      toast("Failed to update: " + err.message);
-    } finally {
-      setLoading(false);
+      const uploadRes = await axios.post(
+        `${API_BASE}/api/upload/image`,
+        uploadData
+      );
+
+      imageUrl = uploadRes.data.url;
     }
-  };
+
+    /* ================= UPDATE PROFILE TABLE ================= */
+    await axios.put(`${API_BASE}/api/about-me`, {
+      ...formData,
+      profile_pic_url: imageUrl,
+    });
+
+    /* ================= UPDATE PERSONAL INFO ================= */
+    await axios.put(`${API_BASE}/api/personal/info`, {
+      ...personalInfo,
+      professional_titles: titles, // 👈 IMPORTANT
+    });
+
+    toast("Profile updated successfully ✅");
+
+  } catch (err) {
+    console.error(err);
+    toast("Update failed ❌");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handlePdfUpload = async () => {
     if (!resumeFile) return;

@@ -3,12 +3,15 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { toast } from "sonner";
 import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
+import Loading from "../LoadingEmpty/MyLoading";
+import Empty from "../LoadingEmpty/MyEmpty";
 
 const API_BASE = process.env.REACT_APP_API_URL;
 
 const MyProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     title: "",
     tech: "",
@@ -100,11 +103,24 @@ const MyProjects = () => {
 
   /* ================= DELETE ================= */
   const deleteProject = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this project?",
+    setLoading(true);
+    // 1. Prompt the user for the admin DOB
+    const dobInput = window.prompt(
+      "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
     );
-    if (!confirmed) return; // stop if user cancels
 
+    // 2. If the user clicks "Cancel" or leaves it blank, abort
+    if (dobInput === null || dobInput.trim() === "") {
+      setLoading(false);
+      return;
+    }
+
+    // 3. Verify the DOB
+    if (dobInput !== "28102003") {
+      setLoading(false);
+      toast("Incorrect Admin DOB. Deletion cancelled.");
+      return;
+    }
     try {
       await axios.delete(`${API_BASE}/api/projects/${id}`);
       toast("Project deleted successfully!");
@@ -143,6 +159,15 @@ const MyProjects = () => {
     await axios.put(`${API_BASE}/api/projects/reorder`, updated);
   };
 
+  if (loading) {
+    return <Loading message="Deleting Project..." />;
+  }
+
+  if (!loading && projects.length === 0) {
+    return (
+      <Empty message="No projects found. Click the button above to add your first project!" />
+    );
+  }
   return (
     <div className="p-2 text-white relative min-h-screen">
       {/* HEADER / ADD BUTTON */}
@@ -405,87 +430,88 @@ const MyProjects = () => {
                  file:bg-slate-700 file:text-white hover:file:bg-slate-600 transition-colors"
                   />
 
-                 {/* Preview if available */}
-              {(file || form.thumbnail_url) && (
-                <>
-                  {/* Thumbnail with Hover Overlay */}
-                  <div
-                    className="relative group shrink-0 h-20 w-auto inline-block cursor-pointer rounded border border-slate-700 overflow-hidden"
-                    onClick={() => setIsFullscreen(true)}
-                  >
-                    <img
-                      src={
-                        file ? URL.createObjectURL(file) : form.thumbnail_url
-                      }
-                      alt="Thumbnail Preview"
-                      className="h-full w-full object-cover"
-                    />
-
-                    {/* Dark overlay with expand icon that appears on hover */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                  {/* Preview if available */}
+                  {(file || form.thumbnail_url) && (
+                    <>
+                      {/* Thumbnail with Hover Overlay */}
+                      <div
+                        className="relative group shrink-0 h-20 w-auto inline-block cursor-pointer rounded border border-slate-700 overflow-hidden"
+                        onClick={() => setIsFullscreen(true)}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                        <img
+                          src={
+                            file
+                              ? URL.createObjectURL(file)
+                              : form.thumbnail_url
+                          }
+                          alt="Thumbnail Preview"
+                          className="h-full w-full object-cover"
                         />
-                      </svg>
-                    </div>
-                  </div>
 
-                  {/* Full Screen Modal */}
-                  {isFullscreen && (
-                    <div
-                      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm cursor-zoom-out"
-                      onClick={() => setIsFullscreen(false)}
-                    >
-                      {/* Close Button */}
-                      <button
-                        className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setIsFullscreen(false);
-                        }}
-                      >
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                        {/* Dark overlay with expand icon that appears on hover */}
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                          <svg
+                            className="w-6 h-6 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* Full Screen Modal */}
+                      {isFullscreen && (
+                        <div
+                          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm cursor-zoom-out"
+                          onClick={() => setIsFullscreen(false)}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
+                          {/* Close Button */}
+                          <button
+                            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsFullscreen(false);
+                            }}
+                          >
+                            <svg
+                              className="w-8 h-8"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
 
-                      {/* Full Image */}
-                      <img
-                        src={
-                          file ? URL.createObjectURL(file) : form.thumbnail_url
-                        }
-                        alt="Full Screen Preview"
-                        className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl cursor-default"
-                        onClick={(e) => e.stopPropagation()} // Prevents closing when clicking the image itself
-                      />
-                    </div>
+                          {/* Full Image */}
+                          <img
+                            src={
+                              file
+                                ? URL.createObjectURL(file)
+                                : form.thumbnail_url
+                            }
+                            alt="Full Screen Preview"
+                            className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl cursor-default"
+                            onClick={(e) => e.stopPropagation()} // Prevents closing when clicking the image itself
+                          />
+                        </div>
+                      )}
+                    </>
                   )}
-                </>
-              )}
-                  
                 </div>
               </div>
-
-              
 
               {/* Action Buttons */}
               <div className="flex justify-end gap-3 pt-6 mt-4 border-t border-slate-700">

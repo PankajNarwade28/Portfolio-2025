@@ -1,112 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Certifications.css";
-import { CERTIFICATIONS } from "../../util/certification";
 import { PDFViewerModal } from "../PDFViewerModal/PDFViewerModal";
+import CertificationCard from "./CertificationCard/CertificationCard.jsx";
 
-
-const CertificationCard = ({ certification, onViewCertificate }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const getTypeColor = (type) => {
-    const lowerType = type.toLowerCase();
-    switch(lowerType) {
-      case 'professional': return '#4ECDC4';
-      case 'certification': return '#FFE66D'; 
-      default: return '#4ECDC4';
-    }
-  };
-
-  const getTypeIcon = (type) => {
-    const lowerType = type.toLowerCase();
-    switch(lowerType) {
-      case 'professional': return '🏆';
-      case 'certification': return '📜'; 
-      default: return '📜';
-    }
-  };
-
-  return (
-    <div 
-      className={`certification-card ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="card-inner">
-        <div className="cert-image-container">
-          <img 
-            src={certification.image} 
-            alt={certification.title}
-            className={`cert-image ${imageLoaded ? 'loaded' : ''}`}
-            onLoad={() => setImageLoaded(true)}
-            onError={(e) => {
-              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMkEyQTJBIi8+CjxwYXRoIGQ9Ik0xNDAgODBIMTYwVjEyMEgxNDBWODBaIiBmaWxsPSIjNEVDREM0Ii8+CjxwYXRoIGQ9Ik0xMjAgMTAwSDEwMFYxNDBIMTIwVjEwMFoiIGZpbGw9IiM0RUNEQ0QiLz4KPC9zdmc+';
-            }}
-          />
-          {!imageLoaded && <div className="image-placeholder">Loading...</div>}
-          <div className="image-overlay">
-            <button
-              onClick={() => onViewCertificate(certification)}
-              className="view-cert-btn"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
-              </svg>
-              View Certificate
-            </button>
-          </div>
-          <span 
-            className="status-badge" 
-            style={{ backgroundColor: getTypeColor(certification.type) }}
-          >
-            {getTypeIcon(certification.type)}
-          </span>
-        </div>
-
-        <div className="cert-content">
-          <div>
-            <span 
-              className="cert-type-badge" 
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
-            >
-              <span className="type-icon">{getTypeIcon(certification.type)}</span>
-              <span className="type-text">{certification.type.charAt(0).toUpperCase() + certification.type.slice(1)}</span>
-            </span>
-          </div>
-
-          <div className="cert-header">
-            <h3 className="cert-title">{certification.title}</h3>
-            <div className="cert-meta">
-              <span className="cert-issuer">by {certification.issuer}</span>
-              <span className="cert-divider">•</span>
-              <span className="cert-date">{certification.date}</span>
-            </div>
-          </div>
-
-          <div className="tech-stack">
-            {certification.skills.map((skill, index) => (
-              <span key={index} className="tech-tag">
-                {skill}
-              </span>
-            ))}
-          </div>
-
-          <div className="credential-info">
-            <span className="credential-label">Credential ID:</span>
-            <span className="credential-id">{certification.credentialId}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export const Certifications = () => {
+  const [certifications, setCertifications] = useState([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [visibleCertifications, setVisibleCertifications] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  // Fetch from backend on component mount
+  useEffect(() => {
+    const fetchCertifications = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/certificates`);
+        setCertifications(res.data);
+      } catch (error) {
+        console.error("Error fetching certifications:", error);
+      } finally {
+        setIsInitialLoading(false);
+      }
+    };
+
+    fetchCertifications();
+  }, []);
 
   const handleViewCertificate = (certification) => {
     setSelectedCertificate(certification);
@@ -116,17 +38,17 @@ export const Certifications = () => {
     setSelectedCertificate(null);
   };
 
-  // Filter certifications
-  const filteredCertifications = CERTIFICATIONS.filter(cert => {
+  // Filter certifications based on selected type
+  const filteredCertifications = certifications.filter(cert => {
     if (filter === "all") return true;
-    return cert.type.toLowerCase() === filter.toLowerCase();
+    return cert.type?.toLowerCase() === filter.toLowerCase();
   });
 
   const loadMore = () => {
-    setIsLoading(true);
+    setIsLoadingMore(true);
     setTimeout(() => {
       setVisibleCertifications(prev => prev + 3);
-      setIsLoading(false);
+      setIsLoadingMore(false);
     }, 500);
   };
 
@@ -180,68 +102,85 @@ export const Certifications = () => {
           </div>
         </div>
 
-        <div className="results-info">
-          <div className="results-text">
-            Showing <span className="highlight">{Math.min(visibleCertifications, filteredCertifications.length)}</span> of{" "}
-            <span className="highlight">{filteredCertifications.length}</span> certifications
+        {/* LOADING STATE */}
+        {isInitialLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="loading-spinner w-10 h-10 border-4 border-t-[#4ECDC4] border-transparent rounded-full animate-spin"></div>
           </div>
-        </div>
-
-        <div className="certifications-grid">
-          {filteredCertifications.slice(0, visibleCertifications).map((certification, index) => (
-            <div
-              key={certification.id}
-              className="certification-item"
-              style={{ '--delay': `${index * 0.1}s` }}
-            >
-              <CertificationCard 
-                certification={certification} 
-                onViewCertificate={handleViewCertificate}
-              />
+        ) : (
+          <>
+            <div className="results-info">
+              <div className="results-text">
+                Showing <span className="highlight">{Math.min(visibleCertifications, filteredCertifications.length)}</span> of{" "}
+                <span className="highlight">{filteredCertifications.length}</span> certifications
+              </div>
             </div>
-          ))}
-        </div>
 
-        {hasMoreCertifications && (
-          <div className="load-more-container">
-            <button 
-              className={`load-more-btn ${isLoading ? 'loading' : ''}`}
-              onClick={loadMore}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <div className="loading-spinner"></div>
-                  <span>Loading...</span>
-                </>
-              ) : (
-                <>
-                  <span>Load More Certifications</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 5V19M5 12L12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </>
-              )}
-            </button>
-            <div className="load-more-info">
-              Showing {Math.min(visibleCertifications, filteredCertifications.length)} of {filteredCertifications.length} certifications
+            <div className="certifications-grid">
+              {filteredCertifications.slice(0, visibleCertifications).map((certification, index) => (
+                <div
+                  key={certification.id}
+                  className="certification-item"
+                  style={{ '--delay': `${index * 0.1}s` }}
+                >
+                  <CertificationCard 
+                    certification={certification} 
+                    onViewCertificate={handleViewCertificate}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
-        )}
 
-        {!hasMoreCertifications && filteredCertifications.length > 6 && (
-          <div className="no-more-certifications">
-            <div className="no-more-icon">🎉</div>
-            <p>You've seen all {filteredCertifications.length} certifications!</p>
-          </div>
+            {/* EMPTY STATE (If no certs match filter) */}
+            {filteredCertifications.length === 0 && (
+              <div className="text-center text-gray-400 py-10">
+                No certifications found for this category.
+              </div>
+            )}
+
+            {hasMoreCertifications && (
+              <div className="load-more-container">
+                <button 
+                  className={`load-more-btn ${isLoadingMore ? 'loading' : ''}`}
+                  onClick={loadMore}
+                  disabled={isLoadingMore}
+                >
+                  {isLoadingMore ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      <span>Loading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Load More Certifications</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5V19M5 12L12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </>
+                  )}
+                </button>
+                <div className="load-more-info">
+                  Showing {Math.min(visibleCertifications, filteredCertifications.length)} of {filteredCertifications.length} certifications
+                </div>
+              </div>
+            )}
+
+            {!hasMoreCertifications && filteredCertifications.length > 6 && (
+              <div className="no-more-certifications">
+                <div className="no-more-icon">🎉</div>
+                <p>You've seen all {filteredCertifications.length} certifications!</p>
+              </div>
+            )}
+          </>
         )}
       </div>
 
+      {/* PDF MODAL */}
       {selectedCertificate && (
         <PDFViewerModal 
           isOpen={!!selectedCertificate}
           onClose={handleCloseCertificate}
-          pdfUrl={selectedCertificate.verifyLink}
+          pdfUrl={selectedCertificate.pdf_link} // Changed to match backend DB schema
           title={selectedCertificate.title}
           downloadFileName={`${selectedCertificate.title.replace(/\s+/g, '_')}_Certificate.pdf`}
           showPrint={false}

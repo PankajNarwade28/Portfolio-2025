@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
 import Loading from "../LoadingEmpty/MyLoading";
 import Empty from "../LoadingEmpty/MyEmpty";
+import { toast } from "sonner";
 const API_BASE = process.env.REACT_APP_API_URL;
 const ManageSkills = () => {
   const [data, setData] = useState([]);
@@ -144,20 +145,50 @@ const ManageSkills = () => {
   };
 
   const deleteCategory = async (id) => {
-    setLoading(true);
-    if (window.confirm("Delete category?")) {
+    setLoading(true); 
+     // 1. Prompt the user for the admin DOB
+        const dobInput = window.prompt(
+          "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
+        );
+    
+        // 2. If the user clicks "Cancel" or leaves it blank, abort
+        if (dobInput === null || dobInput.trim() === "") {
+            setLoading(false);
+          return;
+        }
+    
+        // 3. Verify the DOB
+        if (dobInput !== "28102003") {
+            setLoading(false);
+          toast("Incorrect Admin DOB. Deletion cancelled.");
+          return;
+        }
       await axios.delete(`${API_BASE}/api/categories/${id}`);
-      fetchData();
-    }
+      fetchData(); 
     setLoading(false);
   };
 
   const deleteSkill = async (id) => {
-    setLoading(true);
-    if (window.confirm("Delete skill?")) {
-      await axios.delete(`${API_BASE}/api/skills/${id}`);
-      fetchData();
+    setLoading(true); 
+     // 1. Prompt the user for the admin DOB
+    const dobInput = window.prompt(
+      "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
+    );
+
+    // 2. If the user clicks "Cancel" or leaves it blank, abort
+    if (dobInput === null || dobInput.trim() === "") {
+        setLoading(false);
+      return;
     }
+
+    // 3. Verify the DOB
+    if (dobInput !== "28102003") {
+        setLoading(false);
+      toast("Incorrect Admin DOB. Deletion cancelled.");
+      return;
+    }
+      await axios.delete(`${API_BASE}/api/skills/${id}`);
+      fetchData(); 
     setLoading(false);
   };
 
