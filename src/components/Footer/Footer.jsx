@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./Footer.css"; 
-import { resumeLink } from "../../util/links";
 import { ResumeModal } from "../ResumeModal/ResumeModal";
+import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_URL; 
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
+  const [apiLinks, setApiLinks] = useState([]);
 
   useEffect(() => {
+    // Fetch links from API
+    axios.get(`${API_BASE}/api/personal/links`)
+      .then((res) => setApiLinks(res.data))
+      .catch((err) => console.error("Error fetching links:", err));
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -29,19 +37,33 @@ export const Footer = () => {
     };
   }, []);
 
-  const quickActions = [
-  { name: "Download Resume", action: () => setIsPdfOpen(true), icon: "/assets/images/download.png" },
-  { name: "Email Me", href: "mailto:pankajnarwade258@gmail.com", icon: "/assets/images/email.png" }
-];
+  // Helper to extract links based on platform name
+  const getLink = (platform) => {
+    const linkObj = apiLinks.find((l) => l.platform === platform);
+    return linkObj ? linkObj.link_url : "";
+  };
 
-const socialLinks = [
-  { name: "LinkedIn", url: "https://www.linkedin.com/in/pankaj-narwade-13a053260", icon: "/assets/images/linkedin.png" },
-  { name: "GitHub", url: "https://github.com/PankajNarwade28", icon: "/assets/images/github.png" },
-  { name: "LeetCode", url: "https://leetcode.com/Pankaj_Narwade_28", icon: "/assets/images/leetcode.png" },
-  { name: "Instagram", url: "https://instagram.com/mr_pankaj_narwade_patil", icon: "/assets/images/instagram.png" }
-];
+  const emailUrl = getLink("email");
+  const emailDisplay = emailUrl ? emailUrl.replace("mailto:", "") : "Loading...";
+  const resumeUrl = getLink("resume");
+
+  const quickActions = [
+    { name: "Download Resume", action: () => setIsPdfOpen(true), icon: "/assets/images/download.png" },
+    { name: "Email Me", href: emailUrl, icon: "/assets/images/email.png" }
+  ];
+
+  // Dynamically generate social links based on the API response
+  const socialPlatforms = ["linkedin", "github", "leetcode", "instagram", "youtube"];
+  const socialLinks = apiLinks
+    .filter((link) => socialPlatforms.includes(link.platform))
+    .map((link) => ({
+      name: link.display_text,
+      url: link.link_url,
+      icon: `/assets/images/${link.platform}.png`
+    }));
+
   const handleEmailClick = () => {
-    window.location.href = "mailto:pankajnarwade258@gmail.com";
+    if (emailUrl) window.location.href = emailUrl;
   };
 
   const handleScrollToTop = () => {
@@ -88,19 +110,16 @@ const socialLinks = [
             <div className="contact-info">
               <p className="contact-text">Ready to collaborate?</p>
               <button className="contact-email-btn" onClick={handleEmailClick}>
-                <span className="email-text">pankajnarwade258@gmail.com</span>
+                <span className="email-text">{emailDisplay}</span>
                 <svg className="email-icon" viewBox="0 0 24 24" fill="none">
                   <path d="M7 17L17 7M17 7H7M17 7v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
             </div>
- 
           </div>
 
           {/* Navigation Links */}
           <div className={`footer-nav ${isVisible ? 'animate-in' : ''}`}>
-           
-
             <div className="footer-nav-section">
               <h3 className="footer-nav-title">Quick Actions</h3>
               <ul className="footer-nav-links">
@@ -142,12 +161,11 @@ const socialLinks = [
                   style={{ '--animation-delay': `${index * 0.1}s` }}
                 >
                  <div className="social-icon-wrapper">
-  <img src={social.icon} alt={social.name + ' icon'} style={{ width: 32, height: 32 }} />
-</div>
+                  <img src={social.icon} alt={social.name + ' icon'} className="social-icon-img" />
+                </div>
                 </a>
               ))}
             </div>
- 
           </div>
         </div>
 
@@ -161,7 +179,7 @@ const socialLinks = [
                 <div className="tech-icons">
                   <span className="tech-icon" title="React">⚛️</span>
                   <span className="tech-icon" title="Node.js">🚀</span>
-                  </div>
+                </div>
                 <span>& ❤️</span>
               </div>
             </div>
@@ -194,7 +212,7 @@ const socialLinks = [
       <ResumeModal 
         isOpen={isPdfOpen} 
         onClose={() => setIsPdfOpen(false)} 
-        pdfUrl={resumeLink} 
+        pdfUrl={resumeUrl} 
       />
     </footer>
   );
