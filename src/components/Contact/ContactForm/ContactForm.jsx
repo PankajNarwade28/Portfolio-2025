@@ -1,37 +1,40 @@
-import React, { useRef, useState } from "react"; 
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 // ContactForm component now accepts setLoading and toast as props
 const ContactForm = ({ setLoading, toast }) => {
   const form = useRef();
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    user_email: '',
-    message: ''
+    first_name: "",
+    last_name: "",
+    user_email: "",
+    message: "",
   });
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.first_name.trim()) newErrors.first_name = 'First name is required';
-    if (!formData.last_name.trim()) newErrors.last_name = 'Last name is required';
+    if (!formData.first_name.trim())
+      newErrors.first_name = "First name is required";
+    if (!formData.last_name.trim())
+      newErrors.last_name = "Last name is required";
     if (!formData.user_email.trim()) {
-      newErrors.user_email = 'Email is required';
+      newErrors.user_email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.user_email)) {
-      newErrors.user_email = 'Please enter a valid email';
+      newErrors.user_email = "Please enter a valid email";
     }
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
-    if (formData.message.trim().length < 10) newErrors.message = 'Message must be at least 10 characters';
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+    if (formData.message.trim().length < 10)
+      newErrors.message = "Message must be at least 10 characters";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -45,7 +48,7 @@ const ContactForm = ({ setLoading, toast }) => {
     console.log("EmailJS Config:", {
       serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
       templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY ? "Set" : "Missing"
+      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY ? "Set" : "Missing",
     });
 
     try {
@@ -53,17 +56,25 @@ const ContactForm = ({ setLoading, toast }) => {
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
         process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         form.current,
-        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY }
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY },
       );
       // The toast function is now called from the prop
       toast.success("Message sent successfully! I'll get back to you soon.");
-      setFormData({ first_name: '', last_name: '', user_email: '', message: '' });
+      setFormData({
+        first_name: "",
+        last_name: "",
+        user_email: "",
+        message: "",
+      });
       // Clear form fields
       form.current.reset();
     } catch (error) {
       console.error("EmailJS Error:", error);
       // The toast function is now called from the prop
-      const errorMessage = error?.text || error?.message || "Failed to send message. Please try again.";
+      const errorMessage =
+        error?.text ||
+        error?.message ||
+        "Failed to send message. Please try again.";
       toast.error(errorMessage);
     } finally {
       setLoading(false);
@@ -74,7 +85,10 @@ const ContactForm = ({ setLoading, toast }) => {
     <div className="contact-form-container">
       <div className="form-header">
         <h3>Let's Work Together</h3>
-        <p>Have a project in mind? Let's discuss how we can bring your ideas to life.</p>
+        <p>
+          Have a project in mind? Let's discuss how we can bring your ideas to
+          life.
+        </p>
       </div>
       <form ref={form} onSubmit={sendEmail} className="contact-form">
         <div className="form-row">
@@ -87,10 +101,12 @@ const ContactForm = ({ setLoading, toast }) => {
               placeholder="John"
               value={formData.first_name}
               onChange={handleInputChange}
-              className={errors.first_name ? 'error' : ''}
+              className={errors.first_name ? "error" : ""}
               autoComplete="given-name"
             />
-            {errors.first_name && <span className="error-message">{errors.first_name}</span>}
+            {errors.first_name && (
+              <span className="error-message">{errors.first_name}</span>
+            )}
           </div>
           <div className="input-group">
             <label htmlFor="last_name">Last Name</label>
@@ -101,10 +117,12 @@ const ContactForm = ({ setLoading, toast }) => {
               placeholder="Doe"
               value={formData.last_name}
               onChange={handleInputChange}
-              className={errors.last_name ? 'error' : ''}
+              className={errors.last_name ? "error" : ""}
               autoComplete="family-name"
             />
-            {errors.last_name && <span className="error-message">{errors.last_name}</span>}
+            {errors.last_name && (
+              <span className="error-message">{errors.last_name}</span>
+            )}
           </div>
         </div>
         <div className="input-group">
@@ -116,10 +134,12 @@ const ContactForm = ({ setLoading, toast }) => {
             placeholder="john.doe@example.com"
             value={formData.user_email}
             onChange={handleInputChange}
-            className={errors.user_email ? 'error' : ''}
+            className={errors.user_email ? "error" : ""}
             autoComplete="email"
           />
-          {errors.user_email && <span className="error-message">{errors.user_email}</span>}
+          {errors.user_email && (
+            <span className="error-message">{errors.user_email}</span>
+          )}
         </div>
         <div className="input-group">
           <label htmlFor="message">Message</label>
@@ -130,17 +150,23 @@ const ContactForm = ({ setLoading, toast }) => {
             placeholder="Tell me about your project, ideas, or just say hello..."
             value={formData.message}
             onChange={handleInputChange}
-            className={errors.message ? 'error' : ''}
+            className={errors.message ? "error" : ""}
           ></textarea>
-          <div className="character-count">
-            {formData.message.length}/500
-          </div>
-          {errors.message && <span className="error-message">{errors.message}</span>}
+          <div className="character-count">{formData.message.length}/500</div>
+          {errors.message && (
+            <span className="error-message">{errors.message}</span>
+          )}
         </div>
         <button type="submit" disabled={false} className="send-btn">
           <span>Send Message</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </form>
