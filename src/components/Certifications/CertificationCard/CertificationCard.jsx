@@ -100,7 +100,15 @@ const CertificationCard = ({ certification, onViewCertificate }) => {
               <span className="credential-label">Credential ID:</span>
               <span className="credential-id">{certification.credential_id}</span>
             </div>
-          )}
+          ) }
+          {
+            !certification.credential_id && (
+              <div className="credential-info mt-auto">
+                < span className="credential-label">Credential ID:</span>
+                <span className="credential-id">N/A</span>
+              </div>
+             )
+          }  
         </div>
       </div>
     </div>
