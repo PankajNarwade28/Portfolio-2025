@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
+import Loading from "../LoadingEmpty/MyLoading";
+import Empty from "../LoadingEmpty/MyEmpty";
 // import PdfThumbnail from "../Util/PdfThumbnail"; // Un-comment if you use it later
 
 const API_BASE = process.env.REACT_APP_API_URL;
@@ -10,6 +12,7 @@ const MyCertificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     title: "",
@@ -28,8 +31,16 @@ const MyCertificates = () => {
 
   /* ================= FETCH ================= */
   const fetchCertificates = async () => {
+    setLoading(true);
+    try {
     const res = await axios.get(`${API_BASE}/api/certificates`);
     setCertificates(res.data);
+    } catch (err) {
+      console.error(err);
+      toast("Error fetching certificates");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -83,14 +94,16 @@ const MyCertificates = () => {
 
       const certId = editingId || res.data.id;
 
+      
       /* ================= PDF UPLOAD ================= */
       if (pdfFile) {
         const fd = new FormData();
         fd.append("file", pdfFile);
 
-        await axios.post(
+        // CHANGE axios.post to axios.put here 👇
+        await axios.put(
           `${API_BASE}/api/certificates/${certId}/upload-pdf`,
-          fd,
+          fd
         );
         toast("PDF uploaded ✅");
       }
@@ -157,6 +170,18 @@ const MyCertificates = () => {
     setIsFormVisible(true);
   };
 
+
+  if(loading) {
+    return (
+      <Loading  message="Fetching Certificates"/>  
+    )
+  }
+
+  if(certificates.length === 0) {
+    return (
+      <Empty message="No certificates added yet!" onRetry={fetchCertificates}/>
+    )
+  }
   return (
     <div className="p-4 text-white">
       {/* HEADER */}
@@ -278,132 +303,137 @@ const MyCertificates = () => {
         ))}
       </div>
 
-   {/* MODAL */}
-{isFormVisible && (
-  <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 p-4">
-    <form
-      onSubmit={handleSubmit}
-      className="bg-slate-800 p-6 rounded-lg w-full max-w-2xl space-y-6 shadow-xl max-h-[90vh] overflow-y-auto"
-    >
-      <h2 className="text-xl font-bold mb-4 border-b border-slate-700 pb-2">
-        {editingId ? "Edit" : "Add"} Certificate
-      </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        
-        {/* Title */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">Title</label>
-          <input
-            placeholder="e.g. Full Stack Web Dev"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
-          />
-        </div>
-
-        {/* Issuer */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">Issuer</label>
-          <input
-            placeholder="e.g. ApnaCollege"
-            value={form.issuer}
-            onChange={(e) => setForm({ ...form, issuer: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
-          />
-        </div>
-
-        {/* Date */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">Date</label>
-          <input
-            type="date"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-gray-200"
-          />
-        </div>
-
-        {/* Type */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">Type</label>
-          <select
-            value={form.type}
-            onChange={(e) => setForm({ ...form, type: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-gray-200"
+      {/* MODAL */}
+      {isFormVisible && (
+        <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 p-4">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-slate-800 p-6 rounded-lg w-full max-w-2xl space-y-6 shadow-xl max-h-[90vh] overflow-y-auto"
           >
-            <option value="certification">Certifications</option>
-            <option value="professional">Professional</option>
-          </select>
-        </div>
+            <h2 className="text-xl font-bold mb-4 border-b border-slate-700 pb-2">
+              {editingId ? "Edit" : "Add"} Certificate
+            </h2>
 
-        {/* Credential ID - Spans full width */}
-        <div className="flex flex-col gap-1 md:col-span-2">
-          <label className="text-sm text-gray-400">Credential ID (Optional)</label>
-          <input
-            placeholder="e.g. 6826e4cb400a2f3f..."
-            value={form.credential_id}
-            onChange={(e) => setForm({ ...form, credential_id: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
-          />
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Title */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">Title</label>
+                <input
+                  placeholder="e.g. Full Stack Web Dev"
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
+                />
+              </div>
 
-        {/* Skills - Spans full width */}
-        <div className="flex flex-col gap-1 md:col-span-2">
-          <label className="text-sm text-gray-400">Skills (comma separated)</label>
-          <input
-            placeholder="React, Node.js, MongoDB"
-            value={form.skills}
-            onChange={(e) => setForm({ ...form, skills: e.target.value })}
-            className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
-          />
-        </div>
+              {/* Issuer */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">Issuer</label>
+                <input
+                  placeholder="e.g. ApnaCollege"
+                  value={form.issuer}
+                  onChange={(e) => setForm({ ...form, issuer: e.target.value })}
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
+                />
+              </div>
 
-        {/* IMAGE UPLOAD INPUT */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">
-            Thumbnail Image (Optional)
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-            className="w-full p-2 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-gray-200 hover:file:bg-slate-600 cursor-pointer"
-          />
-        </div>
+              {/* Date */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">Date</label>
+                <input
+                  type="date"
+                  value={form.date}
+                  onChange={(e) => setForm({ ...form, date: e.target.value })}
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-gray-200"
+                />
+              </div>
 
-        {/* PDF UPLOAD INPUT */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">
-            Certificate Document (PDF)
-          </label>
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => setPdfFile(e.target.files[0])}
-            className="w-full p-2 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-gray-200 hover:file:bg-slate-600 cursor-pointer"
-          />
-        </div>
-      </div>
+              {/* Type */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">Type</label>
+                <select
+                  value={form.type}
+                  onChange={(e) => setForm({ ...form, type: e.target.value })}
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-gray-200"
+                >
+                  <option value="certification">Certifications</option>
+                  <option value="professional">Professional</option>
+                </select>
+              </div>
 
-      <div className="flex justify-end gap-3 mt-8 pt-4 border-t border-slate-700">
-        <button
-          type="button"
-          onClick={() => setIsFormVisible(false)}
-          className="bg-gray-600 hover:bg-gray-500 transition px-5 py-2 rounded font-medium"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="bg-purple-600 hover:bg-purple-500 transition px-5 py-2 rounded font-medium"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-  </div>
-)}
+              {/* Credential ID - Spans full width */}
+              <div className="flex flex-col gap-1 md:col-span-2">
+                <label className="text-sm text-gray-400">
+                  Credential ID (Optional)
+                </label>
+                <input
+                  placeholder="e.g. 6826e4cb400a2f3f..."
+                  value={form.credential_id}
+                  onChange={(e) =>
+                    setForm({ ...form, credential_id: e.target.value })
+                  }
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
+                />
+              </div>
+
+              {/* Skills - Spans full width */}
+              <div className="flex flex-col gap-1 md:col-span-2">
+                <label className="text-sm text-gray-400">
+                  Skills (comma separated)
+                </label>
+                <input
+                  placeholder="React, Node.js, MongoDB"
+                  value={form.skills}
+                  onChange={(e) => setForm({ ...form, skills: e.target.value })}
+                  className="w-full p-2.5 bg-slate-700 border border-slate-600 rounded focus:outline-none focus:border-green-500 text-white"
+                />
+              </div>
+
+              {/* IMAGE UPLOAD INPUT */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">
+                  Thumbnail Image (Optional)
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  className="w-full p-2 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-gray-200 hover:file:bg-slate-600 cursor-pointer"
+                />
+              </div>
+
+              {/* PDF UPLOAD INPUT */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-gray-400">
+                  Certificate Document (PDF)
+                </label>
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={(e) => setPdfFile(e.target.files[0])}
+                  className="w-full p-2 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-gray-200 hover:file:bg-slate-600 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-8 pt-4 border-t border-slate-700">
+              <button
+                type="button"
+                onClick={() => setIsFormVisible(false)}
+                className="bg-gray-600 hover:bg-gray-500 transition px-5 py-2 rounded font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-purple-600 hover:bg-purple-500 transition px-5 py-2 rounded font-medium"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

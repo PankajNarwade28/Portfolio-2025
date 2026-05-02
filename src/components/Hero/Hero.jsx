@@ -64,7 +64,7 @@ export const Hero = () => {
 
   // 3. Dynamic Word Selection (Reacts instantly to 'data' or 'loading' changes)
   const words = useMemo(() => {
-    const defaultWords = ["Frontend Developer", "Backend Developer", "Full Stack Developer", "Problem Solver"];
+    const defaultWords = ["Frontend Developer*", "Backend Developer*", "Full Stack Developer*", "Problem Solver*"];
     if (loading && !data) return ["Loading..."];
     if (data?.professional_titles?.length > 0) return data.professional_titles.map(t => t.trim());
     return defaultWords;

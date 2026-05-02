@@ -9,19 +9,19 @@ console.log("API Base URL:", API_BASE);
 const AboutMe = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-const fetchProfile = async () => {
-  try {
-    setLoading(true);
+  const fetchProfile = async () => {
+    try {
+      setLoading(true);
 
-    const res = await axios.get(`${API_BASE}/api/about-me`);
+      const res = await axios.get(`${API_BASE}/api/aboutme`);
 
-    setProfile(res.data); 
-  } catch (err) {
-    console.error("Connection Interrupted:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+      setProfile(res.data);
+    } catch (err) {
+      console.error("Connection Interrupted:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -31,7 +31,7 @@ const fetchProfile = async () => {
     return (
       <Empty
         title="No Profile Found"
-        description="It seems the profile information is currently unavailable." 
+        description="It seems the profile information is currently unavailable."
         onRetry={fetchProfile}
       />
     );
@@ -47,10 +47,13 @@ const fetchProfile = async () => {
           <div className="intro-card">
             <div className="greeting">
               <span className="wave">👋</span>
-              <h3>Hello! I'm <span className="name-highlight">{profile.full_name}</span></h3>
+              <h3>
+                Hello! I'm{" "}
+                <span className="name-highlight">{profile.full_name}</span>
+              </h3>
             </div>
             <p className="bio-text">{profile.passionate_summary}</p>
-            
+
             <div className="journey-stats">
               <div className="stat-item">
                 <div className="stat-number">{profile.years_learning}+</div>
@@ -70,7 +73,9 @@ const fetchProfile = async () => {
               <h4>What Drives Me</h4>
               <div className="interest-tags">
                 {profile.drivers.map((tag, i) => (
-                  <span key={i} className="interest-tag">{tag}</span>
+                  <span key={i} className="interest-tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </div>
@@ -80,9 +85,9 @@ const fetchProfile = async () => {
         <div className="about-image-section">
           <div className="profile-card">
             <div className="profile-image-wrapper">
-              <img 
-                src={profile.profile_pic_url} 
-                alt={profile.full_name} 
+              <img
+                src={profile.profile_pic_url}
+                alt={profile.full_name}
                 className="profile-image"
               />
               <div className="image-border"></div>

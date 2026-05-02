@@ -28,8 +28,19 @@ const MyProjects = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   /* ================= FETCH ================= */
   const fetchProjects = async () => {
-    const res = await axios.get(`${API_BASE}/api/projects`);
-    setProjects(res.data);
+    setLoading(true);
+    try {
+      const res = await axios.get(`${API_BASE}/api/projects`);
+      setProjects(res.data);
+    } catch (err) {
+      const errorMsg =
+        err.response?.data?.message ||
+        err.message ||
+        "Failed to fetch projects!";
+      toast(errorMsg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -131,6 +142,8 @@ const MyProjects = () => {
         err.message ||
         "Failed to delete project!";
       toast(errorMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -160,7 +173,7 @@ const MyProjects = () => {
   };
 
   if (loading) {
-    return <Loading message="Deleting Project..." />;
+    return <Loading message="Fetching Projects..." />;
   }
 
   if (!loading && projects.length === 0) {
