@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
-import { Trash2, Plus, Save, X, Sparkles, Code, Award } from "lucide-react";
+import {
+  Trash2,
+  Plus,
+  Save,
+  X,
+  Sparkles,
+  Code,
+  Award,
+  Edit2,
+} from "lucide-react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
 import Loading from "../LoadingEmpty/MyLoading";
@@ -13,6 +22,9 @@ const ManageSkills = () => {
   // State for Category Form
   const [newCategory, setNewCategory] = useState("");
   const [iconFile, setIconFile] = useState(null);
+  const [editingModal, setEditingModal] = useState(null);
+  const [categoryToEdit, setCategoryToEdit] = useState(null); // Stores {id, title, icon_url}
+  const [editCategoryFile, setEditCategoryFile] = useState(null);
 
   // State for Skill Form
   const [newSkill, setNewSkill] = useState({
@@ -145,53 +157,104 @@ const ManageSkills = () => {
   };
 
   const deleteCategory = async (id) => {
-    setLoading(true); 
-     // 1. Prompt the user for the admin DOB
-        const dobInput = window.prompt(
-          "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
-        );
-    
-        // 2. If the user clicks "Cancel" or leaves it blank, abort
-        if (dobInput === null || dobInput.trim() === "") {
-            setLoading(false);
-          return;
-        }
-    
-        // 3. Verify the DOB
-        if (dobInput !== "28102003") {
-            setLoading(false);
-          toast("Incorrect Admin DOB. Deletion cancelled.");
-          return;
-        }
-      await axios.delete(`${API_BASE}/api/categories/${id}`);
-      fetchData(); 
-    setLoading(false);
-  };
-
-  const deleteSkill = async (id) => {
-    setLoading(true); 
-     // 1. Prompt the user for the admin DOB
+    setLoading(true);
+    // 1. Prompt the user for the admin DOB
     const dobInput = window.prompt(
       "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
     );
 
     // 2. If the user clicks "Cancel" or leaves it blank, abort
     if (dobInput === null || dobInput.trim() === "") {
-        setLoading(false);
+      setLoading(false);
       return;
     }
 
     // 3. Verify the DOB
     if (dobInput !== "28102003") {
-        setLoading(false);
+      setLoading(false);
       toast("Incorrect Admin DOB. Deletion cancelled.");
       return;
     }
-      await axios.delete(`${API_BASE}/api/skills/${id}`);
-      fetchData(); 
+    await axios.delete(`${API_BASE}/api/categories/${id}`);
+    fetchData();
     setLoading(false);
   };
 
+  const deleteSkill = async (id) => {
+    setLoading(true);
+    // 1. Prompt the user for the admin DOB
+    const dobInput = window.prompt(
+      "Enter Admin DOB (DDMMYYYY) to confirm deletion:",
+    );
+
+    // 2. If the user clicks "Cancel" or leaves it blank, abort
+    if (dobInput === null || dobInput.trim() === "") {
+      setLoading(false);
+      return;
+    }
+
+    // 3. Verify the DOB
+    if (dobInput !== "28102003") {
+      setLoading(false);
+      toast("Incorrect Admin DOB. Deletion cancelled.");
+      return;
+    }
+    await axios.delete(`${API_BASE}/api/skills/${id}`);
+    fetchData();
+    setLoading(false);
+  };
+
+  // --- NEW: EDIT SKILL LOGIC ---
+  const updateSkill = async () => {
+    if (!editingModal.skill_name.trim() || !editingModal.category_id) {
+      return alert("Required fields missing");
+    }
+    setLoading(true);
+    try {
+      await axios.put(
+        `${API_BASE}/api/skills/${editingModal.id}`,
+        editingModal,
+      );
+      setEditingModal(null); // Close modal
+      fetchData(); // Refresh list
+      toast.success("Skill updated successfully!");
+    } catch (err) {
+      console.error("Failed to update skill:", err);
+      toast.error("Failed to update skill");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateCategory = async () => {
+    if (!categoryToEdit.title.trim()) return toast.error("Title is required");
+
+    setLoading(true);
+    try {
+      let finalIconUrl = categoryToEdit.icon_url;
+
+      // 1. If a new file is selected, upload it first
+      if (editCategoryFile) {
+        finalIconUrl = await uploadImage(editCategoryFile);
+      }
+
+      // 2. Send update to API
+      await axios.put(`${API_BASE}/api/categories/${categoryToEdit.id}`, {
+        title: categoryToEdit.title,
+        icon_url: finalIconUrl,
+      });
+
+      toast.success("Category updated!");
+      setCategoryToEdit(null);
+      setEditCategoryFile(null);
+      fetchData();
+    } catch (err) {
+      console.error(err);
+      toast.error("Update failed");
+    } finally {
+      setLoading(false);
+    }
+  };
   if (loading) {
     return <Loading message="Updating Skill Data..." />;
   }
@@ -329,12 +392,21 @@ const ManageSkills = () => {
                     />
                     <h2 className="text-2xl font-bold">{cat.title}</h2>
                   </div>
-                  <button
-                    onClick={() => deleteCategory(cat.id)}
-                    className="text-red-400 p-2"
-                  >
-                    <Trash2 size={20} />
-                  </button>
+                  <div>
+                    {/* Change this in your category map */}
+                    <button
+                      onClick={() => setCategoryToEdit(cat)} // Open the new modal
+                      className="text-cyan-400 hover:text-cyan-300 p-2 transition-colors"
+                    >
+                      <Edit2 size={20} />
+                    </button>
+                    <button
+                      onClick={() => deleteCategory(cat.id)}
+                      className="text-red-400 p-2"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </div>
                 </div>
                 <DragDropContext onDragEnd={(res) => onDragEnd(res, cat.id)}>
                   <Droppable droppableId={String(cat.id)}>
@@ -388,7 +460,14 @@ const ManageSkills = () => {
                                   >
                                     ⋮⋮
                                   </span>
-
+                                  {/* Edit button for skill */}
+                                  <button
+                                    onClick={() => setEditingModal(skill)}
+                                    className="text-gray-400 hover:text-cyan-400 transition-colors p-1"
+                                    title="Edit skill"
+                                  >
+                                    <Edit2 size={16} />
+                                  </button>
                                   <button
                                     onClick={() => deleteSkill(skill.id)}
                                     className="text-gray-500 hover:text-red-400"
@@ -407,6 +486,180 @@ const ManageSkills = () => {
                 </DragDropContext>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* --- EDIT MODAL OVERLAY --- */}
+        {editingModal && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-[#1a1f3a] border border-cyan-500/30 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+              <h2 className="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-2">
+                <Edit2 size={20} /> Edit Skill
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">
+                    Skill Name
+                  </label>
+                  <input
+                    placeholder="Name"
+                    value={editingModal.skill_name}
+                    onChange={(e) =>
+                      setEditingModal({
+                        ...editingModal,
+                        skill_name: e.target.value,
+                      })
+                    }
+                    className="w-full bg-white/5 border border-gray-600/30 rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-500 text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">
+                    Percentage / Proficiency
+                  </label>
+                  <input
+                    placeholder="Percentage"
+                    value={editingModal.percentage || ""}
+                    onChange={(e) =>
+                      setEditingModal({
+                        ...editingModal,
+                        percentage: e.target.value,
+                      })
+                    }
+                    className="w-full bg-white/5 border border-gray-600/30 rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-500 text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">
+                    Emoji
+                  </label>
+                  <input
+                    placeholder="Emoji"
+                    value={editingModal.emoji || ""}
+                    onChange={(e) =>
+                      setEditingModal({
+                        ...editingModal,
+                        emoji: e.target.value,
+                      })
+                    }
+                    className="w-full bg-white/5 border border-gray-600/30 rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-500 text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">
+                    Print Statement (Optional)
+                  </label>
+                  <textarea
+                    placeholder="Print Statement"
+                    value={editingModal.print_statement || ""}
+                    onChange={(e) =>
+                      setEditingModal({
+                        ...editingModal,
+                        print_statement: e.target.value,
+                      })
+                    }
+                    className="w-full bg-white/5 border border-gray-600/30 rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-500 text-white min-h-[80px]"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-8">
+                <button
+                  onClick={() => setEditingModal(null)}
+                  className="flex-1 bg-white/5 hover:bg-white/10 border border-gray-600/30 py-3 rounded-lg text-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={updateSkill}
+                  className="flex-1 bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg text-white font-semibold transition-colors flex items-center justify-center gap-2"
+                >
+                  <Save size={18} /> Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* --- EDIT CATEGORY MODAL --- */}
+        {categoryToEdit && (
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-[60] p-4">
+            <div className="bg-[#1a1f3a] border border-cyan-500/40 rounded-3xl p-8 w-full max-w-md shadow-2xl">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-cyan-400 flex items-center gap-2">
+                  <Award size={24} /> Edit Category
+                </h2>
+                <button
+                  onClick={() => setCategoryToEdit(null)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Title Input */}
+                <div>
+                  <label className="text-sm text-gray-400 mb-2 block">
+                    Category Title
+                  </label>
+                  <input
+                    type="text"
+                    value={categoryToEdit.title}
+                    onChange={(e) =>
+                      setCategoryToEdit({
+                        ...categoryToEdit,
+                        title: e.target.value,
+                      })
+                    }
+                    className="w-full bg-white/5 border border-gray-600/30 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 text-white"
+                  />
+                </div>
+
+                {/* Current Image Preview */}
+                <div>
+                  <label className="text-sm text-gray-400 mb-2 block">
+                    Icon / Image
+                  </label>
+                  <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-gray-600/20">
+                    <img
+                      src={
+                        editCategoryFile
+                          ? URL.createObjectURL(editCategoryFile)
+                          : getImageUrl(categoryToEdit.icon_url)
+                      }
+                      alt="Preview"
+                      className="w-12 h-12 object-contain bg-black/20 rounded-lg p-1"
+                    />
+                    <div className="flex-1">
+                      <input
+                        type="file"
+                        onChange={(e) => setEditCategoryFile(e.target.files[0])}
+                        className="text-xs text-gray-400 file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20 cursor-pointer"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-10">
+                <button
+                  onClick={() => {
+                    setCategoryToEdit(null);
+                    setEditCategoryFile(null);
+                  }}
+                  className="flex-1 bg-gray-800 hover:bg-gray-700 py-3 rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdateCategory}
+                  className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-cyan-500/20"
+                >
+                  <Save size={20} /> Update
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
