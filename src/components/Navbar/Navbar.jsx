@@ -1,13 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { resumeLink } from "../../util/links";
+import React, { useState, useEffect } from "react"; 
+import axios from "axios";
 import { ResumeModal } from "../ResumeModal/ResumeModal"; 
 import "./Navbar.css";
+const API_BASE = process.env.REACT_APP_API_URL;
 export const Navbar = () => { 
   const [openMenu, setOpenMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [isPdfOpen, setIsPdfOpen] = useState(false);
+  const [resumeLink, setResumeLink] = useState("");
   // const [progress,setProgress] = useState(0);
+  
+
+const fetchResumeLink = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/api/links/resume`);
+    console.log("Resume Link Response:", response.data);
+
+    return response.data[0]?.resume_url; // ✅ correct
+  } catch (error) {
+    console.error("Error fetching resume link:", error);
+    return null;
+  }
+};
+
+useEffect(() => {
+  const getResumeLink = async () => {
+    const link = await fetchResumeLink();
+    console.log("Fetched Resume Link:", link);
+    setResumeLink(link); // ✅ already string
+  };
+  getResumeLink();
+}, []);
 
   // Handle scroll effect
   useEffect(() => {

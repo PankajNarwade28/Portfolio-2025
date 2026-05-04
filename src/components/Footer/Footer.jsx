@@ -9,6 +9,7 @@ export const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
   const [apiLinks, setApiLinks] = useState([]);
+  const [resumeLink, setResumeLink] = useState("");
 
   useEffect(() => {
     // Fetch links from API
@@ -37,6 +38,27 @@ export const Footer = () => {
     };
   }, []);
 
+  const fetchResumeLink = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/api/links/resume`);
+    console.log("Resume Link Response:", response.data);
+
+    return response.data[0]?.resume_url; // ✅ correct
+  } catch (error) {
+    console.error("Error fetching resume link:", error);
+    return null;
+  }
+};
+
+useEffect(() => {
+  const getResumeLink = async () => {
+    const link = await fetchResumeLink();
+    console.log("Fetched Resume Link:", link);
+    setResumeLink(link); // ✅ already string
+  };
+  getResumeLink();
+}, []);
+
   // Helper to extract links based on platform name
   const getLink = (platform) => {
     const linkObj = apiLinks.find((l) => l.platform === platform);
@@ -44,8 +66,7 @@ export const Footer = () => {
   };
 
   const emailUrl = getLink("email");
-  const emailDisplay = emailUrl ? emailUrl.replace("mailto:", "") : "Loading...";
-  const resumeUrl = getLink("resume");
+  const emailDisplay = emailUrl ? emailUrl.replace("mailto:", "") : "Loading..."; 
 
   const quickActions = [
     { name: "Download Resume", action: () => setIsPdfOpen(true), icon: "/assets/images/download.png" },
@@ -212,7 +233,7 @@ export const Footer = () => {
       <ResumeModal 
         isOpen={isPdfOpen} 
         onClose={() => setIsPdfOpen(false)} 
-        pdfUrl={resumeUrl} 
+        pdfUrl={resumeLink} 
       />
     </footer>
   );
