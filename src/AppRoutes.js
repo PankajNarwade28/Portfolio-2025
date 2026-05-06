@@ -19,6 +19,7 @@ import MyAchievements from "./components/Admin/Component/Achievements/MyAchievem
 import MyTech from "./components/Admin/Component/Tech/MyTech";
 import LoadingAnimation from "./components/LoadingAnimation/LoadingAnimation";
 import MyProjects from "./components/Admin/Component/Projects/MyProjects";
+import MyLinks from "./components/Admin/Component/Links/MyLinks";
 
 
 const API_BASE = process.env.REACT_APP_API_URL;
@@ -100,6 +101,7 @@ const AppRoutes = () => {
         <Route path="my-education" element={<MyEducation />} />
         <Route path="my-achievements" element={<MyAchievements />} />
         <Route path="my-tech" element={<MyTech />} />
+        <Route path="my-links" element={<MyLinks />} />
         <Route path="my-certificates" element={<ManageCertificates />} />
         {/* Add more admin routes here */}
       </Route>

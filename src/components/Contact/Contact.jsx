@@ -11,6 +11,31 @@ import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 export const Contact = () => {
   const [activeCard] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [contactInfoList, setContactInfoList] = useState(contactInfo);
+
+  const fetchContactInfo = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/links`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Fetched Contact Info:", data); // Debug log to check fetched data
+      setContactInfoList(data); // Update state with fetched contact info
+    } catch (error) {
+      console.error("Error fetching contact info:", error);
+      toast.error("Failed to load contact information");
+    }
+  };
+
+  React.useEffect(() => {
+    fetchContactInfo(); // Fetch contact info when component mounts
+  }, []);
+
+  // 1. Define your allowed platforms
+  const allowedPlatforms = ["email", "github", "linkedin", "leetcode"];
 
   return (
     <div className="contact-section" id="Contact">
@@ -81,13 +106,15 @@ export const Contact = () => {
             </p>
 
             <div className="contact-info-cards">
-              {contactInfo.map((info, index) => (
-                <ContactInfoCard
-                  key={info.platform}
-                  {...info}
-                  isActive={activeCard === index}
-                />
-              ))}
+              {contactInfoList
+                .filter((info) => allowedPlatforms.includes(info.platform)) // Only keep the 4 specific platforms
+                .map((info, index) => (
+                  <ContactInfoCard
+                    key={info.platform}
+                    {...info}
+                    isActive={activeCard === index}
+                  />
+                ))}
             </div>
           </div>
 

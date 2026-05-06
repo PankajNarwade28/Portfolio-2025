@@ -81,6 +81,14 @@ const Sidebar = () => {
         >
           Tech Stack
         </NavLink>
+        <NavLink
+          to="/admin/my-links"
+          className={({ isActive }) =>
+            `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
+          }
+        >
+          Social Links
+        </NavLink>
 
         <NavLink
           to="/"
