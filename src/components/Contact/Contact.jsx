@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import "./Contact.css";
-import contactInfo from "../../util/contact";
-import ContactForm from "./ContactForm/ContactForm";
-import { linkedinLink, mailtoLink } from "../../util/links";
+import "./Contact.css"; 
+import ContactForm from "./ContactForm/ContactForm"; 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
@@ -11,8 +9,7 @@ import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 export const Contact = () => {
   const [activeCard] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [contactInfoList, setContactInfoList] = useState(contactInfo);
-
+  const [contactInfoList, setContactInfoList] = useState();
   const fetchContactInfo = async () => {
     try {
       const response = await fetch(
@@ -23,6 +20,7 @@ export const Contact = () => {
       }
       const data = await response.json();
       console.log("Fetched Contact Info:", data); // Debug log to check fetched data
+
       setContactInfoList(data); // Update state with fetched contact info
     } catch (error) {
       console.error("Error fetching contact info:", error);
@@ -36,6 +34,13 @@ export const Contact = () => {
 
   // 1. Define your allowed platforms
   const allowedPlatforms = ["email", "github", "linkedin", "leetcode"];
+  const linkedinLink = contactInfoList?.find(
+    (info) => info.platform === "linkedin",
+  )?.link_url;
+  const mailtoLink = contactInfoList?.find(
+    (info) => info.platform === "email",
+  )?.link_url;
+
 
   return (
     <div className="contact-section" id="Contact">
@@ -106,8 +111,8 @@ export const Contact = () => {
             </p>
 
             <div className="contact-info-cards">
-              {contactInfoList
-                .filter((info) => allowedPlatforms.includes(info.platform)) // Only keep the 4 specific platforms
+              {contactInfoList && contactInfoList
+                .filter((info) => allowedPlatforms.includes(info.platform))
                 .map((info, index) => (
                   <ContactInfoCard
                     key={info.platform}
