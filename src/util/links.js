@@ -1,5 +1,4 @@
-export const resumeLink = "/assets/pdf/RESUME.pdf";
-
+export const resumeLink =  "https://fqctzygbalkfdalqruyy.supabase.co/storage/v1/object/public/PDF/resumes/1777819177354-Pankaj_Narwade_8329965792.pdf";
 export const instagramLink = "https://www.instagram.com/pankajnarwade.patil/";
 export const githubLink = "https://github.com/PankajNarwade28";
 export const linkedinLink =

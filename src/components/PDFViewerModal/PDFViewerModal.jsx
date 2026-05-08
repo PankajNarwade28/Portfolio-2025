@@ -25,6 +25,8 @@ export const PDFViewerModal = ({
 }) => {
   const [viewerType, setViewerType] = useState('google'); // 'google', 'native', or 'fallback'
   const [isLoading, setIsLoading] = useState(true);
+  const normalizedPdfUrl = typeof pdfUrl === "string" ? pdfUrl.trim() : "";
+  const hasValidPdfUrl = normalizedPdfUrl.length > 0;
 
   const detectBestViewer = useCallback(() => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -88,8 +90,10 @@ export const PDFViewerModal = ({
   }, [isOpen, detectBestViewer]);
 
   const handleDownload = () => {
+    if (!hasValidPdfUrl) return;
+
     const link = document.createElement('a');
-    link.href = pdfUrl;
+    link.href = normalizedPdfUrl;
     link.download = downloadFileName;
     link.target = '_blank';
     document.body.appendChild(link);
@@ -98,21 +102,27 @@ export const PDFViewerModal = ({
   };
 
   const handlePrint = () => {
+    if (!hasValidPdfUrl) return;
+
     const iframe = document.querySelector('.pdf-viewer-iframe');
     if (iframe && iframe.contentWindow) {
       try {
         iframe.contentWindow.print();
       } catch (e) {
         // Fallback: open in new window and print
-        window.open(pdfUrl, '_blank');
+        window.open(normalizedPdfUrl, '_blank');
       }
     }
   };
 
   const getPDFViewerUrl = () => {
-    const fullUrl = pdfUrl.startsWith('http') 
-      ? pdfUrl 
-      : `${window.location.origin}${pdfUrl}`;
+    if (!hasValidPdfUrl) {
+      return "";
+    }
+
+    const fullUrl = /^https?:\/\//i.test(normalizedPdfUrl)
+      ? normalizedPdfUrl
+      : `${window.location.origin}${normalizedPdfUrl.startsWith('/') ? '' : '/'}${normalizedPdfUrl}`;
 
     switch(viewerType) {
       case 'mobile':
@@ -120,11 +130,13 @@ export const PDFViewerModal = ({
         return `${fullUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
       case 'native':
         // Desktop parameters for better viewing
-        return `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=page-fit`;
+        return `${fullUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=page-fit`;
       default:
-        return pdfUrl;
+        return fullUrl;
     }
   };
+
+  const viewerUrl = getPDFViewerUrl();
 
   if (!isOpen) return null;
 
@@ -193,17 +205,21 @@ export const PDFViewerModal = ({
               <p>Loading PDF...</p>
             </div>
           )}
-          
-          {viewerType === 'mobile' ? (
+
+          {!hasValidPdfUrl ? (
+            <div className="pdf-viewer-fallback">
+              <p>PDF file is not available right now. Please try again in a moment.</p>
+            </div>
+          ) : viewerType === 'mobile' ? (
             <object
-              data={getPDFViewerUrl()}
+              data={viewerUrl}
               type="application/pdf"
               className="pdf-viewer-iframe"
               onLoad={() => setIsLoading(false)}
               style={{ opacity: isLoading ? 0 : 1 }}
             >
               <iframe
-                src={getPDFViewerUrl()}
+                src={viewerUrl}
                 title={title}
                 className="pdf-viewer-iframe"
                 onLoad={() => setIsLoading(false)}
@@ -219,7 +235,7 @@ export const PDFViewerModal = ({
             </object>
           ) : (
             <iframe
-              src={getPDFViewerUrl()}
+              src={viewerUrl}
               title={title}
               className="pdf-viewer-iframe"
               onLoad={() => setIsLoading(false)}

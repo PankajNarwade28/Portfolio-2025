@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Footer.css"; 
 import { ResumeModal } from "../ResumeModal/ResumeModal";
 import axios from "axios";
@@ -9,7 +9,6 @@ export const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
   const [apiLinks, setApiLinks] = useState([]);
-  const [resumeLink, setResumeLink] = useState("");
 
   useEffect(() => {
     // Fetch links from API
@@ -38,27 +37,6 @@ export const Footer = () => {
     };
   }, []);
 
-  const fetchResumeLink = async () => {
-  try {
-    const response = await axios.get(`${API_BASE}/api/links/resume`);
-    console.log("Resume Link Response:", response.data);
-
-    return response.data[0]?.resume_url; // ✅ correct
-  } catch (error) {
-    console.error("Error fetching resume link:", error);
-    return null;
-  }
-};
-
-useEffect(() => {
-  const getResumeLink = async () => {
-    const link = await fetchResumeLink();
-    console.log("Fetched Resume Link:", link);
-    setResumeLink(link); // ✅ already string
-  };
-  getResumeLink();
-}, []);
-
   // Helper to extract links based on platform name
   const getLink = (platform) => {
     const linkObj = apiLinks.find((l) => l.platform === platform);
@@ -67,6 +45,14 @@ useEffect(() => {
 
   const emailUrl = getLink("email");
   const emailDisplay = emailUrl ? emailUrl.replace("mailto:", "") : "Loading..."; 
+  const socialPlatforms = useMemo(
+    () => new Set(["linkedin", "github", "leetcode", "instagram", "youtube"]),
+    [],
+  );
+  const footerParticles = useMemo(
+    () => Array.from({ length: 20 }, (_, index) => ({ id: `particle-${index + 1}` })),
+    [],
+  );
 
   const quickActions = [
     { name: "Download Resume", action: () => setIsPdfOpen(true), icon: "/assets/images/download.png" },
@@ -74,9 +60,8 @@ useEffect(() => {
   ];
 
   // Dynamically generate social links based on the API response
-  const socialPlatforms = ["linkedin", "github", "leetcode", "instagram", "youtube"];
   const socialLinks = apiLinks
-    .filter((link) => socialPlatforms.includes(link.platform))
+    .filter((link) => socialPlatforms.has(link.platform))
     .map((link) => ({
       name: link.display_text,
       url: link.link_url,
@@ -84,7 +69,7 @@ useEffect(() => {
     }));
 
   const handleEmailClick = () => {
-    if (emailUrl) window.location.href = emailUrl;
+    if (emailUrl) document.location.href = emailUrl;
   };
 
   const handleScrollToTop = () => {
@@ -97,8 +82,8 @@ useEffect(() => {
       <div className="footer-background">
         <div className="footer-grid-overlay"></div>
         <div className="footer-particles">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <div key={i} className={`footer-particle particle-${i % 5}`}></div>
+          {footerParticles.map((particle, index) => (
+            <div key={particle.id} className={`footer-particle particle-${index % 5}`}></div>
           ))}
         </div>
         <div className="footer-gradient-orb orb-1"></div>
@@ -233,7 +218,6 @@ useEffect(() => {
       <ResumeModal 
         isOpen={isPdfOpen} 
         onClose={() => setIsPdfOpen(false)} 
-        pdfUrl={resumeLink} 
       />
     </footer>
   );
