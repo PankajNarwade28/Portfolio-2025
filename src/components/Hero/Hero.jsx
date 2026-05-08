@@ -123,14 +123,16 @@ export const Hero = () => {
         <div className="hero-content">
           <div className="content-animation">
             {data?.is_available ? (
-              <div className="badge">
-                <span className="badge-dot"> </span>
-                Available for opportunities
-              </div>
-            ) : <div className="badge">
-                <span className="badge-dot-red"> </span>
-                Not Available for opportunities
-              </div>}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 mb-2 text-green-700 text-sm font-medium border border-green-300">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Available for opportunities
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 mb-2 text-red-700 text-sm font-medium border border-red-300">
+              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              Not Available for opportunities
+            </div>
+          )}
             <h3 className="subtitle">
               {data?.designation ? (
                 <span>{data.designation}</span>

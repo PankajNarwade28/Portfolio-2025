@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import "./Contact.css"; 
-import ContactForm from "./ContactForm/ContactForm"; 
+import React, { useState, useEffect } from "react";
+import "./Contact.css";
+import ContactForm from "./ContactForm/ContactForm";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ContactInfoCard } from "./ContactInfoCard/ContactInfoCard";
 
@@ -10,28 +11,40 @@ export const Contact = () => {
   const [activeCard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [contactInfoList, setContactInfoList] = useState();
+  const [isAvailable, setIsAvailable] = useState(false);
   const fetchContactInfo = async () => {
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/links`,
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("Fetched Contact Info:", data); // Debug log to check fetched data
 
-      setContactInfoList(data); // Update state with fetched contact info
+      console.log("Fetched Contact Info:", response.data);
+
+      setContactInfoList(response.data);
     } catch (error) {
       console.error("Error fetching contact info:", error);
       toast.error("Failed to load contact information");
     }
   };
+  const fetchAvailablityStatus = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/status/availability`,
+      );
 
-  React.useEffect(() => {
-    fetchContactInfo(); // Fetch contact info when component mounts
+      console.log("Availability Status:", response.data);
+
+      // ✅ store only boolean value
+      setIsAvailable(response.data.is_available);
+    } catch (error) {
+      console.error("Error fetching availability status:", error);
+      toast.error("Failed to load availability information");
+    }
+  };
+  useEffect(() => {
+    fetchAvailablityStatus();
+    fetchContactInfo();
   }, []);
-
   // 1. Define your allowed platforms
   const allowedPlatforms = ["email", "github", "linkedin", "leetcode"];
   const linkedinLink = contactInfoList?.find(
@@ -40,7 +53,6 @@ export const Contact = () => {
   const mailtoLink = contactInfoList?.find(
     (info) => info.platform === "email",
   )?.link_url;
-
 
   return (
     <div className="contact-section" id="Contact">
@@ -95,10 +107,17 @@ export const Contact = () => {
           <p className="section-subtitle">
             Ready to turn your ideas into reality? I'm just a message away.
           </p>
-          <div className="availability-status">
-            <div className="status-dot"></div>
-            <span>Available for new opportunities</span>
-          </div>
+          {isAvailable ? (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium border border-green-300">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Available for opportunities
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-medium border border-red-300">
+              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              Not Available for opportunities
+            </div>
+          )}
         </div>
 
         {/* Main Content Grid */}
@@ -111,15 +130,16 @@ export const Contact = () => {
             </p>
 
             <div className="contact-info-cards">
-              {contactInfoList && contactInfoList
-                .filter((info) => allowedPlatforms.includes(info.platform))
-                .map((info, index) => (
-                  <ContactInfoCard
-                    key={info.platform}
-                    {...info}
-                    isActive={activeCard === index}
-                  />
-                ))}
+              {contactInfoList &&
+                contactInfoList
+                  .filter((info) => allowedPlatforms.includes(info.platform))
+                  .map((info, index) => (
+                    <ContactInfoCard
+                      key={info.platform}
+                      {...info}
+                      isActive={activeCard === index}
+                    />
+                  ))}
             </div>
           </div>
 
