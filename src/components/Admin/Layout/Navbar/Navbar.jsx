@@ -32,14 +32,21 @@ const Navbar = ({ user, onLogout }) => {
           </span>
         </div>
 
-        {/* Logout - Styled like your 'CV' button */}
         <button
-          onClick={onLogout}
-          className="group flex items-center gap-2 px-6 py-2 rounded-full font-bold text-white text-sm bg-gradient-to-r from-cyan-500 to-orange-400 hover:from-cyan-400 hover:to-orange-300 transition-all duration-300 shadow-lg shadow-cyan-500/20 active:scale-95"
-        >
-          <LogOut size={16} className="group-hover:-translate-x-1 transition-transform" />
-          LOGOUT
-        </button>
+    onClick={onLogout}
+    className=" flex items-center justify-between w-full px-5 py-3 
+               bg-gradient-to-r from-orange-600 to-red-600 
+               hover:from-orange-500 hover:to-red-500 
+               text-white rounded-xl font-bold shadow-lg 
+               shadow-orange-900/30 transition-all duration-300 
+               hover:translate-x-1 active:scale-[0.98] group"
+  >
+    <span className="tracking-wider">LOGOUT </span>
+    <LogOut 
+      size={20} 
+      className="group-hover:translate-x-1 transition-transform duration-300" 
+    />
+  </button>
       </div>
     </nav>
   );
