@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
     // Changed w-64 to w-full and h-screen to h-full
     <div className="w-full h-full bg-slate-900 text-white flex flex-col p-5">
-      <h2 className="text-2xl font-bold mb-8">Qurtubiks</h2>
+      <h2 className="text-2xl font-bold mb-8">Patil CMS</h2>
 
       <nav className="flex flex-col gap-4">
         <NavLink
