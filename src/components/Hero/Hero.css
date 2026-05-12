@@ -73,3 +73,168 @@
 .btn-glass-admin:hover .btn-glow {
   left: 100%;
 }
+
+
+/* Existing Button Styles */
+#About-Section {
+  bottom: 0;
+}
+
+.typewriter-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-glass-admin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: rgb(194, 21, 21); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-glass-admin:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgb(194, 21, 21);
+  color: white;
+}
+
+/* --- New Skeleton & Wireframe Styles --- */
+
+.skeleton-wrapper {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Updated Shimmer: Smoothly slides the background gradient only */
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.skeleton-badge,
+.skeleton-subtitle,
+.skeleton-title,
+.skeleton-description,
+.skeleton-typewriter,
+.skeleton-btn,
+.skeleton-profile-circle {
+  /* Static base color with a moving shine */
+  background: linear-gradient(
+    110deg, 
+    rgba(255, 255, 255, 0.03) 8%, 
+    rgba(255, 255, 255, 0.08) 18%, 
+    rgba(255, 255, 255, 0.03) 33%
+  );
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  
+  /* Ensure the element itself doesn't move */
+  position: relative; 
+  display: block;
+}
+
+.skeleton-badge {
+  width: 180px;
+  height: 34px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.skeleton-subtitle {
+  width: 250px;
+  height: 24px;
+  margin-bottom: 20px;
+}
+
+.skeleton-title {
+  width: 100%;
+  max-width: 500px;
+  height: 120px;
+  margin-bottom: 25px;
+}
+
+.skeleton-description {
+  width: 90%;
+  height: 45px;
+  margin-bottom: 30px;
+}
+
+.skeleton-typewriter {
+  width: 60%;
+  height: 30px;
+  margin-bottom: 30px;
+}
+
+.skeleton-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.skeleton-btn {
+  width: 150px;
+  height: 48px;
+  border-radius: 50px;
+}
+
+.skeleton-profile-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.05);
+  margin: 0 auto; /* Keeps it centered in the image section */
+}
+
+/* Extra Glow for the Skeleton Profile to match original UI */
+.skeleton-profile-circle::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.1);
+}
+
+/* Icon Animation & Glow */
+.admin-icon {
+  transition: transform 0.3s ease;
+}
+
+.btn-glass-admin:hover .admin-icon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.btn-glass-admin:hover .btn-glow {
+  left: 100%;
+}

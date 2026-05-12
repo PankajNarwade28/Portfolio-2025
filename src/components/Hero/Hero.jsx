@@ -4,6 +4,27 @@ import "./Hero.css";
 import { authService } from "../../util/auth";
 import axios from "axios";
 const API_BASE = process.env.REACT_APP_API_URL;
+// --- Skeleton Component for equal-sized wireframes ---
+const HeroSkeleton = () => (
+  <div className="hero-content-wrapper skeleton-wrapper">
+    <div className="hero-content">
+      <div className="skeleton-badge"></div>
+      <div className="skeleton-subtitle"></div>
+      <div className="skeleton-title"></div>
+      <div className="skeleton-description"></div>
+      <div className="skeleton-typewriter"></div>
+      <div className="skeleton-actions">
+        <div className="skeleton-btn"></div>
+        <div className="skeleton-btn"></div>
+      </div>
+    </div>
+    <div className="hero-image-section">
+      <div className="image-container">
+        <div className="skeleton-profile-circle"></div>
+      </div>
+    </div>
+  </div>
+);
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -118,12 +139,15 @@ export const Hero = () => {
         <div className="gradient-orb orb-3"></div>
       </div>
 
-      <div className="hero-content-wrapper">
-        {/* Left Content */}
-        <div className="hero-content">
-          <div className="content-animation">
-            {data?.is_available ? (
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 mb-2 text-green-700 text-sm font-medium border border-green-300">
+      {loading ? (
+        <HeroSkeleton />
+      ) : (
+        <div className="hero-content-wrapper">
+          {/* Left Content */}
+          <div className="hero-content">
+            <div className="content-animation">
+              {data?.is_available ? (
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 mb-2 text-green-700 text-sm font-medium border border-green-300">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
               Available for opportunities
             </div>
@@ -350,7 +374,8 @@ export const Hero = () => {
             </div> */}
           </div>
         </div>
-      </div>
+      </div> )
+            }
 
       <style jsx>{`
         .hero-container {
@@ -1160,5 +1185,5 @@ export const Hero = () => {
         }
       `}</style>
     </div>
-  );
+  );  
 };
