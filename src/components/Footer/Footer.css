@@ -258,7 +258,7 @@
   justify-content: center;
   border-radius: 50%; /* Makes it a perfect circle */
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  /* border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1)); */
   transition: all 0.3s ease;
 }
 
