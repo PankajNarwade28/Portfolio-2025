@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 import Loading from "../LoadingEmpty/MyLoading";
 import Empty from "../LoadingEmpty/MyEmpty";
-// import PdfThumbnail from "../Util/PdfThumbnail"; // Un-comment if you use it later
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd"; 
 
 const API_BASE = process.env.REACT_APP_API_URL;
 
@@ -171,6 +171,42 @@ const MyCertificates = () => {
   };
 
 
+  const onDragEnd = async (result) => {
+    
+    if (!result.destination) return;
+    setLoading(true);
+
+    // Create a shallow copy of the certificates array
+    const newItems = Array.from(certificates);
+    
+    // Remove the dragged item and insert it at its new position
+    const [reorderedItem] = newItems.splice(result.source.index, 1);
+    newItems.splice(result.destination.index, 0, reorderedItem);
+
+    // Map to structure expected by your backend API
+    const updatedItems = newItems.map((item, index) => ({
+      id: item.id,
+      order_index: index + 1,
+    }));
+
+    // Optimistic UI Update
+    setCertificates(newItems);
+
+    try {
+      const response = await axios.put(`${API_BASE}/api/certificates/reorder`, {
+        items: updatedItems,
+      });
+      
+      if (response?.data?.success) {
+        console.log("Certificates reorder saved successfully!");
+      }
+    } catch (err) {
+      console.error("Failed to save certificate order:", err.response?.data || err.message);
+      fetchCertificates(); // Rollback UI state by re-fetching from backend if API fails
+    } finally {
+      setLoading(false);
+    }
+  };
   if(loading) {
     return (
       <Loading  message="Fetching Certificates"/>  
@@ -195,114 +231,140 @@ const MyCertificates = () => {
         </button>
       </div>
 
-      {/* LIST */}
-      <div className="grid gap-6">
-        {certificates.map((c) => (
-          <div
-            key={c.id}
-            className="flex flex-col md:flex-row bg-slate-800 p-5 rounded-xl shadow-lg border border-slate-700 gap-6"
-          >
-            {/* LEFT SECTION: Info & Actions */}
-            {/* min-w-0 prevents flexbox from blowing out with long text */}
-            <div className="flex-1 min-w-0 flex flex-col justify-start">
-              <div className="flex justify-between items-start gap-4">
-                {/* Thumbnail & Text Wrapper */}
-                <div className="flex gap-4 items-start min-w-0">
-                  {/* Thumbnail Image */}
-                  {c.image ? (
-                    <img
-                      src={c.image}
-                      className="w-30 h-24 rounded-lg object-cover bg-slate-700 border border-slate-600 shrink-0 shadow-sm"
-                      alt={c.title}
-                    />
-                  ) : (
-                    <div className="w-30 h-24 rounded-lg bg-slate-700 border border-slate-600 flex items-center justify-center text-xs text-gray-400 shrink-0 shadow-sm">
-                      No Img
+      {/* DRAG AND DROP CONTAINER */}
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="certificates-list">
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="grid gap-6"
+            >
+              {certificates.map((c, index) => (
+                <Draggable key={String(c.id)} draggableId={String(c.id)} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      className={`flex flex-col md:flex-row bg-slate-800 p-5 rounded-xl shadow-lg border transition-colors gap-6 ${
+                        snapshot.isDragging
+                          ? "border-purple-500 bg-slate-800/90"
+                          : "border-slate-700"
+                      }`}
+                    >
+                      {/* LEFT SECTION: Info & Actions */}
+                      <div className="flex-1 min-w-0 flex flex-col justify-start">
+                        <div className="flex justify-between items-start gap-4">
+                          {/* Thumbnail & Text Wrapper */}
+                          <div className="flex gap-4 items-start min-w-0">
+                            {/* Drag handle (⋮⋮) */}
+                            <span
+                              {...provided.dragHandleProps}
+                              className="cursor-grab text-gray-500 hover:text-white transition-colors p-1 text-xl self-center"
+                              title="Drag to reorder"
+                            >
+                              ⋮⋮
+                            </span>
+
+                            {/* Thumbnail Image */}
+                            {c.image ? (
+                              <img
+                                src={c.image}
+                                className="w-30 h-24 rounded-lg object-cover bg-slate-700 border border-slate-600 shrink-0 shadow-sm"
+                                alt={c.title}
+                              />
+                            ) : (
+                              <div className="w-30 h-24 rounded-lg bg-slate-700 border border-slate-600 flex items-center justify-center text-xs text-gray-400 shrink-0 shadow-sm">
+                                No Img
+                              </div>
+                            )}
+
+                            {/* Text Details */}
+                            <div className="min-w-0 flex-1">
+                              <h3
+                                className="text-xl font-bold text-gray-100 truncate"
+                                title={c.title}
+                              >
+                                {c.title}
+                              </h3>
+                              <p className="text-lg text-gray-400 mt-1">
+                                <span className="text-gray-300 font-medium">
+                                  {c.issuer}
+                                </span>{" "}
+                                • {c.date}
+                              </p>
+
+                              {/* Render Skills */}
+                              {c.skills && c.skills.length > 0 && (
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                  {c.skills.map((skill, idx) => (
+                                    <span
+                                      key={idx}
+                                      className="px-2.5 py-1 text-lg font-medium bg-slate-700 text-blue-300 rounded-full border border-slate-600"
+                                    >
+                                      {skill}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Actions */}
+                          <div className="flex gap-2 shrink-0 ml-2">
+                            <button
+                              onClick={() => editCertificate(c)}
+                              className="p-2 text-gray-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg transition"
+                              title="Edit Certificate"
+                            >
+                              <HiOutlinePencil size={20} />
+                            </button>
+                            <button
+                              onClick={() => deleteCertificate(c.id)}
+                              className="p-2 text-gray-400 hover:text-red-400 hover:bg-slate-700 rounded-lg transition"
+                              title="Delete Certificate"
+                            >
+                              <HiOutlineTrash size={20} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* RIGHT SECTION: PDF Preview */}
+                      {c.pdf_link && (
+                        <div className="w-full md:w-1/3 lg:w-2/5 shrink-0 flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-700 pt-5 md:pt-0 md:pl-6">
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                              Document Preview
+                            </span>
+                            <a
+                              href={c.pdf_link}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-sm text-green-400 hover:text-green-300 underline font-medium"
+                            >
+                              Open in new tab
+                            </a>
+                          </div>
+
+                          <div className="w-full h-[250px] md:h-[300px] rounded-lg overflow-hidden border border-slate-600 bg-slate-900 shadow-inner">
+                            <iframe
+                              src={c.pdf_link}
+                              title={`${c.title} PDF Document`}
+                              className="w-full h-full border-none"
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
-
-                  {/* Text Details */}
-                  <div className="min-w-0 flex-1">
-                    <h3
-                      className="text-xl font-bold text-gray-100 truncate"
-                      title={c.title}
-                    >
-                      {c.title}
-                    </h3>
-                    <p className="text-lg text-gray-400 mt-1">
-                      <span className="text-gray-300 font-medium">
-                        {c.issuer}
-                      </span>{" "}
-                      • {c.date}
-                    </p>
-
-                    {/* Optional: Render Skills to balance the layout height */}
-                    {c.skills && c.skills.length > 0 && (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {c.skills.map((skill, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-1 text-lg font-medium bg-slate-700 text-blue-300 rounded-full border border-slate-600"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex gap-2 shrink-0 ml-2">
-                  <button
-                    onClick={() => editCertificate(c)}
-                    className="p-2 text-gray-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg transition"
-                    title="Edit Certificate"
-                  >
-                    <HiOutlinePencil size={20} />
-                  </button>
-                  <button
-                    onClick={() => deleteCertificate(c.id)}
-                    className="p-2 text-gray-400 hover:text-red-400 hover:bg-slate-700 rounded-lg transition"
-                    title="Delete Certificate"
-                  >
-                    <HiOutlineTrash size={20} />
-                  </button>
-                </div>
-              </div>
+                </Draggable>
+              ))}
+              {provided.placeholder}
             </div>
-
-            {/* RIGHT SECTION: PDF Preview */}
-            {c.pdf_link && (
-              <div className="w-full md:w-1/3 lg:w-2/5 shrink-0 flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-700 pt-5 md:pt-0 md:pl-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
-                    Document Preview
-                  </span>
-                  <a
-                    href={c.pdf_link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm text-green-400 hover:text-green-300 underline font-medium"
-                  >
-                    Open in new tab
-                  </a>
-                </div>
-
-                {/* Changed min-h to absolute h-[...] for safer iframe rendering */}
-                <div className="w-full h-[250px] md:h-[300px] rounded-lg overflow-hidden border border-slate-600 bg-slate-900 shadow-inner">
-                  <iframe
-                    src={c.pdf_link}
-                    title={`${c.title} PDF Document`}
-                    className="w-full h-full border-none"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
+          )}
+        </Droppable>
+      </DragDropContext>
       {/* MODAL */}
       {isFormVisible && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 p-4">
