@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useRef, useState } from "react"; 
+import axios from "axios"; 
+const API_BASE = process.env.REACT_APP_API_URL;
 
 // ContactForm component now accepts setLoading and toast as props
 const ContactForm = ({ setLoading, toast }) => {
@@ -44,36 +45,24 @@ const ContactForm = ({ setLoading, toast }) => {
 
     setLoading(true);
 
-    // Debug: Log environment variables (remove in production)
-    console.log("EmailJS Config:", {
-      serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-      templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY ? "Set" : "Missing",
-    });
-
     try {
-      await emailjs.sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        form.current,
-        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY },
-      );
-      // The toast function is now called from the prop
-      toast.success("Message sent successfully! I'll get back to you soon.");
-      setFormData({
-        first_name: "",
-        last_name: "",
-        user_email: "",
-        message: "",
-      });
-      // Clear form fields
-      form.current.reset();
+      // Hit your own Express API backend route securely
+      const response = await axios.post(`${API_BASE}/api/contact`, formData);
+
+      if (response.data.success) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        setFormData({
+          first_name: "",
+          last_name: "",
+          user_email: "",
+          message: "",
+        });
+        if (form.current) form.current.reset();
+      }
     } catch (error) {
-      console.error("EmailJS Error:", error);
-      // The toast function is now called from the prop
+      console.error("Contact Form Error:", error);
       const errorMessage =
-        error?.text ||
-        error?.message ||
+        error.response?.data?.error ||
         "Failed to send message. Please try again.";
       toast.error(errorMessage);
     } finally {
