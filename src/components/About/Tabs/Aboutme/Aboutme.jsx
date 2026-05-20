@@ -15,7 +15,7 @@ const AboutMe = () => {
 
       const res = await axios.get(`${API_BASE}/api/aboutme`);
 
-      setProfile(res.data);
+      setProfile(res.data || {});
     } catch (err) {
       console.error("Connection Interrupted:", err);
     } finally {
