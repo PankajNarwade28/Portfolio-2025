@@ -42,6 +42,37 @@ export const Hero = () => {
   });
   const [displayText, setDisplayText] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [copyToast, setCopyToast] = useState("");
+
+  const handleContextCopy = (e, url) => {
+    e.preventDefault();
+    if (!url) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          setCopyToast("Link copied to clipboard");
+          setTimeout(() => setCopyToast(""), 2000);
+        })
+        .catch(() => {
+          setCopyToast("Unable to copy");
+          setTimeout(() => setCopyToast(""), 2000);
+        });
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        setCopyToast("Link copied to clipboard");
+      } catch (err) {
+        setCopyToast("Unable to copy");
+      }
+      document.body.removeChild(ta);
+      setTimeout(() => setCopyToast(""), 2000);
+    }
+  };
 
   // 1. Initial Data Fetching
   useEffect(() => {
@@ -256,6 +287,8 @@ export const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
+                  onContextMenu={(e) => handleContextCopy(e, links.linkedinLink)}
+                  title="Right-click to copy link"
                 >
                   <svg
                     width="20"
@@ -271,6 +304,8 @@ export const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
+                  onContextMenu={(e) => handleContextCopy(e, links.githubLink)}
+                  title="Right-click to copy link"
                 >
                   <svg
                     width="20"
@@ -286,6 +321,8 @@ export const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
+                  onContextMenu={(e) => handleContextCopy(e, links.instagramLink)}
+                  title="Right-click to copy link"
                 >
                   <svg
                     width="20"
@@ -301,6 +338,8 @@ export const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
+                  onContextMenu={(e) => handleContextCopy(e, links.youtubeLink)}
+                  title="Right-click to copy link"
                 >
                   <svg
                     width="20"
@@ -311,6 +350,7 @@ export const Hero = () => {
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
                 </a>
+                {copyToast && <div className="copy-toast">{copyToast}</div>}
               </div>
             )}
           </div>
@@ -702,8 +742,22 @@ export const Hero = () => {
         }
 
         .social-links {
+          position: relative;
           display: flex;
           gap: 1rem;
+        }
+
+        .copy-toast {
+          position: absolute;
+          bottom: -2.5rem;
+          left: 0;
+          background: rgba(0, 0, 0, 0.75);
+          color: #fff;
+          padding: 0.35rem 0.65rem;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+          z-index: 1000;
         }
 
         .social-link {
