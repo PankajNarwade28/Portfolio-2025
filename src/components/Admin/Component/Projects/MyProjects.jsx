@@ -47,18 +47,21 @@ const MyProjects = () => {
     fetchProjects();
   }, []);
 
-  /* ================= SUBMIT ================= */
+/* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let imageUrl = form.thumbnail_url;
+    // 1. Start with the old URL (just in case they aren't uploading a new image)
+    let finalImageUrl = form.thumbnail_url; 
+    console.log("1. Starting URL:", finalImageUrl);
 
+    // 2. Check if a new file was selected
     if (file) {
-      // Sanitize file name
+      console.log("2. New file detected, starting upload...");
       const safeFileName = file.name
-        .trim() // remove leading/trailing spaces
-        .replace(/\s+/g, "_") // replace spaces with underscores
-        .replace(/[^a-zA-Z0-9._-]/g, ""); // remove unsupported characters
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-zA-Z0-9._-]/g, "");
 
       const fd = new FormData();
       fd.append("file", new File([file], safeFileName, { type: file.type }));
@@ -66,20 +69,33 @@ const MyProjects = () => {
 
       try {
         const upload = await axios.post(`${API_BASE}/api/upload/image`, fd);
-        imageUrl = upload.data.url;
+        
+        // 3. Extract the new URL correctly
+        // (Handling both string and object responses just to be safe)
+        const uploadedData = upload.data;
+        if (typeof uploadedData === 'object' && uploadedData.url) {
+            finalImageUrl = uploadedData.url;
+        } else {
+            finalImageUrl = uploadedData;
+        }
+        
+        console.log("3. New URL successfully grabbed:", finalImageUrl);
       } catch (err) {
-        const errorMsg =
-          err.response?.data?.message || err.message || "Image upload failed!";
-        toast(errorMsg);
-        return; // stop submission if upload fails
+        toast("Image upload failed!");
+        return; 
       }
+    } else {
+       console.log("2. No new file selected, keeping old URL.");
     }
 
+    // 4. Build the payload explicitly (DO NOT rely on form state here)
     const payload = {
       ...form,
-      thumbnail_url: imageUrl,
+      thumbnail_url: finalImageUrl, // This guarantees the updated string is used
       order_index: projects.length + 1,
     };
+
+    console.log("4. FINAL PAYLOAD BEING SENT:", payload);
 
     try {
       if (editingId) {
@@ -90,25 +106,14 @@ const MyProjects = () => {
         toast("Project created successfully!");
       }
     } catch (err) {
-      const errorMsg =
-        err.response?.data?.message || err.message || "Something went wrong!";
-      toast(errorMsg);
+      toast("Something went wrong!");
     }
 
-    setForm({
-      title: "",
-      tech: "",
-      description: "",
-      github_url: "",
-      live_demo_url: "",
-      thumbnail_url: "",
-      category: "",
-      status: "completed",
-    });
-
+    // ... reset states below
+    setForm({ title: "", tech: "", description: "", github_url: "", live_demo_url: "", thumbnail_url: "", category: "", status: "completed" });
     setEditingId(null);
     setFile(null);
-    setIsFormVisible(false); // Close modal on submit
+    setIsFormVisible(false);
     fetchProjects();
   };
 
